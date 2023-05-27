@@ -277,29 +277,32 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                         ),
                       ),
-                      Container(
-                        width: 88,
-                        decoration: BoxDecoration(
-                          color: Color(0xFF1E4365),
-                        ),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Container(
-                                height: 20,
-                                child: Image(
-                                    image: AssetImage(
-                                        'assets/images/football2.png'))),
-                            SizedBox(
-                              height: 8,
-                            ),
-                            Text(
-                              "American \nFootball",
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                          ],
+                      InkWell(
+                        onTap: () {},
+                        child: Container(
+                          width: 88,
+                          decoration: BoxDecoration(
+                            color: Color(0xFF1E4365),
+                          ),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Container(
+                                  height: 20,
+                                  child: Image(
+                                      image: AssetImage(
+                                          'assets/images/football2.png'))),
+                              SizedBox(
+                                height: 8,
+                              ),
+                              Text(
+                                "American \nFootball",
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                       Container(

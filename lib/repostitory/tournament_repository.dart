@@ -34,4 +34,26 @@ class TournamentRepository {
     } catch (error) {}
     return [];
   }
+
+  fetchTodaysMatchByTournanment({required int sport_id}) async {
+    final DateTime now = DateTime.now();
+    final DateFormat formatter = DateFormat('yyyy-MM-dd');
+    final String formatted = formatter.format(now);
+    try {
+      var headers = {
+        'X-RapidAPI-Key': Constants.API_KEY,
+        'X-RapidAPI-Host': Constants.HOST_URL
+      };
+      final response = await http.get(
+          Uri.parse('${Constants.URL}?date=$formatted&sport_id=$sport_id'),
+          headers: headers);
+
+      if (response.statusCode == 200) {
+        List l = (json.decode(response.body))['data'];
+        return l;
+      } else {
+        print(response.reasonPhrase);
+      }
+    } catch (error) {}
+  }
 }
