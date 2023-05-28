@@ -724,29 +724,29 @@ class MatchAnnounceScreen extends StatelessWidget {
                                 flex: 1,
                                 child: Column(
                                   children: [
-                                    Text(
-                                      _tournamentController
-                                          .footballSportDataList[
-                                      index]
-                                          .time!
-                                          .currentPeriodStartTimestamp !=
-                                          null
-                                          ? DateTime.fromMillisecondsSinceEpoch(
-                                          (_tournamentController
-                                              .footballSportDataList[
-                                          index]
-                                              .time!
-                                              .currentPeriodStartTimestamp!) *
-                                              1000)
-                                          .toString().substring(0,11)
-
-                                          : 'N/A',
-                                      style: TextStyle(
-                                          letterSpacing: 0.5,
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.w500),
-                                      textAlign: TextAlign.center,
-                                    ),
+                                    // Text(
+                                    //   _tournamentController
+                                    //       .tournamentList[
+                                    //   index]
+                                    //       .time!
+                                    //       .currentPeriodStartTimestamp !=
+                                    //       null
+                                    //       ? DateTime.fromMillisecondsSinceEpoch(
+                                    //       (_tournamentController
+                                    //           .footballSportDataList[
+                                    //       index]
+                                    //           .time!
+                                    //           .currentPeriodStartTimestamp!) *
+                                    //           1000)
+                                    //       .toString().substring(0,11)
+                                    //
+                                    //       : 'N/A',
+                                    //   style: TextStyle(
+                                    //       letterSpacing: 0.5,
+                                    //       fontSize: 12,
+                                    //       fontWeight: FontWeight.w500),
+                                    //   textAlign: TextAlign.center,
+                                    // ),
                                     Text(
                                       _tournamentController
                                               .tournamentList[index]['time']
