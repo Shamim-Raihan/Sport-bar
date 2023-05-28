@@ -47,8 +47,8 @@ class TournamentController extends GetxController {
   }
 
   //baseball----------------------------->>>>>>>>
-  void fetchBaseballData() async {
-    dataloading = true.obs;
+  void fetchBaseballData( BuildContext context) async {
+    dataloading.value = true;
     baseballSportDataList.clear();
     List<Datum> tempList = [];
     baseballSportTodaysResponse.value =
@@ -59,11 +59,25 @@ class TournamentController extends GetxController {
         (await TournamentRepository().fetchNextDaySportData(sport_id: 64))!;
     tempList.addAll(baseballSportNextDayResponse.value.data!);
     baseballSportDataList.value = tempList;
-    dataloading = false.obs;
+    dataloading.value = false;
+    if (baseballSportDataList.isEmpty) {
+      final snackBar = SnackBar(
+        content: const Text('No match found for Today and Tomorrow'),
+        action: SnackBarAction(
+          label: 'Ok',
+          onPressed: () {},
+        ),
+      );
+
+      // Find the ScaffoldMessenger in the widget tree
+      // and use it to show a SnackBar.
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    }
   }
 
   //American football----------------------------->>>>>>>>
-  void fetchAmericanFootballData() async {
+  void fetchAmericanFootballData( BuildContext context) async {
+    dataloading.value = true;
     americanSportDataList.clear();
     List<Datum> tempList = [];
     americanSportTodaysResponse.value =
@@ -74,10 +88,25 @@ class TournamentController extends GetxController {
         (await TournamentRepository().fetchNextDaySportData(sport_id: 63))!;
     tempList.addAll(americanSportNextDayResponse.value.data!);
     americanSportDataList.value = tempList;
+    dataloading.value = false;
+    if (americanSportDataList.isEmpty) {
+      final snackBar = SnackBar(
+        content: const Text('No match found for Today and Tomorrow'),
+        action: SnackBarAction(
+          label: 'Ok',
+          onPressed: () {},
+        ),
+      );
+
+      // Find the ScaffoldMessenger in the widget tree
+      // and use it to show a SnackBar.
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    }
   }
 
   //Rugby---------------------------------------->>>>>>>>
-  void fetchRugbyData() async {
+  void fetchRugbyData( BuildContext context) async {
+    dataloading.value = true;
     rugbySportDataList.clear();
     List<Datum> tempList = [];
     rugbySportTodaysResponse.value =
@@ -88,10 +117,25 @@ class TournamentController extends GetxController {
         (await TournamentRepository().fetchNextDaySportData(sport_id: 12))!;
     tempList.addAll(rugbySportNextDayResponse.value.data!);
     rugbySportDataList.value = tempList;
+    dataloading.value = false;
+    if (rugbySportDataList.isEmpty) {
+      final snackBar = SnackBar(
+        content: const Text('No match found for Today and Tomorrow'),
+        action: SnackBarAction(
+          label: 'Ok',
+          onPressed: () {},
+        ),
+      );
+
+      // Find the ScaffoldMessenger in the widget tree
+      // and use it to show a SnackBar.
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    }
   }
 
   //basketball----------------------------------->>>>>>>>
-  void fetchBasketballData() async {
+  void fetchBasketballData( BuildContext context) async {
+    dataloading.value = true;
     basketballSportDataList.clear();
     List<Datum> tempList = [];
     basketballSportTodaysResponse.value =
@@ -102,6 +146,20 @@ class TournamentController extends GetxController {
         (await TournamentRepository().fetchNextDaySportData(sport_id: 2))!;
     tempList.addAll(basketballSportNextDayResponse.value.data!);
     basketballSportDataList.value = tempList;
+    dataloading.value = false;
+    if (basketballSportDataList.isEmpty) {
+      final snackBar = SnackBar(
+        content: const Text('No match found for Today and Tomorrow'),
+        action: SnackBarAction(
+          label: 'Ok',
+          onPressed: () {},
+        ),
+      );
+
+      // Find the ScaffoldMessenger in the widget tree
+      // and use it to show a SnackBar.
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    }
   }
 
   //football----------------------------------->>>>>>>>
@@ -125,7 +183,7 @@ class TournamentController extends GetxController {
       final snackBar = SnackBar(
         content: const Text('No match found for Today and Tomorrow'),
         action: SnackBarAction(
-          label: 'Undo',
+          label: 'Ok',
           onPressed: () {},
         ),
       );

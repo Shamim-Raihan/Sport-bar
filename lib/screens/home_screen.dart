@@ -292,7 +292,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       InkWell(
                         onTap: () {
                           _tournamentController.selectedSport.value = 1;
-                          _tournamentController.fetchAmericanFootballData();
+                          _tournamentController.fetchAmericanFootballData(context);
                           AppNavigation.to(context, MatchAnnounceScreen());
                         },
                         child: Container(
@@ -324,7 +324,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       InkWell(
                         onTap: () {
                           _tournamentController.selectedSport.value = 2;
-                          _tournamentController.fetchRugbyData();
+                          _tournamentController.fetchRugbyData(context);
                           AppNavigation.to(context, MatchAnnounceScreen());
                         },
                         child: Container(
@@ -356,7 +356,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       InkWell(
                         onTap: () {
                           _tournamentController.selectedSport.value = 3;
-                          _tournamentController.fetchBasketballData();
+                          _tournamentController.fetchBasketballData(context);
                           AppNavigation.to(context, MatchAnnounceScreen());
                         },
                         child: Container(
@@ -388,7 +388,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       InkWell(
                         onTap: () {
                           _tournamentController.selectedSport.value = 5;
-                          _tournamentController.fetchBaseballData();
+                          _tournamentController.fetchBaseballData(context);
                           AppNavigation.to(context, MatchAnnounceScreen());
                         },
                         child: Container(

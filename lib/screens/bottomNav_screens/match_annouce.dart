@@ -67,8 +67,10 @@ class MatchAnnounceScreen extends StatelessWidget {
 
   Widget _buildBaseballView(BuildContext context) {
     return Obx(
-      () => _tournamentController.baseballSportDataList.isNotEmpty
-          ? Container(
+      () => _tournamentController.dataloading.value==false?
+          _tournamentController.baseballSportDataList.isEmpty?
+              Container():
+           Container(
               child: SingleChildScrollView(
                 child: Container(
                   height: MediaQuery.of(context).size.height - 116,
@@ -223,8 +225,10 @@ class MatchAnnounceScreen extends StatelessWidget {
 
   Widget _buildBasketballView(BuildContext context) {
     return Obx(
-      () => _tournamentController.basketballSportDataList.isNotEmpty
-          ? Container(
+      () => _tournamentController.dataloading.value==false?
+          _tournamentController.basketballSportDataList.isEmpty?
+              Container():
+           Container(
               child: SingleChildScrollView(
                 child: Container(
                   height: MediaQuery.of(context).size.height - 116,
@@ -379,8 +383,10 @@ class MatchAnnounceScreen extends StatelessWidget {
 
   Widget _buildRugbyView(BuildContext context) {
     return Obx(
-      () => _tournamentController.rugbySportDataList.isNotEmpty
-          ? Container(
+      () => _tournamentController.dataloading.value==false?
+          _tournamentController.rugbySportDataList.isEmpty?
+              Container():
+          Container(
               child: SingleChildScrollView(
                 child: Container(
                   height: MediaQuery.of(context).size.height - 116,
@@ -535,8 +541,10 @@ class MatchAnnounceScreen extends StatelessWidget {
 
   Widget _buildAmericanFootbalView(BuildContext context) {
     return Obx(
-      () => _tournamentController.americanSportDataList.isNotEmpty
-          ? Container(
+      () => _tournamentController.dataloading.value==false?
+          _tournamentController.americanSportDataList.isEmpty?
+              Container():
+           Container(
               child: SingleChildScrollView(
                 child: Container(
                   height: MediaQuery.of(context).size.height - 116,
@@ -732,28 +740,25 @@ class MatchAnnounceScreen extends StatelessWidget {
                                 flex: 1,
                                 child: Column(
                                   children: [
-                                    // Text(
-                                    //   _tournamentController
-                                    //               .footballSportDataList[index]
-                                    //               .time!
-                                    //               .currentPeriodStartTimestamp !=
-                                    //           null
-                                    //       ? DateTime.fromMillisecondsSinceEpoch(
-                                    //               (_tournamentController
-                                    //                       .footballSportDataList[
-                                    //                           index]
-                                    //                       .time!
-                                    //                       .currentPeriodStartTimestamp!) *
-                                    //                   1000)
-                                    //           .toString()
-                                    //           .substring(0, 11)
-                                    //       : 'N/A',
-                                    //   style: TextStyle(
-                                    //       letterSpacing: 0.5,
-                                    //       fontSize: 12,
-                                    //       fontWeight: FontWeight.w500),
-                                    //   textAlign: TextAlign.center,
-                                    // ),
+                                    Text(
+                                      _tournamentController
+                                                  .tournamentList[index]['time']['currentPeriodStartTimestamp'] !=
+                                              null
+                                          ? DateTime.fromMillisecondsSinceEpoch(
+                                                  (_tournamentController
+                                                          .tournamentList[
+                                                  index]['time'][
+                                                  'currentPeriodStartTimestamp']) *
+                                                      1000)
+                                              .toString()
+                                              .substring(0, 11)
+                                          : 'N/A',
+                                      style: TextStyle(
+                                          letterSpacing: 0.5,
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.w500),
+                                      textAlign: TextAlign.center,
+                                    ),
                                     Text(
                                       _tournamentController
                                               .tournamentList[index]['time']

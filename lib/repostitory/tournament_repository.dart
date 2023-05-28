@@ -37,8 +37,8 @@ class TournamentRepository {
   Future<SportResponse?>? fetchToddaysSportData({required int sport_id}) async {
     final DateTime now = DateTime.now();
     final DateFormat formatter = DateFormat('yyyy-MM-dd');
-    final String formatted = formatter.format(now);
-    // final String formatted = "2023-5-11";
+    // final String formatted = formatter.format(now);
+    final String formatted = "2023-5-11";
     try {
       var headers = {
         'X-RapidAPI-Key': Constants.API_KEY,
