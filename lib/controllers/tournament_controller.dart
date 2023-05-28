@@ -1,3 +1,6 @@
+import 'dart:developer';
+
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:sports_bar/repostitory/tournament_repository.dart';
@@ -5,7 +8,7 @@ import 'package:sports_bar/repostitory/tournament_repository.dart';
 import '../models/sport_model.dart';
 
 class TournamentController extends GetxController {
-  var dataloading=false.obs;
+  var dataloading = false.obs;
   var tournamentList = [].obs;
   var selectedSport = 0.obs;
 
@@ -45,7 +48,7 @@ class TournamentController extends GetxController {
 
   //baseball----------------------------->>>>>>>>
   void fetchBaseballData() async {
-    dataloading=true.obs;
+    dataloading = true.obs;
     baseballSportDataList.clear();
     List<Datum> tempList = [];
     baseballSportTodaysResponse.value =
@@ -56,7 +59,7 @@ class TournamentController extends GetxController {
         (await TournamentRepository().fetchNextDaySportData(sport_id: 64))!;
     tempList.addAll(baseballSportNextDayResponse.value.data!);
     baseballSportDataList.value = tempList;
-    dataloading=false.obs;
+    dataloading = false.obs;
   }
 
   //American football----------------------------->>>>>>>>
@@ -102,31 +105,46 @@ class TournamentController extends GetxController {
   }
 
   //football----------------------------------->>>>>>>>
-  void fetchfootballData(String category) async {
+  void fetchfootballData(String category, BuildContext context) async {
+    dataloading.value = true;
     footballSportDataList.clear();
+    SelectedFootballSportDataList.clear();
     List<Datum> tempList = [];
     footballSportTodaysResponse.value =
-    (await TournamentRepository().fetchToddaysSportData(sport_id: 1))!;
+        (await TournamentRepository().fetchToddaysSportData(sport_id: 1))!;
     tempList.addAll(footballSportTodaysResponse.value.data!);
 
     footballSportNextDayResponse.value =
-    (await TournamentRepository().fetchNextDaySportData(sport_id: 1))!;
+        (await TournamentRepository().fetchNextDaySportData(sport_id: 1))!;
     tempList.addAll(footballSportNextDayResponse.value.data!);
     footballSportDataList.value = tempList;
     await CatFootball(category, footballSportDataList);
+    log('len : ' + SelectedFootballSportDataList.length.toString());
+    dataloading.value = false;
+    if (SelectedFootballSportDataList.isEmpty) {
+      final snackBar = SnackBar(
+        content: const Text('No match found for Today and Tomorrow'),
+        action: SnackBarAction(
+          label: 'Undo',
+          onPressed: () {},
+        ),
+      );
+
+      // Find the ScaffoldMessenger in the widget tree
+      // and use it to show a SnackBar.
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    }
   }
 
-  Future <void> CatFootball(String cat,List<Datum> list )async{
+  Future<void> CatFootball(String cat, List<Datum> list) async {
     print("Called: ${list.length}");
     SelectedFootballSportDataList.clear();
-    for(int i=0;i<list.length;i++)
-      {
-        if(list[i].tournament!.name==cat)
-          {
-            print(list[i].tournament!.name);
-            SelectedFootballSportDataList.add(list[i]);
-          }
+    for (int i = 0; i < list.length; i++) {
+      if (list[i].tournament!.name == cat) {
+        print(list[i].tournament!.name);
+        SelectedFootballSportDataList.add(list[i]);
       }
+    }
   }
 
   String readTimestamp(int timestamp) {
@@ -136,7 +154,10 @@ class TournamentController extends GetxController {
     var diff = date.difference(now);
     var time = '';
 
-    if (diff.inSeconds <= 0 || diff.inSeconds > 0 && diff.inMinutes == 0 || diff.inMinutes > 0 && diff.inHours == 0 || diff.inHours > 0 && diff.inDays == 0) {
+    if (diff.inSeconds <= 0 ||
+        diff.inSeconds > 0 && diff.inMinutes == 0 ||
+        diff.inMinutes > 0 && diff.inHours == 0 ||
+        diff.inHours > 0 && diff.inDays == 0) {
       time = format.format(date);
     } else {
       if (diff.inDays == 1) {
