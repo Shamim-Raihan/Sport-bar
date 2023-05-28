@@ -1,11 +1,20 @@
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:sports_bar/repostitory/tournament_repository.dart';
 
 import '../models/sport_model.dart';
 
 class TournamentController extends GetxController {
+  var dataloading=false.obs;
   var tournamentList = [].obs;
   var selectedSport = 0.obs;
+
+  // football
+  var footballSportTodaysResponse = SportResponse().obs;
+  var footballSportNextDayResponse = SportResponse().obs;
+  var footballSportDataList = List<Datum>.empty(growable: true).obs;
+
+  var SelectedFootballSportDataList = List<Datum>.empty(growable: true).obs;
 
   //ameriacan football
   var americanSportTodaysResponse = SportResponse().obs;
@@ -36,6 +45,7 @@ class TournamentController extends GetxController {
 
   //baseball----------------------------->>>>>>>>
   void fetchBaseballData() async {
+    dataloading=true.obs;
     baseballSportDataList.clear();
     List<Datum> tempList = [];
     baseballSportTodaysResponse.value =
@@ -46,6 +56,7 @@ class TournamentController extends GetxController {
         (await TournamentRepository().fetchNextDaySportData(sport_id: 64))!;
     tempList.addAll(baseballSportNextDayResponse.value.data!);
     baseballSportDataList.value = tempList;
+    dataloading=false.obs;
   }
 
   //American football----------------------------->>>>>>>>
@@ -88,5 +99,53 @@ class TournamentController extends GetxController {
         (await TournamentRepository().fetchNextDaySportData(sport_id: 2))!;
     tempList.addAll(basketballSportNextDayResponse.value.data!);
     basketballSportDataList.value = tempList;
+  }
+
+  //football----------------------------------->>>>>>>>
+  void fetchfootballData(String category) async {
+    footballSportDataList.clear();
+    List<Datum> tempList = [];
+    footballSportTodaysResponse.value =
+    (await TournamentRepository().fetchToddaysSportData(sport_id: 1))!;
+    tempList.addAll(footballSportTodaysResponse.value.data!);
+
+    footballSportNextDayResponse.value =
+    (await TournamentRepository().fetchNextDaySportData(sport_id: 1))!;
+    tempList.addAll(footballSportNextDayResponse.value.data!);
+    footballSportDataList.value = tempList;
+    await CatFootball(category, footballSportDataList);
+  }
+
+  Future <void> CatFootball(String cat,List<Datum> list )async{
+    print("Called: ${list.length}");
+    SelectedFootballSportDataList.clear();
+    for(int i=0;i<list.length;i++)
+      {
+        if(list[i].tournament!.name==cat)
+          {
+            print(list[i].tournament!.name);
+            SelectedFootballSportDataList.add(list[i]);
+          }
+      }
+  }
+
+  String readTimestamp(int timestamp) {
+    var now = new DateTime.now();
+    var format = new DateFormat('HH:mm a');
+    var date = new DateTime.fromMicrosecondsSinceEpoch(timestamp * 1000);
+    var diff = date.difference(now);
+    var time = '';
+
+    if (diff.inSeconds <= 0 || diff.inSeconds > 0 && diff.inMinutes == 0 || diff.inMinutes > 0 && diff.inHours == 0 || diff.inHours > 0 && diff.inDays == 0) {
+      time = format.format(date);
+    } else {
+      if (diff.inDays == 1) {
+        time = diff.inDays.toString() + 'DAY AGO';
+      } else {
+        time = diff.inDays.toString() + 'DAYS AGO';
+      }
+    }
+
+    return time;
   }
 }

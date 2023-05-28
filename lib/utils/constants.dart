@@ -12,4 +12,8 @@ class Constants {
   static const int bundesliga = 30;
   static const int serie_a = 31;
   static const int la_liga = 32;
+
+  static const String nationalLeague="National League";
+  static const String uefaChampion="UEFA Champions League";
+  static const String uefaEuropa="UEFA Europa League";
 }

@@ -12,6 +12,7 @@ import 'package:sports_bar/widgets/no_match_screen.dart';
 import '../auth/login.dart';
 import '../controllers/profile_controller.dart';
 import '../controllers/tournament_controller.dart';
+import '../utils/constants.dart';
 import 'bottomNav_screens/match_annouce.dart';
 import 'bottomNav_screens/notification_screen.dart';
 
@@ -198,11 +199,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                     bottom: BorderSide(),
                                   ),
                                   onTap: () {
-                                    Navigator.pop(context);
-                                    AppNavigation.to(
-                                      context,
-                                      NoMatchScreen(),
-                                    );
+                                    _tournamentController.selectedSport.value = 4;
+                                    _tournamentController.fetchfootballData(Constants.nationalLeague);
+                                    AppNavigation.to(context, MatchAnnounceScreen());
                                   },
                                   title: Text(
                                     "NATIONAL FOOTBALL",
@@ -221,11 +220,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                     bottom: BorderSide(),
                                   ),
                                   onTap: () {
-                                    Navigator.pop(context);
-                                    AppNavigation.to(
-                                      context,
-                                      NoMatchScreen(),
-                                    );
+                                    _tournamentController.selectedSport.value = 4;
+                                    _tournamentController.fetchfootballData(Constants.uefaChampion);
+                                    AppNavigation.to(context, MatchAnnounceScreen());
+
                                   },
                                   title: Text(
                                     "UEFA CHAMPIONS LEAGUE",
@@ -241,11 +239,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                 padding: EdgeInsets.zero,
                                 child: ListTile(
                                   onTap: () {
-                                    Navigator.pop(context);
-                                    AppNavigation.to(
-                                      context,
-                                      NoMatchScreen(),
-                                    );
+                                    _tournamentController.selectedSport.value = 4;
+                                    _tournamentController.fetchfootballData(Constants.uefaEuropa);
+                                    AppNavigation.to(context, MatchAnnounceScreen());
                                   },
                                   title: Text(
                                     "EUROPA",
