@@ -67,7 +67,7 @@ class MatchAnnounceScreen extends StatelessWidget {
 
   Widget _buildBaseballView(BuildContext context) {
     return Obx(
-      () => _tournamentController.baseballSportDataList==null
+      () => _tournamentController.baseballSportDataList.isNotEmpty
           ? Container(
               child: SingleChildScrollView(
                 child: Container(
@@ -116,25 +116,26 @@ class MatchAnnounceScreen extends StatelessWidget {
                                             children: [
                                               Text(
                                                 _tournamentController
-                                                    .baseballSportDataList[
-                                                index]
-                                                    .time!
-                                                    .currentPeriodStartTimestamp !=
-                                                    null
+                                                            .baseballSportDataList[
+                                                                index]
+                                                            .time!
+                                                            .currentPeriodStartTimestamp !=
+                                                        null
                                                     ? DateTime.fromMillisecondsSinceEpoch(
-                                                    (_tournamentController
-                                                        .baseballSportDataList[
-                                                    index]
-                                                        .time!
-                                                        .currentPeriodStartTimestamp!) *
-                                                        1000)
-                                                    .toString().substring(0,11)
-
+                                                            (_tournamentController
+                                                                    .baseballSportDataList[
+                                                                        index]
+                                                                    .time!
+                                                                    .currentPeriodStartTimestamp!) *
+                                                                1000)
+                                                        .toString()
+                                                        .substring(0, 11)
                                                     : 'N/A',
                                                 style: TextStyle(
                                                     letterSpacing: 0.5,
                                                     fontSize: 12,
-                                                    fontWeight: FontWeight.w500),
+                                                    fontWeight:
+                                                        FontWeight.w500),
                                                 textAlign: TextAlign.center,
                                               ),
                                               Text(
@@ -157,7 +158,8 @@ class MatchAnnounceScreen extends StatelessWidget {
                                                 style: TextStyle(
                                                     letterSpacing: 0.5,
                                                     fontSize: 20,
-                                                    fontWeight: FontWeight.w500),
+                                                    fontWeight:
+                                                        FontWeight.w500),
                                                 textAlign: TextAlign.center,
                                               ),
                                             ],
@@ -270,25 +272,26 @@ class MatchAnnounceScreen extends StatelessWidget {
                                             children: [
                                               Text(
                                                 _tournamentController
-                                                    .baseballSportDataList[
-                                                index]
-                                                    .time!
-                                                    .currentPeriodStartTimestamp !=
-                                                    null
+                                                            .basketballSportDataList[
+                                                                index]
+                                                            .time!
+                                                            .currentPeriodStartTimestamp !=
+                                                        null
                                                     ? DateTime.fromMillisecondsSinceEpoch(
-                                                    (_tournamentController
-                                                        .baseballSportDataList[
-                                                    index]
-                                                        .time!
-                                                        .currentPeriodStartTimestamp!) *
-                                                        1000)
-                                                    .toString().substring(0,11)
-
+                                                            (_tournamentController
+                                                                    .basketballSportDataList[
+                                                                        index]
+                                                                    .time!
+                                                                    .currentPeriodStartTimestamp!) *
+                                                                1000)
+                                                        .toString()
+                                                        .substring(0, 11)
                                                     : 'N/A',
                                                 style: TextStyle(
                                                     letterSpacing: 0.5,
                                                     fontSize: 12,
-                                                    fontWeight: FontWeight.w500),
+                                                    fontWeight:
+                                                        FontWeight.w500),
                                                 textAlign: TextAlign.center,
                                               ),
                                               Text(
@@ -311,7 +314,8 @@ class MatchAnnounceScreen extends StatelessWidget {
                                                 style: TextStyle(
                                                     letterSpacing: 0.5,
                                                     fontSize: 20,
-                                                    fontWeight: FontWeight.w500),
+                                                    fontWeight:
+                                                        FontWeight.w500),
                                                 textAlign: TextAlign.center,
                                               ),
                                             ],
@@ -424,25 +428,26 @@ class MatchAnnounceScreen extends StatelessWidget {
                                             children: [
                                               Text(
                                                 _tournamentController
-                                                    .rugbySportDataList[
-                                                index]
-                                                    .time!
-                                                    .currentPeriodStartTimestamp !=
-                                                    null
+                                                            .rugbySportDataList[
+                                                                index]
+                                                            .time!
+                                                            .currentPeriodStartTimestamp !=
+                                                        null
                                                     ? DateTime.fromMillisecondsSinceEpoch(
-                                                    (_tournamentController
-                                                        .rugbySportDataList[
-                                                    index]
-                                                        .time!
-                                                        .currentPeriodStartTimestamp!) *
-                                                        1000)
-                                                    .toString().substring(0,11)
-
+                                                            (_tournamentController
+                                                                    .rugbySportDataList[
+                                                                        index]
+                                                                    .time!
+                                                                    .currentPeriodStartTimestamp!) *
+                                                                1000)
+                                                        .toString()
+                                                        .substring(0, 11)
                                                     : 'N/A',
                                                 style: TextStyle(
                                                     letterSpacing: 0.5,
                                                     fontSize: 12,
-                                                    fontWeight: FontWeight.w500),
+                                                    fontWeight:
+                                                        FontWeight.w500),
                                                 textAlign: TextAlign.center,
                                               ),
                                               Text(
@@ -465,7 +470,8 @@ class MatchAnnounceScreen extends StatelessWidget {
                                                 style: TextStyle(
                                                     letterSpacing: 0.5,
                                                     fontSize: 20,
-                                                    fontWeight: FontWeight.w500),
+                                                    fontWeight:
+                                                        FontWeight.w500),
                                                 textAlign: TextAlign.center,
                                               ),
                                             ],
@@ -578,25 +584,26 @@ class MatchAnnounceScreen extends StatelessWidget {
                                             children: [
                                               Text(
                                                 _tournamentController
-                                                    .americanSportDataList[
-                                                index]
-                                                    .time!
-                                                    .currentPeriodStartTimestamp !=
-                                                    null
+                                                            .americanSportDataList[
+                                                                index]
+                                                            .time!
+                                                            .currentPeriodStartTimestamp !=
+                                                        null
                                                     ? DateTime.fromMillisecondsSinceEpoch(
-                                                    (_tournamentController
-                                                        .americanSportDataList[
-                                                    index]
-                                                        .time!
-                                                        .currentPeriodStartTimestamp!) *
-                                                        1000)
-                                                    .toString().substring(0,11)
-
+                                                            (_tournamentController
+                                                                    .americanSportDataList[
+                                                                        index]
+                                                                    .time!
+                                                                    .currentPeriodStartTimestamp!) *
+                                                                1000)
+                                                        .toString()
+                                                        .substring(0, 11)
                                                     : 'N/A',
                                                 style: TextStyle(
                                                     letterSpacing: 0.5,
                                                     fontSize: 12,
-                                                    fontWeight: FontWeight.w500),
+                                                    fontWeight:
+                                                        FontWeight.w500),
                                                 textAlign: TextAlign.center,
                                               ),
                                               Text(
@@ -619,7 +626,8 @@ class MatchAnnounceScreen extends StatelessWidget {
                                                 style: TextStyle(
                                                     letterSpacing: 0.5,
                                                     fontSize: 20,
-                                                    fontWeight: FontWeight.w500),
+                                                    fontWeight:
+                                                        FontWeight.w500),
                                                 textAlign: TextAlign.center,
                                               ),
                                             ],
@@ -724,29 +732,28 @@ class MatchAnnounceScreen extends StatelessWidget {
                                 flex: 1,
                                 child: Column(
                                   children: [
-                                    Text(
-                                      _tournamentController
-                                          .footballSportDataList[
-                                      index]
-                                          .time!
-                                          .currentPeriodStartTimestamp !=
-                                          null
-                                          ? DateTime.fromMillisecondsSinceEpoch(
-                                          (_tournamentController
-                                              .footballSportDataList[
-                                          index]
-                                              .time!
-                                              .currentPeriodStartTimestamp!) *
-                                              1000)
-                                          .toString().substring(0,11)
-
-                                          : 'N/A',
-                                      style: TextStyle(
-                                          letterSpacing: 0.5,
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.w500),
-                                      textAlign: TextAlign.center,
-                                    ),
+                                    // Text(
+                                    //   _tournamentController
+                                    //               .footballSportDataList[index]
+                                    //               .time!
+                                    //               .currentPeriodStartTimestamp !=
+                                    //           null
+                                    //       ? DateTime.fromMillisecondsSinceEpoch(
+                                    //               (_tournamentController
+                                    //                       .footballSportDataList[
+                                    //                           index]
+                                    //                       .time!
+                                    //                       .currentPeriodStartTimestamp!) *
+                                    //                   1000)
+                                    //           .toString()
+                                    //           .substring(0, 11)
+                                    //       : 'N/A',
+                                    //   style: TextStyle(
+                                    //       letterSpacing: 0.5,
+                                    //       fontSize: 12,
+                                    //       fontWeight: FontWeight.w500),
+                                    //   textAlign: TextAlign.center,
+                                    // ),
                                     Text(
                                       _tournamentController
                                               .tournamentList[index]['time']
@@ -806,150 +813,158 @@ class MatchAnnounceScreen extends StatelessWidget {
   }
 
   Widget _buildAllFootbalView(BuildContext context) {
-    return Obx(
-          () => _tournamentController.SelectedFootballSportDataList.isNotEmpty
-          ? Container(
-        child: SingleChildScrollView(
-          child: Container(
-            height: MediaQuery.of(context).size.height - 116,
-            child: Obx(
-                  () => ListView.builder(
-                physics: BouncingScrollPhysics(
-                    parent: AlwaysScrollableScrollPhysics()),
-                itemCount:
-                _tournamentController.SelectedFootballSportDataList.length,
-                itemBuilder: (context, index) {
-                  return Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: GestureDetector(
-                      onTap: () =>
-                          AppNavigation.to(context, ChattingScreen()),
-                      child: Container(
-                        width: 340,
-                        decoration: BoxDecoration(
-                          color: Color(0xFF66C38E),
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.all(10),
-                          child: Column(
-                            children: [
-                              Row(
-                                children: [
-                                  Expanded(
-                                    flex: 2,
-                                    child: Text(
-                                      _tournamentController
-                                          .SelectedFootballSportDataList[index]
-                                          .homeTeam!
-                                          .name!,
-                                      style: TextStyle(
-                                          letterSpacing: 0.5,
-                                          fontSize: 15,
-                                          fontWeight: FontWeight.w500),
-                                      textAlign: TextAlign.center,
-                                    ),
-                                  ),
-                                  Expanded(
-                                    flex: 1,
-                                    child: Column(
-                                      children: [
-                                        Text(
-                                          _tournamentController
-                                              .SelectedFootballSportDataList[
-                                          index]
-                                              .time!
-                                              .currentPeriodStartTimestamp !=
-                                              null
-                                              ? DateTime.fromMillisecondsSinceEpoch(
-                                              (_tournamentController
+    return Obx(() {
+      if (_tournamentController.dataloading.value == false) {
+        return _tournamentController.SelectedFootballSportDataList.isEmpty
+            ? Container()
+            : Container(
+                child: SingleChildScrollView(
+                  child: Container(
+                    height: MediaQuery.of(context).size.height - 116,
+                    child: Obx(
+                      () => ListView.builder(
+                        physics: BouncingScrollPhysics(
+                            parent: AlwaysScrollableScrollPhysics()),
+                        itemCount: _tournamentController
+                            .SelectedFootballSportDataList.length,
+                        itemBuilder: (context, index) {
+                          return Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: GestureDetector(
+                              onTap: () =>
+                                  AppNavigation.to(context, ChattingScreen()),
+                              child: Container(
+                                width: 340,
+                                decoration: BoxDecoration(
+                                  color: Color(0xFF66C38E),
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(10),
+                                  child: Column(
+                                    children: [
+                                      Row(
+                                        children: [
+                                          Expanded(
+                                            flex: 2,
+                                            child: Text(
+                                              _tournamentController
                                                   .SelectedFootballSportDataList[
-                                              index]
-                                                  .time!
-                                                  .currentPeriodStartTimestamp!) *
-                                                  1000)
-                                              .toString().substring(0,11)
-
-                                              : 'N/A',
-                                          style: TextStyle(
-                                              letterSpacing: 0.5,
-                                              fontSize: 12,
-                                              fontWeight: FontWeight.w500),
-                                          textAlign: TextAlign.center,
-                                        ),
-                                        Text(
-                                          _tournamentController
-                                              .SelectedFootballSportDataList[
-                                          index]
-                                              .time!
-                                              .currentPeriodStartTimestamp !=
-                                              null
-                                              ? DateTime.fromMillisecondsSinceEpoch(
-                                              (_tournamentController
+                                                      index]
+                                                  .homeTeam!
+                                                  .name!,
+                                              style: TextStyle(
+                                                  letterSpacing: 0.5,
+                                                  fontSize: 15,
+                                                  fontWeight: FontWeight.w500),
+                                              textAlign: TextAlign.center,
+                                            ),
+                                          ),
+                                          Expanded(
+                                            flex: 1,
+                                            child: Column(
+                                              children: [
+                                                Text(
+                                                  _tournamentController
+                                                              .SelectedFootballSportDataList[
+                                                                  index]
+                                                              .time!
+                                                              .currentPeriodStartTimestamp !=
+                                                          null
+                                                      ? DateTime.fromMillisecondsSinceEpoch(
+                                                              (_tournamentController
+                                                                      .SelectedFootballSportDataList[
+                                                                          index]
+                                                                      .time!
+                                                                      .currentPeriodStartTimestamp!) *
+                                                                  1000)
+                                                          .toString()
+                                                          .substring(0, 11)
+                                                      : 'N/A',
+                                                  style: TextStyle(
+                                                      letterSpacing: 0.5,
+                                                      fontSize: 12,
+                                                      fontWeight:
+                                                          FontWeight.w500),
+                                                  textAlign: TextAlign.center,
+                                                ),
+                                                Text(
+                                                  _tournamentController
+                                                              .SelectedFootballSportDataList[
+                                                                  index]
+                                                              .time!
+                                                              .currentPeriodStartTimestamp !=
+                                                          null
+                                                      ? DateTime.fromMillisecondsSinceEpoch(
+                                                              (_tournamentController
+                                                                      .SelectedFootballSportDataList[
+                                                                          index]
+                                                                      .time!
+                                                                      .currentPeriodStartTimestamp!) *
+                                                                  1000)
+                                                          .toString()
+                                                          .substring(11, 16)
+                                                      : 'N/A',
+                                                  style: TextStyle(
+                                                      letterSpacing: 0.5,
+                                                      fontSize: 20,
+                                                      fontWeight:
+                                                          FontWeight.w500),
+                                                  textAlign: TextAlign.center,
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                          Expanded(
+                                            flex: 2,
+                                            child: Text(
+                                              _tournamentController
                                                   .SelectedFootballSportDataList[
-                                              index]
-                                                  .time!
-                                                  .currentPeriodStartTimestamp!) *
-                                                  1000)
-                                              .toString()
-                                              .substring(11, 16)
-                                              : 'N/A',
-                                          style: TextStyle(
-                                              letterSpacing: 0.5,
-                                              fontSize: 20,
-                                              fontWeight: FontWeight.w500),
-                                          textAlign: TextAlign.center,
-                                        ),
-                                      ],
-                                    ),
+                                                      index]
+                                                  .awayTeam!
+                                                  .name!,
+                                              style: TextStyle(
+                                                  letterSpacing: 0.5,
+                                                  fontSize: 15,
+                                                  fontWeight: FontWeight.w500),
+                                              textAlign: TextAlign.center,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      SizedBox(
+                                        height: 5,
+                                      ),
+                                    ],
                                   ),
-                                  Expanded(
-                                    flex: 2,
-                                    child: Text(
-                                      _tournamentController
-                                          .SelectedFootballSportDataList[index]
-                                          .awayTeam!
-                                          .name!,
-                                      style: TextStyle(
-                                          letterSpacing: 0.5,
-                                          fontSize: 15,
-                                          fontWeight: FontWeight.w500),
-                                      textAlign: TextAlign.center,
-                                    ),
-                                  ),
-                                ],
+                                ),
                               ),
-                              SizedBox(
-                                height: 5,
-                              ),
-                            ],
-                          ),
-                        ),
+                            ),
+                          );
+                        },
                       ),
                     ),
-                  );
-                },
-              ),
-            ),
+                  ),
+                ),
+              );
+      } else {
+        return Container(
+          child: ListView.builder(
+            physics:
+                BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
+            itemCount: 15,
+            itemBuilder: (context, index) {
+              return Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: ShimmerHelper().buildBasicShimmer(
+                  height: 80,
+                  width: 350,
+                ),
+              );
+            },
           ),
-        ),
-      )
-          : Container(
-        child: ListView.builder(
-          physics: BouncingScrollPhysics(
-              parent: AlwaysScrollableScrollPhysics()),
-          itemCount: 15,
-          itemBuilder: (context, index) {
-            return Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: ShimmerHelper().buildBasicShimmer(
-                height: 80,
-                width: 350,
-              ),
-            );
-          },
-        ),
-      ),
-    );
+        );
+      }
+    });
   }
 }
