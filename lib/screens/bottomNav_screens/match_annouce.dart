@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:sports_bar/widgets/app_navigation.dart';
 import 'package:sports_bar/widgets/shimmer_helper.dart';
@@ -254,7 +255,7 @@ class _MatchAnnounceScreenState extends State<MatchAnnounceScreen> {
                                                     : 'N/A',
                                                 style: TextStyle(
                                                     letterSpacing: 0.5,
-                                                    fontSize: 12,
+                                                    fontSize: 11.sp,
                                                     fontWeight:
                                                         FontWeight.w500),
                                                 textAlign: TextAlign.center,
@@ -278,7 +279,7 @@ class _MatchAnnounceScreenState extends State<MatchAnnounceScreen> {
                                                     : 'N/A',
                                                 style: TextStyle(
                                                     letterSpacing: 0.5,
-                                                    fontSize: 20,
+                                                    fontSize: 20.sp,
                                                     fontWeight:
                                                         FontWeight.w500),
                                                 textAlign: TextAlign.center,
@@ -412,7 +413,7 @@ class _MatchAnnounceScreenState extends State<MatchAnnounceScreen> {
                                                     : 'N/A',
                                                 style: TextStyle(
                                                     letterSpacing: 0.5,
-                                                    fontSize: 12,
+                                                    fontSize: 11.sp,
                                                     fontWeight:
                                                         FontWeight.w500),
                                                 textAlign: TextAlign.center,
@@ -436,7 +437,7 @@ class _MatchAnnounceScreenState extends State<MatchAnnounceScreen> {
                                                     : 'N/A',
                                                 style: TextStyle(
                                                     letterSpacing: 0.5,
-                                                    fontSize: 20,
+                                                    fontSize: 20.sp,
                                                     fontWeight:
                                                         FontWeight.w500),
                                                 textAlign: TextAlign.center,
@@ -570,7 +571,7 @@ class _MatchAnnounceScreenState extends State<MatchAnnounceScreen> {
                                                     : 'N/A',
                                                 style: TextStyle(
                                                     letterSpacing: 0.5,
-                                                    fontSize: 12,
+                                                    fontSize: 11.sp,
                                                     fontWeight:
                                                         FontWeight.w500),
                                                 textAlign: TextAlign.center,
@@ -594,7 +595,7 @@ class _MatchAnnounceScreenState extends State<MatchAnnounceScreen> {
                                                     : 'N/A',
                                                 style: TextStyle(
                                                     letterSpacing: 0.5,
-                                                    fontSize: 20,
+                                                    fontSize: 20.sp,
                                                     fontWeight:
                                                         FontWeight.w500),
                                                 textAlign: TextAlign.center,
@@ -728,7 +729,7 @@ class _MatchAnnounceScreenState extends State<MatchAnnounceScreen> {
                                                     : 'N/A',
                                                 style: TextStyle(
                                                     letterSpacing: 0.5,
-                                                    fontSize: 12,
+                                                    fontSize: 11.sp,
                                                     fontWeight:
                                                         FontWeight.w500),
                                                 textAlign: TextAlign.center,
@@ -752,7 +753,7 @@ class _MatchAnnounceScreenState extends State<MatchAnnounceScreen> {
                                                     : 'N/A',
                                                 style: TextStyle(
                                                     letterSpacing: 0.5,
-                                                    fontSize: 20,
+                                                    fontSize: 20.sp,
                                                     fontWeight:
                                                         FontWeight.w500),
                                                 textAlign: TextAlign.center,
@@ -876,7 +877,7 @@ class _MatchAnnounceScreenState extends State<MatchAnnounceScreen> {
                                           : 'N/A',
                                       style: TextStyle(
                                           letterSpacing: 0.5,
-                                          fontSize: 12,
+                                          fontSize: 11.sp,
                                           fontWeight: FontWeight.w500),
                                       textAlign: TextAlign.center,
                                     ),
@@ -895,7 +896,7 @@ class _MatchAnnounceScreenState extends State<MatchAnnounceScreen> {
                                           : 'N/A',
                                       style: TextStyle(
                                           letterSpacing: 0.5,
-                                          fontSize: 20,
+                                          fontSize: 20.sp,
                                           fontWeight: FontWeight.w500),
                                       textAlign: TextAlign.center,
                                     ),
@@ -1025,7 +1026,7 @@ class _MatchAnnounceScreenState extends State<MatchAnnounceScreen> {
                                                       : 'N/A',
                                                   style: TextStyle(
                                                       letterSpacing: 0.5,
-                                                      fontSize: 12,
+                                                      fontSize: 11.sp,
                                                       fontWeight:
                                                           FontWeight.w500),
                                                   textAlign: TextAlign.center,
@@ -1049,7 +1050,7 @@ class _MatchAnnounceScreenState extends State<MatchAnnounceScreen> {
                                                       : 'N/A',
                                                   style: TextStyle(
                                                       letterSpacing: 0.5,
-                                                      fontSize: 20,
+                                                      fontSize: 20.sp,
                                                       fontWeight:
                                                           FontWeight.w500),
                                                   textAlign: TextAlign.center,
