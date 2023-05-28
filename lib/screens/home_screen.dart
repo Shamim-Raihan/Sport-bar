@@ -1,5 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_instance/src/extension_instance.dart';
 import 'package:get/get_state_manager/src/simple/get_state.dart';
 import 'package:hive/hive.dart';
 import 'package:sports_bar/screens/league_football.dart';
@@ -9,6 +11,8 @@ import 'package:sports_bar/widgets/no_match_screen.dart';
 
 import '../auth/login.dart';
 import '../controllers/profile_controller.dart';
+import '../controllers/tournament_controller.dart';
+import 'bottomNav_screens/match_annouce.dart';
 import 'bottomNav_screens/notification_screen.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -19,6 +23,8 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  final TournamentController _tournamentController =
+      Get.put(TournamentController());
   final auth = FirebaseAuth.instance;
   User? user = FirebaseAuth.instance.currentUser;
 
@@ -155,102 +161,105 @@ class _HomeScreenState extends State<HomeScreen> {
                     scrollDirection: Axis.horizontal,
                     children: [
                       InkWell(
-                        onTap: () => showMenu(
-                          color: Color(0xFF2E9E5E),
-                          context: context,
-                          position: RelativeRect.fromLTRB(0, 188, 0, 0),
-                          items: [
-                            PopupMenuItem(
-                              padding: EdgeInsets.zero,
-                              child: ListTile(
-                                shape: Border(
-                                  bottom: BorderSide(),
-                                ),
-                                onTap: () {
-                                  Navigator.pop(context);
-                                  AppNavigation.to(
-                                    context,
-                                    LeagueFootball(),
-                                  );
-                                },
-                                title: Text(
-                                  "LEAGUE FOOTBALL",
-                                  style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w500,
-                                    color: Colors.white,
+                        onTap: () {
+                          _tournamentController.selectedSport.value = 0;
+                          showMenu(
+                            color: Color(0xFF2E9E5E),
+                            context: context,
+                            position: RelativeRect.fromLTRB(0, 188, 0, 0),
+                            items: [
+                              PopupMenuItem(
+                                padding: EdgeInsets.zero,
+                                child: ListTile(
+                                  shape: Border(
+                                    bottom: BorderSide(),
+                                  ),
+                                  onTap: () {
+                                    Navigator.pop(context);
+                                    AppNavigation.to(
+                                      context,
+                                      LeagueFootball(),
+                                    );
+                                  },
+                                  title: Text(
+                                    "LEAGUE FOOTBALL",
+                                    style: TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w500,
+                                      color: Colors.white,
+                                    ),
                                   ),
                                 ),
                               ),
-                            ),
-                            PopupMenuItem(
-                              padding: EdgeInsets.zero,
-                              child: ListTile(
-                                shape: Border(
-                                  bottom: BorderSide(),
-                                ),
-                                onTap: () {
-                                  Navigator.pop(context);
-                                  AppNavigation.to(
-                                    context,
-                                    NoMatchScreen(),
-                                  );
-                                },
-                                title: Text(
-                                  "NATIONAL FOOTBALL",
-                                  style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w500,
-                                    color: Colors.white,
+                              PopupMenuItem(
+                                padding: EdgeInsets.zero,
+                                child: ListTile(
+                                  shape: Border(
+                                    bottom: BorderSide(),
+                                  ),
+                                  onTap: () {
+                                    Navigator.pop(context);
+                                    AppNavigation.to(
+                                      context,
+                                      NoMatchScreen(),
+                                    );
+                                  },
+                                  title: Text(
+                                    "NATIONAL FOOTBALL",
+                                    style: TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w500,
+                                      color: Colors.white,
+                                    ),
                                   ),
                                 ),
                               ),
-                            ),
-                            PopupMenuItem(
-                              padding: EdgeInsets.zero,
-                              child: ListTile(
-                                shape: Border(
-                                  bottom: BorderSide(),
-                                ),
-                                onTap: () {
-                                  Navigator.pop(context);
-                                  AppNavigation.to(
-                                    context,
-                                    NoMatchScreen(),
-                                  );
-                                },
-                                title: Text(
-                                  "UEFA CHAMPIONS LEAGUE",
-                                  style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w500,
-                                    color: Colors.white,
+                              PopupMenuItem(
+                                padding: EdgeInsets.zero,
+                                child: ListTile(
+                                  shape: Border(
+                                    bottom: BorderSide(),
+                                  ),
+                                  onTap: () {
+                                    Navigator.pop(context);
+                                    AppNavigation.to(
+                                      context,
+                                      NoMatchScreen(),
+                                    );
+                                  },
+                                  title: Text(
+                                    "UEFA CHAMPIONS LEAGUE",
+                                    style: TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w500,
+                                      color: Colors.white,
+                                    ),
                                   ),
                                 ),
                               ),
-                            ),
-                            PopupMenuItem(
-                              padding: EdgeInsets.zero,
-                              child: ListTile(
-                                onTap: () {
-                                  Navigator.pop(context);
-                                  AppNavigation.to(
-                                    context,
-                                    NoMatchScreen(),
-                                  );
-                                },
-                                title: Text(
-                                  "EUROPA",
-                                  style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w500,
-                                    color: Colors.white,
+                              PopupMenuItem(
+                                padding: EdgeInsets.zero,
+                                child: ListTile(
+                                  onTap: () {
+                                    Navigator.pop(context);
+                                    AppNavigation.to(
+                                      context,
+                                      NoMatchScreen(),
+                                    );
+                                  },
+                                  title: Text(
+                                    "EUROPA",
+                                    style: TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w500,
+                                      color: Colors.white,
+                                    ),
                                   ),
                                 ),
                               ),
-                            ),
-                          ],
-                        ),
+                            ],
+                          );
+                        },
                         child: Container(
                           width: 88,
                           decoration: BoxDecoration(
@@ -277,104 +286,132 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                         ),
                       ),
-                      Container(
-                        width: 88,
-                        decoration: BoxDecoration(
-                          color: Color(0xFF1E4365),
-                        ),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Container(
-                                height: 20,
-                                child: Image(
-                                    image: AssetImage(
-                                        'assets/images/football2.png'))),
-                            SizedBox(
-                              height: 8,
-                            ),
-                            Text(
-                              "American \nFootball",
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Container(
-                        width: 88,
-                        decoration: BoxDecoration(
-                          color: Color(0xFF1E4365),
-                        ),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Container(
-                                height: 20,
-                                child: Image(
-                                    image:
-                                        AssetImage('assets/images/rugby.png'))),
-                            SizedBox(
-                              height: 8,
-                            ),
-                            Text(
-                              "Rugby",
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                          ],
+                      InkWell(
+                        onTap: () {
+                          _tournamentController.selectedSport.value = 1;
+                          _tournamentController.fetchAmericanFootballData();
+                          AppNavigation.to(context, MatchAnnounceScreen());
+                        },
+                        child: Container(
+                          width: 88,
+                          decoration: BoxDecoration(
+                            color: Color(0xFF1E4365),
+                          ),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Container(
+                                  height: 20,
+                                  child: Image(
+                                      image: AssetImage(
+                                          'assets/images/football2.png'))),
+                              SizedBox(
+                                height: 8,
+                              ),
+                              Text(
+                                "American \nFootball",
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
-                      Container(
-                        width: 88,
-                        decoration: BoxDecoration(
-                          color: Color(0xFF1E4365),
-                        ),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Container(
-                                height: 20,
-                                child: Image(
-                                    image: AssetImage(
-                                        'assets/images/basketball.png'))),
-                            SizedBox(
-                              height: 8,
-                            ),
-                            Text(
-                              "Basketball",
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                          ],
+                      InkWell(
+                        onTap: () {
+                          _tournamentController.selectedSport.value = 2;
+                          _tournamentController.fetchRugbyData();
+                          AppNavigation.to(context, MatchAnnounceScreen());
+                        },
+                        child: Container(
+                          width: 88,
+                          decoration: BoxDecoration(
+                            color: Color(0xFF1E4365),
+                          ),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Container(
+                                  height: 20,
+                                  child: Image(
+                                      image: AssetImage(
+                                          'assets/images/rugby.png'))),
+                              SizedBox(
+                                height: 8,
+                              ),
+                              Text(
+                                "Rugby",
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
-                      Container(
-                        width: 88,
-                        decoration: BoxDecoration(
-                          color: Color(0xFF1E4365),
+                      InkWell(
+                        onTap: () {
+                          _tournamentController.selectedSport.value = 3;
+                          _tournamentController.fetchBasketballData();
+                          AppNavigation.to(context, MatchAnnounceScreen());
+                        },
+                        child: Container(
+                          width: 88,
+                          decoration: BoxDecoration(
+                            color: Color(0xFF1E4365),
+                          ),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Container(
+                                  height: 20,
+                                  child: Image(
+                                      image: AssetImage(
+                                          'assets/images/basketball.png'))),
+                              SizedBox(
+                                height: 8,
+                              ),
+                              Text(
+                                "Basketball",
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            ],
+                          ),
                         ),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Container(
-                                height: 20,
-                                child: Image(
-                                    image: AssetImage(
-                                        'assets/images/baseball.png'))),
-                            SizedBox(
-                              height: 8,
-                            ),
-                            Text(
-                              "Baseball",
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                          ],
+                      ),
+                      InkWell(
+                        onTap: () {
+                          _tournamentController.selectedSport.value = 4;
+                          _tournamentController.fetchBaseballData();
+                          AppNavigation.to(context, MatchAnnounceScreen());
+                        },
+                        child: Container(
+                          width: 88,
+                          decoration: BoxDecoration(
+                            color: Color(0xFF1E4365),
+                          ),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Container(
+                                  height: 20,
+                                  child: Image(
+                                      image: AssetImage(
+                                          'assets/images/baseball.png'))),
+                              SizedBox(
+                                height: 8,
+                              ),
+                              Text(
+                                "Baseball",
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ],
