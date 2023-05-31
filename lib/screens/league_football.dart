@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import '../controllers/profile_controller.dart';
 import 'package:sports_bar/controllers/tournament_controller.dart';
@@ -161,10 +162,14 @@ class _LeagueFootballState extends State<LeagueFootball> {
             height: double.infinity,
             width: double.infinity,
             child: ListView(
+              physics: BouncingScrollPhysics(),
               children: [
+                SizedBox(height: 10.h,),
                 GestureDetector(
                   onTap: () {
                     _tournamentController.fetchTournamentData(
+                        category_id: Constants.premier_legue);
+                    _tournamentController.fetchTournamentNextData(
                         category_id: Constants.premier_legue);
                     AppNavigation.to(context, MatchAnnounceScreen());
                   },
@@ -200,9 +205,12 @@ class _LeagueFootballState extends State<LeagueFootball> {
                     ),
                   ),
                 ),
+                SizedBox(height: 10.h,),
                 GestureDetector(
                   onTap: () {
                     _tournamentController.fetchTournamentData(
+                        category_id: Constants.la_liga);
+                    _tournamentController.fetchTournamentNextData(
                         category_id: Constants.la_liga);
                     AppNavigation.to(context, MatchAnnounceScreen());
                   },
@@ -225,9 +233,12 @@ class _LeagueFootballState extends State<LeagueFootball> {
                     ),
                   ),
                 ),
+                SizedBox(height: 10.h,),
                 GestureDetector(
                   onTap: () {
                     _tournamentController.fetchTournamentData(
+                        category_id: Constants.bundesliga);
+                    _tournamentController.fetchTournamentNextData(
                         category_id: Constants.bundesliga);
                     AppNavigation.to(context, MatchAnnounceScreen());
                   },
@@ -250,9 +261,12 @@ class _LeagueFootballState extends State<LeagueFootball> {
                     ),
                   ),
                 ),
+                SizedBox(height: 10.h,),
                 GestureDetector(
                   onTap: () {
                     _tournamentController.fetchTournamentData(
+                        category_id: Constants.serie_a);
+                    _tournamentController.fetchTournamentNextData(
                         category_id: Constants.serie_a);
                     AppNavigation.to(context, MatchAnnounceScreen());
                   },
