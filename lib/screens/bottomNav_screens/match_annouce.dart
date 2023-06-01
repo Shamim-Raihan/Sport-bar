@@ -312,15 +312,8 @@ class _MatchAnnounceScreenState extends State<MatchAnnounceScreen> {
                                                                 .time!
                                                                 .currentPeriodStartTimestamp !=
                                                                 null
-                                                                ? DateTime.fromMillisecondsSinceEpoch(
-                                                                (_tournamentController
-                                                                    .baseballSportDataList[
-                                                                index]
-                                                                    .time!
-                                                                    .currentPeriodStartTimestamp!) *
-                                                                    1000)
-                                                                .toString()
-                                                                .substring(11, 16)
+                                                                ? _tournamentController.readTimestamp(
+                                                              _tournamentController.baseballSportDataList[index].time!.currentPeriodStartTimestamp!)
                                                                 : 'N/A',
                                                             style: TextStyle(
                                                                 letterSpacing: 0.5,
@@ -463,15 +456,8 @@ class _MatchAnnounceScreenState extends State<MatchAnnounceScreen> {
                                                                 .time!
                                                                 .currentPeriodStartTimestamp !=
                                                                 null
-                                                                ? DateTime.fromMillisecondsSinceEpoch(
-                                                                (_tournamentController
-                                                                    .baseballSportNextDataList[
-                                                                index]
-                                                                    .time!
-                                                                    .currentPeriodStartTimestamp!) *
-                                                                    1000)
-                                                                .toString()
-                                                                .substring(11, 16)
+                                                                ? _tournamentController.readTimestamp(
+                                                              _tournamentController.baseballSportNextDataList[index].time!.currentPeriodStartTimestamp!)
                                                                 : 'N/A',
                                                             style: TextStyle(
                                                                 letterSpacing: 0.5,
@@ -639,8 +625,7 @@ class _MatchAnnounceScreenState extends State<MatchAnnounceScreen> {
                                                                     .time!
                                                                     .currentPeriodStartTimestamp!) *
                                                                     1000)
-                                                                .toString()
-                                                                .substring(0, 11)
+                                                                .toString().substring(0, 11)
                                                                 : 'N/A',
                                                             style: TextStyle(
                                                                 letterSpacing: 0.5,
@@ -656,15 +641,9 @@ class _MatchAnnounceScreenState extends State<MatchAnnounceScreen> {
                                                                 .time!
                                                                 .currentPeriodStartTimestamp !=
                                                                 null
-                                                                ? DateTime.fromMillisecondsSinceEpoch(
-                                                                (_tournamentController
-                                                                    .basketballSportDataList[
-                                                                index]
-                                                                    .time!
-                                                                    .currentPeriodStartTimestamp!) *
-                                                                    1000)
-                                                                .toString()
-                                                                .substring(11, 16)
+                                                                ? _tournamentController.readTimestamp(
+                                                              _tournamentController.basketballSportDataList[index].time!.currentPeriodStartTimestamp!
+                                                            )
                                                                 : 'N/A',
                                                             style: TextStyle(
                                                                 letterSpacing: 0.5,
@@ -807,15 +786,9 @@ class _MatchAnnounceScreenState extends State<MatchAnnounceScreen> {
                                                                 .time!
                                                                 .currentPeriodStartTimestamp !=
                                                                 null
-                                                                ? DateTime.fromMillisecondsSinceEpoch(
-                                                                (_tournamentController
-                                                                    .basketballSportNextDataList[
-                                                                index]
-                                                                    .time!
-                                                                    .currentPeriodStartTimestamp!) *
-                                                                    1000)
-                                                                .toString()
-                                                                .substring(11, 16)
+                                                                ? _tournamentController.readTimestamp(
+                                                              _tournamentController.basketballSportNextDataList[index].time!.currentPeriodStartTimestamp!
+                                                            )
                                                                 : 'N/A',
                                                             style: TextStyle(
                                                                 letterSpacing: 0.5,
@@ -1000,15 +973,9 @@ class _MatchAnnounceScreenState extends State<MatchAnnounceScreen> {
                                                                 .time!
                                                                 .currentPeriodStartTimestamp !=
                                                                 null
-                                                                ? DateTime.fromMillisecondsSinceEpoch(
-                                                                (_tournamentController
-                                                                    .rugbySportDataList[
-                                                                index]
-                                                                    .time!
-                                                                    .currentPeriodStartTimestamp!) *
-                                                                    1000)
-                                                                .toString()
-                                                                .substring(11, 16)
+                                                                ? _tournamentController.readTimestamp(
+                                                                _tournamentController.rugbySportDataList[index].time!.currentPeriodStartTimestamp!
+                                                            )
                                                                 : 'N/A',
                                                             style: TextStyle(
                                                                 letterSpacing: 0.5,
@@ -1151,15 +1118,9 @@ class _MatchAnnounceScreenState extends State<MatchAnnounceScreen> {
                                                                 .time!
                                                                 .currentPeriodStartTimestamp !=
                                                                 null
-                                                                ? DateTime.fromMillisecondsSinceEpoch(
-                                                                (_tournamentController
-                                                                    .rugbySportNextDataList[
-                                                                index]
-                                                                    .time!
-                                                                    .currentPeriodStartTimestamp!) *
-                                                                    1000)
-                                                                .toString()
-                                                                .substring(11, 16)
+                                                                ? _tournamentController.readTimestamp(
+                                                                _tournamentController.rugbySportNextDataList[index].time!.currentPeriodStartTimestamp!
+                                                            )
                                                                 : 'N/A',
                                                             style: TextStyle(
                                                                 letterSpacing: 0.5,
@@ -1320,15 +1281,9 @@ class _MatchAnnounceScreenState extends State<MatchAnnounceScreen> {
                                                                 .time!
                                                                 .currentPeriodStartTimestamp !=
                                                                 null
-                                                                ? DateTime.fromMillisecondsSinceEpoch(
-                                                                (_tournamentController
-                                                                    .americanSportDataList[
-                                                                index]
-                                                                    .time!
-                                                                    .currentPeriodStartTimestamp!) *
-                                                                    1000)
-                                                                .toString()
-                                                                .substring(0, 11)
+                                                                ? _tournamentController.readTimestamp(
+                                                              _tournamentController.americanSportDataList[index].time!.currentPeriodStartTimestamp!
+                                                            )
                                                                 : 'N/A',
                                                             style: TextStyle(
                                                                 letterSpacing: 0.5,
@@ -1471,15 +1426,8 @@ class _MatchAnnounceScreenState extends State<MatchAnnounceScreen> {
                                                                 .time!
                                                                 .currentPeriodStartTimestamp !=
                                                                 null
-                                                                ? DateTime.fromMillisecondsSinceEpoch(
-                                                                (_tournamentController
-                                                                    .americanSportNextDataList[
-                                                                index]
-                                                                    .time!
-                                                                    .currentPeriodStartTimestamp!) *
-                                                                    1000)
-                                                                .toString()
-                                                                .substring(0, 11)
+                                                                ? _tournamentController.readTimestamp(
+                                                      _tournamentController.americanSportNextDataList[index].time!.currentPeriodStartTimestamp!)
                                                                 : 'N/A',
                                                             style: TextStyle(
                                                                 letterSpacing: 0.5,
@@ -1675,14 +1623,11 @@ class _MatchAnnounceScreenState extends State<MatchAnnounceScreen> {
                                                    _tournamentController
                                                        .tournamentList[index]['time']
                                                        .isNotEmpty
-                                                       ? DateTime.fromMillisecondsSinceEpoch(
-                                                       (_tournamentController
-                                                           .tournamentList[
+                                                       ? _tournamentController.readTimestamp(
+                                                       _tournamentController.tournamentList[
                                                        index]['time'][
-                                                       'currentPeriodStartTimestamp']) *
-                                                           1000)
-                                                       .toString()
-                                                       .substring(11, 16)
+                                                       'currentPeriodStartTimestamp']
+                                                   )
                                                        : 'N/A',
                                                    style: TextStyle(
                                                        letterSpacing: 0.5,
@@ -1802,14 +1747,12 @@ class _MatchAnnounceScreenState extends State<MatchAnnounceScreen> {
                                                    _tournamentController
                                                        .tournamentList2[index]['time']
                                                        .isNotEmpty
-                                                       ? DateTime.fromMillisecondsSinceEpoch(
-                                                       (_tournamentController
+                                                       ? _tournamentController.readTimestamp(
+                                                       _tournamentController
                                                            .tournamentList2[
                                                        index]['time'][
-                                                       'currentPeriodStartTimestamp']) *
-                                                           1000)
-                                                       .toString()
-                                                       .substring(11, 16)
+                                                       'currentPeriodStartTimestamp']
+                                                   )
                                                        : 'N/A',
                                                    style: TextStyle(
                                                        letterSpacing: 0.5,
@@ -1991,15 +1934,9 @@ class _MatchAnnounceScreenState extends State<MatchAnnounceScreen> {
                                                                   .time!
                                                                   .currentPeriodStartTimestamp !=
                                                                   null
-                                                                  ? DateTime.fromMillisecondsSinceEpoch(
-                                                                  (_tournamentController
-                                                                      .SelectedFootballSportDataList[
-                                                                  index]
-                                                                      .time!
-                                                                      .currentPeriodStartTimestamp!) *
-                                                                      1000)
-                                                                  .toString()
-                                                                  .substring(11, 16)
+                                                                  ? _tournamentController.readTimestamp(
+                                                                  _tournamentController.SelectedFootballSportDataList[index].time!.currentPeriodStartTimestamp!
+                                                              )
                                                                   : 'N/A',
                                                               style: TextStyle(
                                                                   letterSpacing: 0.5,
@@ -2138,15 +2075,9 @@ class _MatchAnnounceScreenState extends State<MatchAnnounceScreen> {
                                                                   .time!
                                                                   .currentPeriodStartTimestamp !=
                                                                   null
-                                                                  ? DateTime.fromMillisecondsSinceEpoch(
-                                                                  (_tournamentController
-                                                                      .SelectedFootballSportDataList2[
-                                                                  index]
-                                                                      .time!
-                                                                      .currentPeriodStartTimestamp!) *
-                                                                      1000)
-                                                                  .toString()
-                                                                  .substring(11, 16)
+                                                                  ? _tournamentController.readTimestamp(
+                                                                  _tournamentController.SelectedFootballSportDataList2[index].time!.currentPeriodStartTimestamp!
+                                                              )
                                                                   : 'N/A',
                                                               style: TextStyle(
                                                                   letterSpacing: 0.5,

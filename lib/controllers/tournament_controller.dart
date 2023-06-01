@@ -268,7 +268,25 @@ class TournamentController extends GetxController {
         time = diff.inDays.toString() + 'DAYS AGO';
       }
     }
-
-    return time;
+    int hour=int.parse(time.substring(0,2));
+    String timeonly=time.substring(0,5);
+    String hourdata=hour>12?(hour-12).toString():hour.toString();
+    String am_pm=hour>12?"PM":"AM";
+    String newTime=hourdata+":"+timeonly.substring(3,5)+" "+am_pm;
+    return newTime;
   }
+
+  // String timeformatter(String time){
+  //   String formattedtime=time;
+  //   String am_pm="";
+  //   String hour=time.substring(0,3);
+  //   String minute=time.substring(4,6);
+  //   int timeNum=int.parse(hour);
+  //   int timenumdif=timeNum>12?timeNum-12:timeNum;
+  //   am_pm=timeNum>12?"PM":"AM";
+  //   String updatedtime=timenumdif.toString();
+  //
+  //   //formattedtime=updatedtime+":"+minute+" "+am_pm;
+  //   return formattedtime;
+  // }
 }
