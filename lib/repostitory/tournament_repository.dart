@@ -4,7 +4,6 @@ import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 
 import '../models/sport_model.dart';
-import '../models/tournament_model.dart';
 import '../utils/constants.dart';
 
 class TournamentRepository {
@@ -13,7 +12,6 @@ class TournamentRepository {
     final DateFormat formatter = DateFormat('yyyy-MM-dd');
     final String formatted = formatter.format(now);
 
-    List<TournamentData> tournamentData = [];
     try {
       var headers = {
         'X-RapidAPI-Key': Constants.API_KEY,
@@ -34,14 +32,12 @@ class TournamentRepository {
     return [];
   }
 
-
   ///nextday
   Future<List> fetchNextTournamentData({required int category_id}) async {
     final DateTime now = DateTime.now().add(Duration(days: 1));
     final DateFormat formatter = DateFormat('yyyy-MM-dd');
     final String formatted = formatter.format(now);
 
-    List<TournamentData> tournamentData = [];
     try {
       var headers = {
         'X-RapidAPI-Key': Constants.API_KEY,
@@ -91,7 +87,7 @@ class TournamentRepository {
     final DateTime now = DateTime.now();
     final nextDay = now.add(Duration(days: 1));
     final DateFormat formatter = DateFormat('yyyy-MM-dd');
-     final String formatted = formatter.format(nextDay);
+    final String formatted = formatter.format(nextDay);
     // final String formatted = "2022-9-11";
     try {
       var headers = {

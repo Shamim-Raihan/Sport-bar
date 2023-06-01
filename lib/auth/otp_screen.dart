@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import '../widgets/round_button.dart';
-
 class OtpScreen extends StatefulWidget {
   const OtpScreen({super.key});
 

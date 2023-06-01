@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:country_picker/country_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -200,6 +199,7 @@ class _SignUpState extends State<SignUp> {
                                             if (!regex.hasMatch(value)) {
                                               return ("Enter Valid Password(Min. 6 Character)");
                                             }
+                                            return null;
                                           },
                                           onSaved: (value) {
                                             passwordEditingController.text =
@@ -408,10 +408,6 @@ class _SignUpState extends State<SignUp> {
     // calling our firestore
     // calling our user model
     // sedning these values
-
-    FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
-    User? user = _auth.currentUser;
-
     Fluttertoast.showToast(msg: "Account created successfully :) ");
 
     Navigator.pushAndRemoveUntil(

@@ -5,6 +5,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:sports_bar/auth/fogot_password.dart';
 import 'package:sports_bar/auth/signup.dart';
 import 'package:sports_bar/main_page.dart';
+
 import '../widgets/round_button.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -35,7 +36,6 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   void dispose() {
-    // TODO: implement dispose
     super.dispose();
     emailController.dispose();
     passwordController.dispose();
@@ -160,6 +160,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                       if (!regex.hasMatch(value)) {
                                         return ("Enter Valid Password(Min. 6 Character)");
                                       }
+                                      return null;
                                     },
                                     onSaved: (value) {
                                       passwordController.text = value!;

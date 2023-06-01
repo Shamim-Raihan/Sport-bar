@@ -4,7 +4,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:sports_bar/widgets/color.dart';
 import 'package:sports_bar/widgets/splash_screen.dart';
-import 'firebase_services/splash_services.dart';
 
 class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);

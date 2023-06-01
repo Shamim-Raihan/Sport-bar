@@ -1,10 +1,7 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
-import '../../auth/login.dart';
+
 import '../../firebase_services/local_notifications.dart';
-import '../../widgets/app_navigation.dart';
-import '../profile_view.dart';
 
 class NotificationScreen extends StatefulWidget {
   NotificationScreen({super.key});

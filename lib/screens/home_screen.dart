@@ -28,8 +28,6 @@ class _HomeScreenState extends State<HomeScreen> {
   final auth = FirebaseAuth.instance;
   User? user = FirebaseAuth.instance.currentUser;
 
-  final Box _box = Hive.box("userData");
-
   Box box = Hive.box("userData");
   @override
   void initState() {
@@ -292,7 +290,8 @@ class _HomeScreenState extends State<HomeScreen> {
                       InkWell(
                         onTap: () {
                           _tournamentController.selectedSport.value = 1;
-                          _tournamentController.fetchAmericanFootballData(context);
+                          _tournamentController
+                              .fetchAmericanFootballData(context);
                           AppNavigation.to(context, MatchAnnounceScreen());
                         },
                         child: Container(

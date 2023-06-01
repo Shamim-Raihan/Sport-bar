@@ -48,23 +48,48 @@ class TournamentController extends GetxController {
   var baseballSportDataList = List<Datum>.empty(growable: true).obs;
   var baseballSportNextDataList = List<Datum>.empty(growable: true).obs;
 
-
-  void fetchTournamentData({required int category_id}) async {
+  void fetchTournamentData(
+      {required int category_id, required BuildContext context}) async {
     tournamentList.clear();
+    dataloading.value = true;
     tournamentList.value = await TournamentRepository()
         .fetchTournamentData(category_id: category_id);
+
     tournamentList.refresh();
+    if (tournamentList.isEmpty) {
+      final snackBar = SnackBar(
+        content: const Text('No match found for Today'),
+        action: SnackBarAction(
+          label: 'Ok',
+          onPressed: () {},
+        ),
+      );
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    }
   }
+
 //nextday
-  void fetchTournamentNextData({required int category_id}) async {
+  void fetchTournamentNextData(
+      {required int category_id, required BuildContext context}) async {
     tournamentList2.clear();
     tournamentList2.value = await TournamentRepository()
         .fetchNextTournamentData(category_id: category_id);
     tournamentList2.refresh();
+    dataloading.value = false;
+    if (tournamentList2.isEmpty) {
+      final snackBar = SnackBar(
+        content: const Text('No match found for Tomorrow'),
+        action: SnackBarAction(
+          label: 'Ok',
+          onPressed: () {},
+        ),
+      );
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    }
   }
 
   //baseball----------------------------->>>>>>>>
-  void fetchBaseballData( BuildContext context) async {
+  void fetchBaseballData(BuildContext context) async {
     dataloading.value = true;
     baseballSportDataList.clear();
     baseballSportNextDataList.clear();
@@ -73,15 +98,36 @@ class TournamentController extends GetxController {
         (await TournamentRepository().fetchToddaysSportData(sport_id: 64))!;
     tempList.addAll(baseballSportTodaysResponse.value.data!);
 
-    baseballSportDataList.value=baseballSportTodaysResponse.value.data!;
+    baseballSportDataList.value = baseballSportTodaysResponse.value.data!;
 
     baseballSportNextDayResponse.value =
         (await TournamentRepository().fetchNextDaySportData(sport_id: 64))!;
     tempList.addAll(baseballSportNextDayResponse.value.data!);
     //baseballSportDataList.value = tempList;
-    baseballSportNextDataList.value=baseballSportNextDayResponse.value.data!;
+    baseballSportNextDataList.value = baseballSportNextDayResponse.value.data!;
+
     dataloading.value = false;
-    if (baseballSportDataList.isEmpty) {
+    if (baseballSportDataList.isEmpty && baseballSportNextDataList.isNotEmpty) {
+      final snackBar = SnackBar(
+        content: const Text('No match found for Today'),
+        action: SnackBarAction(
+          label: 'Ok',
+          onPressed: () {},
+        ),
+      );
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    } else if (baseballSportNextDataList.isEmpty &&
+        baseballSportDataList.isNotEmpty) {
+      final snackBar = SnackBar(
+        content: const Text('No match found for Tomorrow'),
+        action: SnackBarAction(
+          label: 'Ok',
+          onPressed: () {},
+        ),
+      );
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    } else if (baseballSportNextDataList.isEmpty &&
+        baseballSportDataList.isEmpty) {
       final snackBar = SnackBar(
         content: const Text('No match found for Today and Tomorrow'),
         action: SnackBarAction(
@@ -89,15 +135,12 @@ class TournamentController extends GetxController {
           onPressed: () {},
         ),
       );
-
-      // Find the ScaffoldMessenger in the widget tree
-      // and use it to show a SnackBar.
       ScaffoldMessenger.of(context).showSnackBar(snackBar);
     }
   }
 
   //American football----------------------------->>>>>>>>
-  void fetchAmericanFootballData( BuildContext context) async {
+  void fetchAmericanFootballData(BuildContext context) async {
     dataloading.value = true;
     americanSportDataList.clear();
     List<Datum> tempList = [];
@@ -105,15 +148,38 @@ class TournamentController extends GetxController {
         (await TournamentRepository().fetchToddaysSportData(sport_id: 63))!;
     tempList.addAll(americanSportTodaysResponse.value.data!);
 
-    americanSportDataList.value=americanSportTodaysResponse.value.data!;
+    americanSportDataList.value = americanSportTodaysResponse.value.data!;
 
     americanSportNextDayResponse.value =
         (await TournamentRepository().fetchNextDaySportData(sport_id: 63))!;
     tempList.addAll(americanSportNextDayResponse.value.data!);
     //americanSportDataList.value = tempList;
-    americanSportNextDataList.value=americanSportNextDayResponse.value.data!;
+    americanSportNextDataList.value = americanSportNextDayResponse.value.data!;
     dataloading.value = false;
-    if (americanSportDataList.isEmpty) {
+
+    if (americanSportDataList.isEmpty && americanSportNextDataList.isNotEmpty) {
+      final snackBar = SnackBar(
+        content: const Text('No match found for Today'),
+        action: SnackBarAction(
+          label: 'Ok',
+          onPressed: () {},
+        ),
+      );
+
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    } else if (americanSportNextDataList.isEmpty &&
+        americanSportDataList.isNotEmpty) {
+      final snackBar = SnackBar(
+        content: const Text('No match found for Tomorrow'),
+        action: SnackBarAction(
+          label: 'Ok',
+          onPressed: () {},
+        ),
+      );
+
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    } else if (americanSportDataList.isEmpty &&
+        americanSportNextDataList.isEmpty) {
       final snackBar = SnackBar(
         content: const Text('No match found for Today and Tomorrow'),
         action: SnackBarAction(
@@ -122,14 +188,12 @@ class TournamentController extends GetxController {
         ),
       );
 
-      // Find the ScaffoldMessenger in the widget tree
-      // and use it to show a SnackBar.
       ScaffoldMessenger.of(context).showSnackBar(snackBar);
     }
   }
 
   //Rugby---------------------------------------->>>>>>>>
-  void fetchRugbyData( BuildContext context) async {
+  void fetchRugbyData(BuildContext context) async {
     dataloading.value = true;
     rugbySportDataList.clear();
     List<Datum> tempList = [];
@@ -137,17 +201,17 @@ class TournamentController extends GetxController {
         (await TournamentRepository().fetchToddaysSportData(sport_id: 12))!;
     tempList.addAll(rugbySportTodaysResponse.value.data!);
 
-    rugbySportDataList.value=rugbySportTodaysResponse.value.data!;
+    rugbySportDataList.value = rugbySportTodaysResponse.value.data!;
 
     rugbySportNextDayResponse.value =
         (await TournamentRepository().fetchNextDaySportData(sport_id: 12))!;
     tempList.addAll(rugbySportNextDayResponse.value.data!);
     //rugbySportDataList.value = tempList;
-    rugbySportNextDataList.value=rugbySportNextDayResponse.value.data!;
+    rugbySportNextDataList.value = rugbySportNextDayResponse.value.data!;
     dataloading.value = false;
-    if (rugbySportDataList.isEmpty) {
+    if (rugbySportDataList.isEmpty && rugbySportNextDataList.isNotEmpty) {
       final snackBar = SnackBar(
-        content: const Text('No match found for Today and Tomorrow'),
+        content: const Text('No match found for Today'),
         action: SnackBarAction(
           label: 'Ok',
           onPressed: () {},
@@ -157,26 +221,18 @@ class TournamentController extends GetxController {
       // Find the ScaffoldMessenger in the widget tree
       // and use it to show a SnackBar.
       ScaffoldMessenger.of(context).showSnackBar(snackBar);
-    }
-  }
+    } else if (rugbySportNextDataList.isEmpty &&
+        rugbySportDataList.isNotEmpty) {
+      final snackBar = SnackBar(
+        content: const Text('No match found for Tomorrow'),
+        action: SnackBarAction(
+          label: 'Ok',
+          onPressed: () {},
+        ),
+      );
 
-  //basketball----------------------------------->>>>>>>>
-  void fetchBasketballData( BuildContext context) async {
-    dataloading.value = true;
-    basketballSportDataList.clear();
-    List<Datum> tempList = [];
-    basketballSportTodaysResponse.value =
-        (await TournamentRepository().fetchToddaysSportData(sport_id: 2))!;
-    tempList.addAll(basketballSportTodaysResponse.value.data!);
-    baseballSportDataList.value=basketballSportTodaysResponse.value.data!;
-
-    basketballSportNextDayResponse.value =
-        (await TournamentRepository().fetchNextDaySportData(sport_id: 2))!;
-    tempList.addAll(basketballSportNextDayResponse.value.data!);
-    //basketballSportDataList.value = tempList;
-    baseballSportNextDataList.value=basketballSportNextDayResponse.value.data!;
-    dataloading.value = false;
-    if (basketballSportDataList.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    } else if (rugbySportDataList.isEmpty && rugbySportNextDataList.isEmpty) {
       final snackBar = SnackBar(
         content: const Text('No match found for Today and Tomorrow'),
         action: SnackBarAction(
@@ -185,8 +241,60 @@ class TournamentController extends GetxController {
         ),
       );
 
-      // Find the ScaffoldMessenger in the widget tree
-      // and use it to show a SnackBar.
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    }
+  }
+
+  //basketball----------------------------------->>>>>>>>
+  void fetchBasketballData(BuildContext context) async {
+    dataloading.value = true;
+    basketballSportDataList.clear();
+    List<Datum> tempList = [];
+    basketballSportTodaysResponse.value =
+        (await TournamentRepository().fetchToddaysSportData(sport_id: 2))!;
+    tempList.addAll(basketballSportTodaysResponse.value.data!);
+    basketballSportDataList.value = basketballSportTodaysResponse.value.data!;
+
+    basketballSportNextDayResponse.value =
+        (await TournamentRepository().fetchNextDaySportData(sport_id: 2))!;
+    tempList.addAll(basketballSportNextDayResponse.value.data!);
+    //basketballSportDataList.value = tempList;
+    basketballSportNextDataList.value =
+        basketballSportNextDayResponse.value.data!;
+    dataloading.value = false;
+
+    if (basketballSportDataList.isEmpty &&
+        basketballSportNextDataList.isNotEmpty) {
+      final snackBar = SnackBar(
+        content: const Text('No match found for Today'),
+        action: SnackBarAction(
+          label: 'Ok',
+          onPressed: () {},
+        ),
+      );
+
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    } else if (basketballSportNextDataList.isEmpty &&
+        basketballSportDataList.isNotEmpty) {
+      final snackBar = SnackBar(
+        content: const Text('No match found for Tomorrow'),
+        action: SnackBarAction(
+          label: 'Ok',
+          onPressed: () {},
+        ),
+      );
+
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    } else if (basketballSportNextDataList.isEmpty &&
+        basketballSportDataList.isEmpty) {
+      final snackBar = SnackBar(
+        content: const Text('No match found for Today and Tomorrow'),
+        action: SnackBarAction(
+          label: 'Ok',
+          onPressed: () {},
+        ),
+      );
+
       ScaffoldMessenger.of(context).showSnackBar(snackBar);
     }
   }
@@ -200,19 +308,41 @@ class TournamentController extends GetxController {
     footballSportTodaysResponse.value =
         (await TournamentRepository().fetchToddaysSportData(sport_id: 1))!;
     tempList.addAll(footballSportTodaysResponse.value.data!);
-    footballSportDataList.value=footballSportTodaysResponse.value.data!;
+    footballSportDataList.value = footballSportTodaysResponse.value.data!;
 
     footballSportNextDayResponse.value =
         (await TournamentRepository().fetchNextDaySportData(sport_id: 1))!;
     tempList.addAll(footballSportNextDayResponse.value.data!);
     //footballSportDataList.value = tempList;
-    footballSportNextDataList.value=footballSportNextDayResponse.value.data!;
+    footballSportNextDataList.value = footballSportNextDayResponse.value.data!;
 
     await CatFootball(category, footballSportDataList);
     await CatFootball2(category, footballSportNextDataList);
     log('len : ' + SelectedFootballSportDataList.length.toString());
     dataloading.value = false;
-    if (SelectedFootballSportDataList.isEmpty) {
+    if (footballSportDataList.isEmpty && footballSportNextDataList.isNotEmpty) {
+      final snackBar = SnackBar(
+        content: const Text('No match found for Today'),
+        action: SnackBarAction(
+          label: 'Ok',
+          onPressed: () {},
+        ),
+      );
+
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    } else if (footballSportNextDataList.isEmpty &&
+        footballSportDataList.isNotEmpty) {
+      final snackBar = SnackBar(
+        content: const Text('No match found for Tomorrow'),
+        action: SnackBarAction(
+          label: 'Ok',
+          onPressed: () {},
+        ),
+      );
+
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    } else if (footballSportNextDataList.isEmpty &&
+        footballSportDataList.isEmpty) {
       final snackBar = SnackBar(
         content: const Text('No match found for Today and Tomorrow'),
         action: SnackBarAction(
@@ -221,8 +351,6 @@ class TournamentController extends GetxController {
         ),
       );
 
-      // Find the ScaffoldMessenger in the widget tree
-      // and use it to show a SnackBar.
       ScaffoldMessenger.of(context).showSnackBar(snackBar);
     }
   }
@@ -237,6 +365,7 @@ class TournamentController extends GetxController {
       }
     }
   }
+
   ///for next day
   Future<void> CatFootball2(String cat, List<Datum> list) async {
     print("Called2: ${list.length}");
@@ -268,11 +397,11 @@ class TournamentController extends GetxController {
         time = diff.inDays.toString() + 'DAYS AGO';
       }
     }
-    int hour=int.parse(time.substring(0,2));
-    String timeonly=time.substring(0,5);
-    String hourdata=hour>12?(hour-12).toString():hour.toString();
-    String am_pm=hour>12?"PM":"AM";
-    String newTime=hourdata+":"+timeonly.substring(3,5)+" "+am_pm;
+    int hour = int.parse(time.substring(0, 2));
+    String timeonly = time.substring(0, 5);
+    String hourdata = hour > 12 ? (hour - 12).toString() : hour.toString();
+    String am_pm = hour > 12 ? "PM" : "AM";
+    String newTime = hourdata + ":" + timeonly.substring(3, 5) + " " + am_pm;
     return newTime;
   }
 

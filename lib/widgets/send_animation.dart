@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
-import 'package:sports_bar/screens/continue_screen.dart';
 import 'package:sports_bar/widgets/send_animation2.dart';
 
 class SendAnimation extends StatefulWidget {
