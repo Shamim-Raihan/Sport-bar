@@ -24,6 +24,17 @@ class _MatchAnnounceScreenState extends State<MatchAnnounceScreen> {
   final TournamentController _tournamentController =
       Get.put(TournamentController());
 
+  RxString searchQuery = ''.obs;
+  RxString searchQuery2 = ''.obs;
+
+  void updateSearchQuery(String query) {
+    searchQuery.value = query;
+  }
+
+  void updateSearchQuery2(String query) {
+    searchQuery2.value = query;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -185,1532 +196,9 @@ class _MatchAnnounceScreenState extends State<MatchAnnounceScreen> {
   }
 
   Widget _buildBaseballView(BuildContext context) {
-    return Obx(() => DefaultTabController(
-          length: 2,
-          child: Container(
-            child: Column(
-              children: [
-                Container(
-                  color: Colors.white,
-                  child: TabBar(
-                    tabs: [
-                      Tab(
-                        child: Text(
-                          "Today",
-                          textAlign: TextAlign.center,
-                          style: const TextStyle(color: Colors.black),
-                        ),
-                      ),
-                      Tab(
-                        child: Text(
-                          "Tomorrow",
-                          textAlign: TextAlign.center,
-                          style: const TextStyle(color: Colors.black),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                SizedBox(
-                  height: MediaQuery.of(context).size.height - 190.h,
-                  child: TabBarView(
-                    children: [
-                      _tournamentController.dataloading.value
-                          ? Container(
-                              child: ListView.builder(
-                                physics: BouncingScrollPhysics(
-                                    parent: AlwaysScrollableScrollPhysics()),
-                                itemCount: 15,
-                                itemBuilder: (context, index) {
-                                  return Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: ShimmerHelper().buildBasicShimmer(
-                                      height: 80,
-                                      width: 350,
-                                    ),
-                                  );
-                                },
-                              ),
-                            )
-                          : _tournamentController.baseballSportDataList.isEmpty
-                              ? Container()
-                              : SingleChildScrollView(
-                                  child: Container(
-                                    height: MediaQuery.of(context).size.height -
-                                        190.h,
-                                    child: Obx(
-                                      () => ListView.builder(
-                                        physics: BouncingScrollPhysics(
-                                            parent:
-                                                AlwaysScrollableScrollPhysics()),
-                                        itemCount: _tournamentController
-                                            .baseballSportDataList.length,
-                                        itemBuilder: (context, index) {
-                                          return Padding(
-                                            padding: const EdgeInsets.all(8.0),
-                                            child: GestureDetector(
-                                              onTap: () => AppNavigation.to(
-                                                  context, ChattingScreen()),
-                                              child: Container(
-                                                width: 340,
-                                                decoration: BoxDecoration(
-                                                  color: Color(0xFF66C38E),
-                                                  borderRadius:
-                                                      BorderRadius.circular(10),
-                                                ),
-                                                child: Padding(
-                                                  padding:
-                                                      const EdgeInsets.all(10),
-                                                  child: Column(
-                                                    children: [
-                                                      Row(
-                                                        children: [
-                                                          Expanded(
-                                                            flex: 2,
-                                                            child: Text(
-                                                              _tournamentController
-                                                                  .baseballSportDataList[
-                                                                      index]
-                                                                  .homeTeam!
-                                                                  .name!,
-                                                              style: TextStyle(
-                                                                  letterSpacing:
-                                                                      0.5,
-                                                                  fontSize: 15,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w500),
-                                                              textAlign:
-                                                                  TextAlign
-                                                                      .center,
-                                                            ),
-                                                          ),
-                                                          Expanded(
-                                                            flex: 1,
-                                                            child: Column(
-                                                              children: [
-                                                                Text(
-                                                                  _tournamentController
-                                                                              .baseballSportDataList[
-                                                                                  index]
-                                                                              .time!
-                                                                              .currentPeriodStartTimestamp !=
-                                                                          null
-                                                                      ? DateTime.fromMillisecondsSinceEpoch((_tournamentController.baseballSportDataList[index].time!.currentPeriodStartTimestamp!) *
-                                                                              1000)
-                                                                          .toString()
-                                                                          .substring(
-                                                                              0,
-                                                                              11)
-                                                                      : 'N/A',
-                                                                  style: TextStyle(
-                                                                      letterSpacing:
-                                                                          0.5,
-                                                                      fontSize:
-                                                                          11.sp,
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .w500),
-                                                                  textAlign:
-                                                                      TextAlign
-                                                                          .center,
-                                                                ),
-                                                                Text(
-                                                                  _tournamentController
-                                                                              .baseballSportDataList[
-                                                                                  index]
-                                                                              .time!
-                                                                              .currentPeriodStartTimestamp !=
-                                                                          null
-                                                                      ? _tournamentController.readTimestamp(_tournamentController
-                                                                          .baseballSportDataList[
-                                                                              index]
-                                                                          .time!
-                                                                          .currentPeriodStartTimestamp!)
-                                                                      : 'N/A',
-                                                                  style: TextStyle(
-                                                                      letterSpacing:
-                                                                          0.5,
-                                                                      fontSize:
-                                                                          20.sp,
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .w500),
-                                                                  textAlign:
-                                                                      TextAlign
-                                                                          .center,
-                                                                ),
-                                                              ],
-                                                            ),
-                                                          ),
-                                                          Expanded(
-                                                            flex: 2,
-                                                            child: Text(
-                                                              _tournamentController
-                                                                  .baseballSportDataList[
-                                                                      index]
-                                                                  .awayTeam!
-                                                                  .name!,
-                                                              style: TextStyle(
-                                                                  letterSpacing:
-                                                                      0.5,
-                                                                  fontSize: 15,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w500),
-                                                              textAlign:
-                                                                  TextAlign
-                                                                      .center,
-                                                            ),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                      SizedBox(
-                                                        height: 5,
-                                                      ),
-                                                      Text(
-                                                        "GMT+1",
-                                                        style: TextStyle(
-                                                            fontSize: 13,
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .w500),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                          );
-                                        },
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                      _tournamentController.dataloading.value
-                          ? Container(
-                              child: ListView.builder(
-                                physics: BouncingScrollPhysics(
-                                    parent: AlwaysScrollableScrollPhysics()),
-                                itemCount: 15,
-                                itemBuilder: (context, index) {
-                                  return Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: ShimmerHelper().buildBasicShimmer(
-                                      height: 80,
-                                      width: 350,
-                                    ),
-                                  );
-                                },
-                              ),
-                            )
-                          : _tournamentController
-                                  .baseballSportNextDataList.isEmpty
-                              ? Container()
-                              : SingleChildScrollView(
-                                  child: Container(
-                                    height: MediaQuery.of(context).size.height -
-                                        190.h,
-                                    child: Obx(
-                                      () => ListView.builder(
-                                        physics: BouncingScrollPhysics(
-                                            parent:
-                                                AlwaysScrollableScrollPhysics()),
-                                        itemCount: _tournamentController
-                                            .baseballSportNextDataList.length,
-                                        itemBuilder: (context, index) {
-                                          return Padding(
-                                            padding: const EdgeInsets.all(8.0),
-                                            child: GestureDetector(
-                                              onTap: () => AppNavigation.to(
-                                                  context, ChattingScreen()),
-                                              child: Container(
-                                                width: 340,
-                                                decoration: BoxDecoration(
-                                                  color: Color(0xFF66C38E),
-                                                  borderRadius:
-                                                      BorderRadius.circular(10),
-                                                ),
-                                                child: Padding(
-                                                  padding:
-                                                      const EdgeInsets.all(10),
-                                                  child: Column(
-                                                    children: [
-                                                      Row(
-                                                        children: [
-                                                          Expanded(
-                                                            flex: 2,
-                                                            child: Text(
-                                                              _tournamentController
-                                                                  .baseballSportNextDataList[
-                                                                      index]
-                                                                  .homeTeam!
-                                                                  .name!,
-                                                              style: TextStyle(
-                                                                  letterSpacing:
-                                                                      0.5,
-                                                                  fontSize: 15,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w500),
-                                                              textAlign:
-                                                                  TextAlign
-                                                                      .center,
-                                                            ),
-                                                          ),
-                                                          Expanded(
-                                                            flex: 1,
-                                                            child: Column(
-                                                              children: [
-                                                                Text(
-                                                                  _tournamentController
-                                                                              .baseballSportNextDataList[
-                                                                                  index]
-                                                                              .time!
-                                                                              .currentPeriodStartTimestamp !=
-                                                                          null
-                                                                      ? DateTime.fromMillisecondsSinceEpoch((_tournamentController.baseballSportNextDataList[index].time!.currentPeriodStartTimestamp!) *
-                                                                              1000)
-                                                                          .toString()
-                                                                          .substring(
-                                                                              0,
-                                                                              11)
-                                                                      : 'N/A',
-                                                                  style: TextStyle(
-                                                                      letterSpacing:
-                                                                          0.5,
-                                                                      fontSize:
-                                                                          11.sp,
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .w500),
-                                                                  textAlign:
-                                                                      TextAlign
-                                                                          .center,
-                                                                ),
-                                                                Text(
-                                                                  _tournamentController
-                                                                              .baseballSportNextDataList[
-                                                                                  index]
-                                                                              .time!
-                                                                              .currentPeriodStartTimestamp !=
-                                                                          null
-                                                                      ? _tournamentController.readTimestamp(_tournamentController
-                                                                          .baseballSportNextDataList[
-                                                                              index]
-                                                                          .time!
-                                                                          .currentPeriodStartTimestamp!)
-                                                                      : 'N/A',
-                                                                  style: TextStyle(
-                                                                      letterSpacing:
-                                                                          0.5,
-                                                                      fontSize:
-                                                                          20.sp,
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .w500),
-                                                                  textAlign:
-                                                                      TextAlign
-                                                                          .center,
-                                                                ),
-                                                              ],
-                                                            ),
-                                                          ),
-                                                          Expanded(
-                                                            flex: 2,
-                                                            child: Text(
-                                                              _tournamentController
-                                                                  .baseballSportNextDataList[
-                                                                      index]
-                                                                  .awayTeam!
-                                                                  .name!,
-                                                              style: TextStyle(
-                                                                  letterSpacing:
-                                                                      0.5,
-                                                                  fontSize: 15,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w500),
-                                                              textAlign:
-                                                                  TextAlign
-                                                                      .center,
-                                                            ),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                      SizedBox(
-                                                        height: 5,
-                                                      ),
-                                                      Text(
-                                                        "GMT+1",
-                                                        style: TextStyle(
-                                                            fontSize: 13,
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .w500),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                          );
-                                        },
-                                      ),
-                                    ),
-                                  ),
-                                )
-                    ],
-                  ),
-                )
-              ],
-            ),
-          ),
-        ));
-  }
-
-  Widget _buildBasketballView(BuildContext context) {
-    return Obx(() => DefaultTabController(
-          length: 2,
-          child: Container(
-              child: Column(
-            children: [
-              Container(
-                color: Colors.white,
-                child: TabBar(
-                  tabs: [
-                    Tab(
-                      child: Text(
-                        "Today",
-                        textAlign: TextAlign.center,
-                        style: const TextStyle(color: Colors.black),
-                      ),
-                    ),
-                    Tab(
-                      child: Text(
-                        "Tomorrow",
-                        textAlign: TextAlign.center,
-                        style: const TextStyle(color: Colors.black),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              SizedBox(
-                height: MediaQuery.of(context).size.height - 190.h,
-                child: TabBarView(
-                  children: [
-                    _tournamentController.dataloading.value
-                        ? Container(
-                            child: ListView.builder(
-                              physics: BouncingScrollPhysics(
-                                  parent: AlwaysScrollableScrollPhysics()),
-                              itemCount: 15,
-                              itemBuilder: (context, index) {
-                                return Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: ShimmerHelper().buildBasicShimmer(
-                                    height: 80,
-                                    width: 350,
-                                  ),
-                                );
-                              },
-                            ),
-                          )
-                        : _tournamentController.basketballSportDataList.isEmpty
-                            ? Container()
-                            : SingleChildScrollView(
-                                child: Container(
-                                  height: MediaQuery.of(context).size.height -
-                                      190.h,
-                                  child: Obx(
-                                    () => ListView.builder(
-                                      physics: BouncingScrollPhysics(
-                                          parent:
-                                              AlwaysScrollableScrollPhysics()),
-                                      itemCount: _tournamentController
-                                          .basketballSportDataList.length,
-                                      itemBuilder: (context, index) {
-                                        return Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: GestureDetector(
-                                            onTap: () => AppNavigation.to(
-                                                context, ChattingScreen()),
-                                            child: Container(
-                                              width: 340,
-                                              decoration: BoxDecoration(
-                                                color: Color(0xFF66C38E),
-                                                borderRadius:
-                                                    BorderRadius.circular(10),
-                                              ),
-                                              child: Padding(
-                                                padding:
-                                                    const EdgeInsets.all(10),
-                                                child: Column(
-                                                  children: [
-                                                    Row(
-                                                      children: [
-                                                        Expanded(
-                                                          flex: 2,
-                                                          child: Text(
-                                                            _tournamentController
-                                                                .basketballSportDataList[
-                                                                    index]
-                                                                .homeTeam!
-                                                                .name!,
-                                                            style: TextStyle(
-                                                                letterSpacing:
-                                                                    0.5,
-                                                                fontSize: 15,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w500),
-                                                            textAlign: TextAlign
-                                                                .center,
-                                                          ),
-                                                        ),
-                                                        Expanded(
-                                                          flex: 1,
-                                                          child: Column(
-                                                            children: [
-                                                              Text(
-                                                                _tournamentController
-                                                                            .basketballSportDataList[
-                                                                                index]
-                                                                            .time!
-                                                                            .currentPeriodStartTimestamp !=
-                                                                        null
-                                                                    ? DateTime.fromMillisecondsSinceEpoch((_tournamentController.basketballSportDataList[index].time!.currentPeriodStartTimestamp!) *
-                                                                            1000)
-                                                                        .toString()
-                                                                        .substring(
-                                                                            0,
-                                                                            11)
-                                                                    : 'N/A',
-                                                                style: TextStyle(
-                                                                    letterSpacing:
-                                                                        0.5,
-                                                                    fontSize:
-                                                                        11.sp,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w500),
-                                                                textAlign:
-                                                                    TextAlign
-                                                                        .center,
-                                                              ),
-                                                              Text(
-                                                                _tournamentController
-                                                                            .basketballSportDataList[
-                                                                                index]
-                                                                            .time!
-                                                                            .currentPeriodStartTimestamp !=
-                                                                        null
-                                                                    ? _tournamentController.readTimestamp(_tournamentController
-                                                                        .basketballSportDataList[
-                                                                            index]
-                                                                        .time!
-                                                                        .currentPeriodStartTimestamp!)
-                                                                    : 'N/A',
-                                                                style: TextStyle(
-                                                                    letterSpacing:
-                                                                        0.5,
-                                                                    fontSize:
-                                                                        20.sp,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w500),
-                                                                textAlign:
-                                                                    TextAlign
-                                                                        .center,
-                                                              ),
-                                                            ],
-                                                          ),
-                                                        ),
-                                                        Expanded(
-                                                          flex: 2,
-                                                          child: Text(
-                                                            _tournamentController
-                                                                .basketballSportDataList[
-                                                                    index]
-                                                                .awayTeam!
-                                                                .name!,
-                                                            style: TextStyle(
-                                                                letterSpacing:
-                                                                    0.5,
-                                                                fontSize: 15,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w500),
-                                                            textAlign: TextAlign
-                                                                .center,
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                    SizedBox(
-                                                      height: 5,
-                                                    ),
-                                                    Text(
-                                                      "GMT+1",
-                                                      style: TextStyle(
-                                                          fontSize: 13,
-                                                          fontWeight:
-                                                              FontWeight.w500),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                        );
-                                      },
-                                    ),
-                                  ),
-                                ),
-                              ),
-                    _tournamentController.dataloading.value
-                        ? Container(
-                            child: ListView.builder(
-                              physics: BouncingScrollPhysics(
-                                  parent: AlwaysScrollableScrollPhysics()),
-                              itemCount: 15,
-                              itemBuilder: (context, index) {
-                                return Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: ShimmerHelper().buildBasicShimmer(
-                                    height: 80,
-                                    width: 350,
-                                  ),
-                                );
-                              },
-                            ),
-                          )
-                        : _tournamentController
-                                .basketballSportNextDataList.isEmpty
-                            ? Container()
-                            : SingleChildScrollView(
-                                child: Container(
-                                  height: MediaQuery.of(context).size.height -
-                                      190.h,
-                                  child: Obx(
-                                    () => ListView.builder(
-                                      physics: BouncingScrollPhysics(
-                                          parent:
-                                              AlwaysScrollableScrollPhysics()),
-                                      itemCount: _tournamentController
-                                          .basketballSportNextDataList.length,
-                                      itemBuilder: (context, index) {
-                                        return Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: GestureDetector(
-                                            onTap: () => AppNavigation.to(
-                                                context, ChattingScreen()),
-                                            child: Container(
-                                              width: 340,
-                                              decoration: BoxDecoration(
-                                                color: Color(0xFF66C38E),
-                                                borderRadius:
-                                                    BorderRadius.circular(10),
-                                              ),
-                                              child: Padding(
-                                                padding:
-                                                    const EdgeInsets.all(10),
-                                                child: Column(
-                                                  children: [
-                                                    Row(
-                                                      children: [
-                                                        Expanded(
-                                                          flex: 2,
-                                                          child: Text(
-                                                            _tournamentController
-                                                                .basketballSportNextDataList[
-                                                                    index]
-                                                                .homeTeam!
-                                                                .name!,
-                                                            style: TextStyle(
-                                                                letterSpacing:
-                                                                    0.5,
-                                                                fontSize: 15,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w500),
-                                                            textAlign: TextAlign
-                                                                .center,
-                                                          ),
-                                                        ),
-                                                        Expanded(
-                                                          flex: 1,
-                                                          child: Column(
-                                                            children: [
-                                                              Text(
-                                                                _tournamentController
-                                                                            .basketballSportNextDataList[
-                                                                                index]
-                                                                            .time!
-                                                                            .currentPeriodStartTimestamp !=
-                                                                        null
-                                                                    ? DateTime.fromMillisecondsSinceEpoch((_tournamentController.basketballSportNextDataList[index].time!.currentPeriodStartTimestamp!) *
-                                                                            1000)
-                                                                        .toString()
-                                                                        .substring(
-                                                                            0,
-                                                                            11)
-                                                                    : 'N/A',
-                                                                style: TextStyle(
-                                                                    letterSpacing:
-                                                                        0.5,
-                                                                    fontSize:
-                                                                        11.sp,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w500),
-                                                                textAlign:
-                                                                    TextAlign
-                                                                        .center,
-                                                              ),
-                                                              Text(
-                                                                _tournamentController
-                                                                            .basketballSportNextDataList[
-                                                                                index]
-                                                                            .time!
-                                                                            .currentPeriodStartTimestamp !=
-                                                                        null
-                                                                    ? _tournamentController.readTimestamp(_tournamentController
-                                                                        .basketballSportNextDataList[
-                                                                            index]
-                                                                        .time!
-                                                                        .currentPeriodStartTimestamp!)
-                                                                    : 'N/A',
-                                                                style: TextStyle(
-                                                                    letterSpacing:
-                                                                        0.5,
-                                                                    fontSize:
-                                                                        20.sp,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w500),
-                                                                textAlign:
-                                                                    TextAlign
-                                                                        .center,
-                                                              ),
-                                                            ],
-                                                          ),
-                                                        ),
-                                                        Expanded(
-                                                          flex: 2,
-                                                          child: Text(
-                                                            _tournamentController
-                                                                .basketballSportNextDataList[
-                                                                    index]
-                                                                .awayTeam!
-                                                                .name!,
-                                                            style: TextStyle(
-                                                                letterSpacing:
-                                                                    0.5,
-                                                                fontSize: 15,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w500),
-                                                            textAlign: TextAlign
-                                                                .center,
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                    SizedBox(
-                                                      height: 5,
-                                                    ),
-                                                    Text(
-                                                      "GMT+1",
-                                                      style: TextStyle(
-                                                          fontSize: 13,
-                                                          fontWeight:
-                                                              FontWeight.w500),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                        );
-                                      },
-                                    ),
-                                  ),
-                                ),
-                              ),
-                  ],
-                ),
-              )
-            ],
-          )),
-        ));
-  }
-
-  Widget _buildRugbyView(BuildContext context) {
-    return Obx(() => DefaultTabController(
-          length: 2,
-          child: Container(
-              child: Column(
-            children: [
-              Container(
-                color: Colors.white,
-                child: TabBar(
-                  tabs: [
-                    Tab(
-                      child: Text(
-                        "Today",
-                        textAlign: TextAlign.center,
-                        style: const TextStyle(color: Colors.black),
-                      ),
-                    ),
-                    Tab(
-                      child: Text(
-                        "Tomorrow",
-                        textAlign: TextAlign.center,
-                        style: const TextStyle(color: Colors.black),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              SizedBox(
-                height: MediaQuery.of(context).size.height - 190.h,
-                child: TabBarView(
-                  children: [
-                    _tournamentController.dataloading.value
-                        ? Container(
-                            child: ListView.builder(
-                              physics: BouncingScrollPhysics(
-                                  parent: AlwaysScrollableScrollPhysics()),
-                              itemCount: 15,
-                              itemBuilder: (context, index) {
-                                return Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: ShimmerHelper().buildBasicShimmer(
-                                    height: 80,
-                                    width: 350,
-                                  ),
-                                );
-                              },
-                            ),
-                          )
-                        : _tournamentController.rugbySportDataList.isEmpty
-                            ? Container()
-                            : SingleChildScrollView(
-                                child: Container(
-                                  height:
-                                      MediaQuery.of(context).size.height - 190,
-                                  child: Obx(
-                                    () => ListView.builder(
-                                      physics: BouncingScrollPhysics(
-                                          parent:
-                                              AlwaysScrollableScrollPhysics()),
-                                      itemCount: _tournamentController
-                                          .rugbySportDataList.length,
-                                      itemBuilder: (context, index) {
-                                        return Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: GestureDetector(
-                                            onTap: () => AppNavigation.to(
-                                                context, ChattingScreen()),
-                                            child: Container(
-                                              width: 340,
-                                              decoration: BoxDecoration(
-                                                color: Color(0xFF66C38E),
-                                                borderRadius:
-                                                    BorderRadius.circular(10),
-                                              ),
-                                              child: Padding(
-                                                padding:
-                                                    const EdgeInsets.all(10),
-                                                child: Column(
-                                                  children: [
-                                                    Row(
-                                                      children: [
-                                                        Expanded(
-                                                          flex: 2,
-                                                          child: Text(
-                                                            _tournamentController
-                                                                .rugbySportDataList[
-                                                                    index]
-                                                                .homeTeam!
-                                                                .name!,
-                                                            style: TextStyle(
-                                                                letterSpacing:
-                                                                    0.5,
-                                                                fontSize: 15,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w500),
-                                                            textAlign: TextAlign
-                                                                .center,
-                                                          ),
-                                                        ),
-                                                        Expanded(
-                                                          flex: 1,
-                                                          child: Column(
-                                                            children: [
-                                                              Text(
-                                                                _tournamentController
-                                                                            .rugbySportDataList[
-                                                                                index]
-                                                                            .time!
-                                                                            .currentPeriodStartTimestamp !=
-                                                                        null
-                                                                    ? DateTime.fromMillisecondsSinceEpoch((_tournamentController.rugbySportDataList[index].time!.currentPeriodStartTimestamp!) *
-                                                                            1000)
-                                                                        .toString()
-                                                                        .substring(
-                                                                            0,
-                                                                            11)
-                                                                    : 'N/A',
-                                                                style: TextStyle(
-                                                                    letterSpacing:
-                                                                        0.5,
-                                                                    fontSize:
-                                                                        11.sp,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w500),
-                                                                textAlign:
-                                                                    TextAlign
-                                                                        .center,
-                                                              ),
-                                                              Text(
-                                                                _tournamentController
-                                                                            .rugbySportDataList[
-                                                                                index]
-                                                                            .time!
-                                                                            .currentPeriodStartTimestamp !=
-                                                                        null
-                                                                    ? _tournamentController.readTimestamp(_tournamentController
-                                                                        .rugbySportDataList[
-                                                                            index]
-                                                                        .time!
-                                                                        .currentPeriodStartTimestamp!)
-                                                                    : 'N/A',
-                                                                style: TextStyle(
-                                                                    letterSpacing:
-                                                                        0.5,
-                                                                    fontSize:
-                                                                        20.sp,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w500),
-                                                                textAlign:
-                                                                    TextAlign
-                                                                        .center,
-                                                              ),
-                                                            ],
-                                                          ),
-                                                        ),
-                                                        Expanded(
-                                                          flex: 2,
-                                                          child: Text(
-                                                            _tournamentController
-                                                                .rugbySportDataList[
-                                                                    index]
-                                                                .awayTeam!
-                                                                .name!,
-                                                            style: TextStyle(
-                                                                letterSpacing:
-                                                                    0.5,
-                                                                fontSize: 15,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w500),
-                                                            textAlign: TextAlign
-                                                                .center,
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                    SizedBox(
-                                                      height: 5,
-                                                    ),
-                                                    Text(
-                                                      "GMT+1",
-                                                      style: TextStyle(
-                                                          fontSize: 13,
-                                                          fontWeight:
-                                                              FontWeight.w500),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                        );
-                                      },
-                                    ),
-                                  ),
-                                ),
-                              ),
-                    _tournamentController.dataloading.value
-                        ? Container(
-                            child: ListView.builder(
-                              physics: BouncingScrollPhysics(
-                                  parent: AlwaysScrollableScrollPhysics()),
-                              itemCount: 15,
-                              itemBuilder: (context, index) {
-                                return Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: ShimmerHelper().buildBasicShimmer(
-                                    height: 80,
-                                    width: 350,
-                                  ),
-                                );
-                              },
-                            ),
-                          )
-                        : _tournamentController.rugbySportNextDataList.isEmpty
-                            ? Container()
-                            : SingleChildScrollView(
-                                child: Container(
-                                  height:
-                                      MediaQuery.of(context).size.height - 190,
-                                  child: Obx(
-                                    () => ListView.builder(
-                                      physics: BouncingScrollPhysics(
-                                          parent:
-                                              AlwaysScrollableScrollPhysics()),
-                                      itemCount: _tournamentController
-                                          .rugbySportNextDataList.length,
-                                      itemBuilder: (context, index) {
-                                        return Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: GestureDetector(
-                                            onTap: () => AppNavigation.to(
-                                                context, ChattingScreen()),
-                                            child: Container(
-                                              width: 340,
-                                              decoration: BoxDecoration(
-                                                color: Color(0xFF66C38E),
-                                                borderRadius:
-                                                    BorderRadius.circular(10),
-                                              ),
-                                              child: Padding(
-                                                padding:
-                                                    const EdgeInsets.all(10),
-                                                child: Column(
-                                                  children: [
-                                                    Row(
-                                                      children: [
-                                                        Expanded(
-                                                          flex: 2,
-                                                          child: Text(
-                                                            _tournamentController
-                                                                .rugbySportNextDataList[
-                                                                    index]
-                                                                .homeTeam!
-                                                                .name!,
-                                                            style: TextStyle(
-                                                                letterSpacing:
-                                                                    0.5,
-                                                                fontSize: 15,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w500),
-                                                            textAlign: TextAlign
-                                                                .center,
-                                                          ),
-                                                        ),
-                                                        Expanded(
-                                                          flex: 1,
-                                                          child: Column(
-                                                            children: [
-                                                              Text(
-                                                                _tournamentController
-                                                                            .rugbySportNextDataList[
-                                                                                index]
-                                                                            .time!
-                                                                            .currentPeriodStartTimestamp !=
-                                                                        null
-                                                                    ? DateTime.fromMillisecondsSinceEpoch((_tournamentController.rugbySportNextDataList[index].time!.currentPeriodStartTimestamp!) *
-                                                                            1000)
-                                                                        .toString()
-                                                                        .substring(
-                                                                            0,
-                                                                            11)
-                                                                    : 'N/A',
-                                                                style: TextStyle(
-                                                                    letterSpacing:
-                                                                        0.5,
-                                                                    fontSize:
-                                                                        11.sp,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w500),
-                                                                textAlign:
-                                                                    TextAlign
-                                                                        .center,
-                                                              ),
-                                                              Text(
-                                                                _tournamentController
-                                                                            .rugbySportNextDataList[
-                                                                                index]
-                                                                            .time!
-                                                                            .currentPeriodStartTimestamp !=
-                                                                        null
-                                                                    ? _tournamentController.readTimestamp(_tournamentController
-                                                                        .rugbySportNextDataList[
-                                                                            index]
-                                                                        .time!
-                                                                        .currentPeriodStartTimestamp!)
-                                                                    : 'N/A',
-                                                                style: TextStyle(
-                                                                    letterSpacing:
-                                                                        0.5,
-                                                                    fontSize:
-                                                                        20.sp,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w500),
-                                                                textAlign:
-                                                                    TextAlign
-                                                                        .center,
-                                                              ),
-                                                            ],
-                                                          ),
-                                                        ),
-                                                        Expanded(
-                                                          flex: 2,
-                                                          child: Text(
-                                                            _tournamentController
-                                                                .rugbySportNextDataList[
-                                                                    index]
-                                                                .awayTeam!
-                                                                .name!,
-                                                            style: TextStyle(
-                                                                letterSpacing:
-                                                                    0.5,
-                                                                fontSize: 15,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w500),
-                                                            textAlign: TextAlign
-                                                                .center,
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                    SizedBox(
-                                                      height: 5,
-                                                    ),
-                                                    Text(
-                                                      "GMT+1",
-                                                      style: TextStyle(
-                                                          fontSize: 13,
-                                                          fontWeight:
-                                                              FontWeight.w500),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                        );
-                                      },
-                                    ),
-                                  ),
-                                ),
-                              ),
-                  ],
-                ),
-              )
-            ],
-          )),
-        ));
-  }
-
-  Widget _buildAmericanFootbalView(BuildContext context) {
-    return Obx(
-      () => DefaultTabController(
-        length: 2,
-        child: Container(
-          child: Column(
-            children: [
-              Container(
-                color: Colors.white,
-                child: TabBar(
-                  tabs: [
-                    Tab(
-                      child: Text(
-                        "Today",
-                        textAlign: TextAlign.center,
-                        style: const TextStyle(color: Colors.black),
-                      ),
-                    ),
-                    Tab(
-                      child: Text(
-                        "Tomorrow",
-                        textAlign: TextAlign.center,
-                        style: const TextStyle(color: Colors.black),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              SizedBox(
-                height: MediaQuery.of(context).size.height - 190.h,
-                child: TabBarView(
-                  children: [
-                    _tournamentController.dataloading.value
-                        ? Container(
-                            child: ListView.builder(
-                              physics: BouncingScrollPhysics(
-                                  parent: AlwaysScrollableScrollPhysics()),
-                              itemCount: 15,
-                              itemBuilder: (context, index) {
-                                return Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: ShimmerHelper().buildBasicShimmer(
-                                    height: 80,
-                                    width: 350,
-                                  ),
-                                );
-                              },
-                            ),
-                          )
-                        : _tournamentController.americanSportDataList.isEmpty
-                            ? Container()
-                            : SingleChildScrollView(
-                                child: Container(
-                                  height:
-                                      MediaQuery.of(context).size.height - 190,
-                                  child: Obx(
-                                    () => ListView.builder(
-                                      physics: BouncingScrollPhysics(
-                                          parent:
-                                              AlwaysScrollableScrollPhysics()),
-                                      itemCount: _tournamentController
-                                          .americanSportDataList.length,
-                                      itemBuilder: (context, index) {
-                                        return Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: GestureDetector(
-                                            onTap: () => AppNavigation.to(
-                                                context, ChattingScreen()),
-                                            child: Container(
-                                              width: 340,
-                                              decoration: BoxDecoration(
-                                                color: Color(0xFF66C38E),
-                                                borderRadius:
-                                                    BorderRadius.circular(10),
-                                              ),
-                                              child: Padding(
-                                                padding:
-                                                    const EdgeInsets.all(10),
-                                                child: Column(
-                                                  children: [
-                                                    Row(
-                                                      children: [
-                                                        Expanded(
-                                                          flex: 2,
-                                                          child: Text(
-                                                            _tournamentController
-                                                                .americanSportDataList[
-                                                                    index]
-                                                                .homeTeam!
-                                                                .name!,
-                                                            style: TextStyle(
-                                                                letterSpacing:
-                                                                    0.5,
-                                                                fontSize: 15,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w500),
-                                                            textAlign: TextAlign
-                                                                .center,
-                                                          ),
-                                                        ),
-                                                        Expanded(
-                                                          flex: 1,
-                                                          child: Column(
-                                                            children: [
-                                                              Text(
-                                                                _tournamentController
-                                                                            .americanSportDataList[
-                                                                                index]
-                                                                            .time!
-                                                                            .currentPeriodStartTimestamp !=
-                                                                        null
-                                                                    ? _tournamentController.readTimestamp(_tournamentController
-                                                                        .americanSportDataList[
-                                                                            index]
-                                                                        .time!
-                                                                        .currentPeriodStartTimestamp!)
-                                                                    : 'N/A',
-                                                                style: TextStyle(
-                                                                    letterSpacing:
-                                                                        0.5,
-                                                                    fontSize:
-                                                                        11.sp,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w500),
-                                                                textAlign:
-                                                                    TextAlign
-                                                                        .center,
-                                                              ),
-                                                              Text(
-                                                                _tournamentController
-                                                                            .americanSportDataList[
-                                                                                index]
-                                                                            .time!
-                                                                            .currentPeriodStartTimestamp !=
-                                                                        null
-                                                                    ? DateTime.fromMillisecondsSinceEpoch((_tournamentController.americanSportDataList[index].time!.currentPeriodStartTimestamp!) *
-                                                                            1000)
-                                                                        .toString()
-                                                                        .substring(
-                                                                            11,
-                                                                            16)
-                                                                    : 'N/A',
-                                                                style: TextStyle(
-                                                                    letterSpacing:
-                                                                        0.5,
-                                                                    fontSize:
-                                                                        20.sp,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w500),
-                                                                textAlign:
-                                                                    TextAlign
-                                                                        .center,
-                                                              ),
-                                                            ],
-                                                          ),
-                                                        ),
-                                                        Expanded(
-                                                          flex: 2,
-                                                          child: Text(
-                                                            _tournamentController
-                                                                .americanSportDataList[
-                                                                    index]
-                                                                .awayTeam!
-                                                                .name!,
-                                                            style: TextStyle(
-                                                                letterSpacing:
-                                                                    0.5,
-                                                                fontSize: 15,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w500),
-                                                            textAlign: TextAlign
-                                                                .center,
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                    SizedBox(
-                                                      height: 5,
-                                                    ),
-                                                    Text(
-                                                      "GMT+1",
-                                                      style: TextStyle(
-                                                          fontSize: 13,
-                                                          fontWeight:
-                                                              FontWeight.w500),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                        );
-                                      },
-                                    ),
-                                  ),
-                                ),
-                              ),
-                    _tournamentController.dataloading.value
-                        ? Container(
-                            child: ListView.builder(
-                              physics: BouncingScrollPhysics(
-                                  parent: AlwaysScrollableScrollPhysics()),
-                              itemCount: 15,
-                              itemBuilder: (context, index) {
-                                return Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: ShimmerHelper().buildBasicShimmer(
-                                    height: 80,
-                                    width: 350,
-                                  ),
-                                );
-                              },
-                            ),
-                          )
-                        : _tournamentController
-                                .americanSportNextDataList.isEmpty
-                            ? Container()
-                            : SingleChildScrollView(
-                                child: Container(
-                                  height: MediaQuery.of(context).size.height -
-                                      190.h,
-                                  child: Obx(
-                                    () => ListView.builder(
-                                      physics: BouncingScrollPhysics(
-                                          parent:
-                                              AlwaysScrollableScrollPhysics()),
-                                      itemCount: _tournamentController
-                                          .americanSportNextDataList.length,
-                                      itemBuilder: (context, index) {
-                                        return Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: GestureDetector(
-                                            onTap: () => AppNavigation.to(
-                                                context, ChattingScreen()),
-                                            child: Container(
-                                              width: 340,
-                                              decoration: BoxDecoration(
-                                                color: Color(0xFF66C38E),
-                                                borderRadius:
-                                                    BorderRadius.circular(10),
-                                              ),
-                                              child: Padding(
-                                                padding:
-                                                    const EdgeInsets.all(10),
-                                                child: Column(
-                                                  children: [
-                                                    Row(
-                                                      children: [
-                                                        Expanded(
-                                                          flex: 2,
-                                                          child: Text(
-                                                            _tournamentController
-                                                                .americanSportNextDataList[
-                                                                    index]
-                                                                .homeTeam!
-                                                                .name!,
-                                                            style: TextStyle(
-                                                                letterSpacing:
-                                                                    0.5,
-                                                                fontSize: 15,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w500),
-                                                            textAlign: TextAlign
-                                                                .center,
-                                                          ),
-                                                        ),
-                                                        Expanded(
-                                                          flex: 1,
-                                                          child: Column(
-                                                            children: [
-                                                              Text(
-                                                                _tournamentController
-                                                                            .americanSportNextDataList[
-                                                                                index]
-                                                                            .time!
-                                                                            .currentPeriodStartTimestamp !=
-                                                                        null
-                                                                    ? _tournamentController.readTimestamp(_tournamentController
-                                                                        .americanSportNextDataList[
-                                                                            index]
-                                                                        .time!
-                                                                        .currentPeriodStartTimestamp!)
-                                                                    : 'N/A',
-                                                                style: TextStyle(
-                                                                    letterSpacing:
-                                                                        0.5,
-                                                                    fontSize:
-                                                                        11.sp,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w500),
-                                                                textAlign:
-                                                                    TextAlign
-                                                                        .center,
-                                                              ),
-                                                              Text(
-                                                                _tournamentController
-                                                                            .americanSportNextDataList[
-                                                                                index]
-                                                                            .time!
-                                                                            .currentPeriodStartTimestamp !=
-                                                                        null
-                                                                    ? DateTime.fromMillisecondsSinceEpoch((_tournamentController.americanSportNextDataList[index].time!.currentPeriodStartTimestamp!) *
-                                                                            1000)
-                                                                        .toString()
-                                                                        .substring(
-                                                                            11,
-                                                                            16)
-                                                                    : 'N/A',
-                                                                style: TextStyle(
-                                                                    letterSpacing:
-                                                                        0.5,
-                                                                    fontSize:
-                                                                        20.sp,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w500),
-                                                                textAlign:
-                                                                    TextAlign
-                                                                        .center,
-                                                              ),
-                                                            ],
-                                                          ),
-                                                        ),
-                                                        Expanded(
-                                                          flex: 2,
-                                                          child: Text(
-                                                            _tournamentController
-                                                                .americanSportNextDataList[
-                                                                    index]
-                                                                .awayTeam!
-                                                                .name!,
-                                                            style: TextStyle(
-                                                                letterSpacing:
-                                                                    0.5,
-                                                                fontSize: 15,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w500),
-                                                            textAlign: TextAlign
-                                                                .center,
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                    SizedBox(
-                                                      height: 5,
-                                                    ),
-                                                    Text(
-                                                      "GMT+1",
-                                                      style: TextStyle(
-                                                          fontSize: 13,
-                                                          fontWeight:
-                                                              FontWeight.w500),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                        );
-                                      },
-                                    ),
-                                  ),
-                                ),
-                              ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildFootballView(BuildContext context) {
-    return SingleChildScrollView(
-      child: Container(
-        height: MediaQuery.of(context).size.height - 116,
-        child: Obx(
-          () => DefaultTabController(
+    return Obx(() => SingleChildScrollView(
+          physics: NeverScrollableScrollPhysics(),
+          child: DefaultTabController(
             length: 2,
             child: Container(
               child: Column(
@@ -1757,150 +245,197 @@ class _MatchAnnounceScreenState extends State<MatchAnnounceScreen> {
                                   },
                                 ),
                               )
-                            : _tournamentController.tournamentList.isEmpty
+                            : _tournamentController
+                                    .baseballSportDataList.isEmpty
                                 ? Container()
-                                : ListView.builder(
-                                    physics: BouncingScrollPhysics(
-                                        parent:
-                                            AlwaysScrollableScrollPhysics()),
-                                    itemCount: _tournamentController
-                                        .tournamentList.length,
-                                    itemBuilder: (context, index) {
-                                      return Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: GestureDetector(
-                                          onTap: () => AppNavigation.to(
-                                              context, ChattingScreen()),
+                                : SingleChildScrollView(
+                                    child: Column(
+                                      children: [
+                                        Padding(
+                                          padding:
+                                              const EdgeInsets.only(top: 15),
                                           child: Container(
-                                            width: 340,
+                                            height: 50.h,
+                                            width: MediaQuery.of(context)
+                                                    .size
+                                                    .width -
+                                                30.w,
                                             decoration: BoxDecoration(
-                                              color: Color(0xFF66C38E),
-                                              borderRadius:
-                                                  BorderRadius.circular(10),
-                                            ),
-                                            child: Padding(
-                                              padding: const EdgeInsets.all(10),
-                                              child: Column(
-                                                children: [
-                                                  Row(
-                                                    children: [
-                                                      Expanded(
-                                                        flex: 2,
-                                                        child: Text(
-                                                          _tournamentController
-                                                              .tournamentList[
-                                                                  index]
-                                                                  ['homeTeam']
-                                                                  ['name']
-                                                              .toString(),
-                                                          style: TextStyle(
-                                                              letterSpacing:
-                                                                  0.5,
-                                                              fontSize: 15,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w500),
-                                                          textAlign:
-                                                              TextAlign.center,
-                                                        ),
-                                                      ),
-                                                      Expanded(
-                                                        flex: 1,
-                                                        child: Column(
-                                                          children: [
-                                                            Text(
-                                                              _tournamentController.tournamentList[index]
-                                                                              [
-                                                                              'time']
-                                                                          [
-                                                                          'currentPeriodStartTimestamp'] !=
-                                                                      null
-                                                                  ? DateTime.fromMillisecondsSinceEpoch(
-                                                                          (_tournamentController.tournamentList[index]['time']['currentPeriodStartTimestamp']) *
-                                                                              1000)
-                                                                      .toString()
-                                                                      .substring(
-                                                                          0, 11)
-                                                                  : 'N/A',
-                                                              style: TextStyle(
-                                                                  letterSpacing:
-                                                                      0.5,
-                                                                  fontSize:
-                                                                      11.sp,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w500),
-                                                              textAlign:
-                                                                  TextAlign
-                                                                      .center,
-                                                            ),
-                                                            Text(
-                                                              _tournamentController
-                                                                      .tournamentList[
-                                                                          index]
-                                                                          [
-                                                                          'time']
-                                                                      .isNotEmpty
-                                                                  ? _tournamentController.readTimestamp(
-                                                                      _tournamentController.tournamentList[index]
-                                                                              ['time']
-                                                                          [
-                                                                          'currentPeriodStartTimestamp'])
-                                                                  : 'N/A',
-                                                              style: TextStyle(
-                                                                  letterSpacing:
-                                                                      0.5,
-                                                                  fontSize:
-                                                                      20.sp,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w500),
-                                                              textAlign:
-                                                                  TextAlign
-                                                                      .center,
-                                                            ),
-                                                          ],
-                                                        ),
-                                                      ),
-                                                      Expanded(
-                                                        flex: 2,
-                                                        child: Text(
-                                                          _tournamentController
-                                                              .tournamentList[
-                                                                  index]
-                                                                  ['awayTeam']
-                                                                  ['name']
-                                                              .toString(),
-                                                          style: TextStyle(
-                                                              letterSpacing:
-                                                                  0.5,
-                                                              fontSize: 15,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w500),
-                                                          textAlign:
-                                                              TextAlign.center,
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                  SizedBox(
-                                                    height: 5,
-                                                  ),
-                                                  Text(
-                                                    "GMT+1",
-                                                    style: TextStyle(
-                                                        fontSize: 13,
-                                                        fontWeight:
-                                                            FontWeight.w500),
-                                                  ),
-                                                ],
+                                                borderRadius:
+                                                    BorderRadius.circular(10)),
+                                            child: TextField(
+                                              onChanged: (value) {setState(() {
+                                                updateSearchQuery(value);
+                                              });},
+
+                                              decoration: InputDecoration(
+                                                border: OutlineInputBorder(),
+                                                labelText: 'Search',
+                                                prefixIcon: Icon(Icons.search),
                                               ),
                                             ),
                                           ),
                                         ),
-                                      );
-                                    },
+                                        SizedBox(
+                                          height: 5,
+                                        ),
+                                        Container(
+                                          height: MediaQuery.of(context)
+                                                  .size
+                                                  .height -
+                                              190.h,
+                                          child: Obx(
+                                            () => ListView.builder(
+                                              physics: BouncingScrollPhysics(
+                                                  parent:
+                                                      AlwaysScrollableScrollPhysics()),
+                                              itemCount: _tournamentController
+                                                  .baseballSportDataList.length,
+                                              itemBuilder: (context, index) {
+                                                final item = _tournamentController
+                                                        .baseballSportDataList[
+                                                    index];
+                                                final searchMatches = item
+                                                        .homeTeam!.name!
+                                                        .toLowerCase()
+                                                        .contains(searchQuery
+                                                            .value
+                                                            .toLowerCase()) ||
+                                                    item.awayTeam!.name!
+                                                        .toLowerCase()
+                                                        .contains(searchQuery
+                                                            .value
+                                                            .toLowerCase());
+                                                if (!searchMatches) {
+                                                  return SizedBox
+                                                      .shrink(); // Skip this item if it doesn't match the search query
+                                                }
+                                                return Padding(
+                                                  padding:
+                                                      const EdgeInsets.all(8.0),
+                                                  child: GestureDetector(
+                                                    onTap: () =>
+                                                        AppNavigation.to(
+                                                            context,
+                                                            ChattingScreen()),
+                                                    child: Container(
+                                                      width: 340,
+                                                      decoration: BoxDecoration(
+                                                        color:
+                                                            Color(0xFF66C38E),
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(10),
+                                                      ),
+                                                      child: Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .all(10),
+                                                        child: Column(
+                                                          children: [
+                                                            Row(
+                                                              children: [
+                                                                Expanded(
+                                                                  flex: 2,
+                                                                  child: Text(
+                                                                    _tournamentController
+                                                                        .baseballSportDataList[
+                                                                            index]
+                                                                        .homeTeam!
+                                                                        .name!,
+                                                                    style: TextStyle(
+                                                                        letterSpacing:
+                                                                            0.5,
+                                                                        fontSize:
+                                                                            15,
+                                                                        fontWeight:
+                                                                            FontWeight.w500),
+                                                                    textAlign:
+                                                                        TextAlign
+                                                                            .center,
+                                                                  ),
+                                                                ),
+                                                                Expanded(
+                                                                  flex: 1,
+                                                                  child: Column(
+                                                                    children: [
+                                                                      Text(
+                                                                        _tournamentController.baseballSportDataList[index].time!.currentPeriodStartTimestamp !=
+                                                                                null
+                                                                            ? DateTime.fromMillisecondsSinceEpoch((_tournamentController.baseballSportDataList[index].time!.currentPeriodStartTimestamp!) * 1000).toString().substring(0,
+                                                                                11)
+                                                                            : 'N/A',
+                                                                        style: TextStyle(
+                                                                            letterSpacing:
+                                                                                0.5,
+                                                                            fontSize:
+                                                                                11.sp,
+                                                                            fontWeight: FontWeight.w500),
+                                                                        textAlign:
+                                                                            TextAlign.center,
+                                                                      ),
+                                                                      Text(
+                                                                        _tournamentController.baseballSportDataList[index].time!.currentPeriodStartTimestamp !=
+                                                                                null
+                                                                            ? _tournamentController.readTimestamp(_tournamentController.baseballSportDataList[index].time!.currentPeriodStartTimestamp!)
+                                                                            : 'N/A',
+                                                                        style: TextStyle(
+                                                                            letterSpacing:
+                                                                                0.5,
+                                                                            fontSize:
+                                                                                20.sp,
+                                                                            fontWeight: FontWeight.w500),
+                                                                        textAlign:
+                                                                            TextAlign.center,
+                                                                      ),
+                                                                    ],
+                                                                  ),
+                                                                ),
+                                                                Expanded(
+                                                                  flex: 2,
+                                                                  child: Text(
+                                                                    _tournamentController
+                                                                        .baseballSportDataList[
+                                                                            index]
+                                                                        .awayTeam!
+                                                                        .name!,
+                                                                    style: TextStyle(
+                                                                        letterSpacing:
+                                                                            0.5,
+                                                                        fontSize:
+                                                                            15,
+                                                                        fontWeight:
+                                                                            FontWeight.w500),
+                                                                    textAlign:
+                                                                        TextAlign
+                                                                            .center,
+                                                                  ),
+                                                                ),
+                                                              ],
+                                                            ),
+                                                            SizedBox(
+                                                              height: 5,
+                                                            ),
+                                                            Text(
+                                                              "GMT+1",
+                                                              style: TextStyle(
+                                                                  fontSize: 13,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w500),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                );
+                                              },
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
                                   ),
                         _tournamentController.dataloading.value
                             ? Container(
@@ -1919,156 +454,2107 @@ class _MatchAnnounceScreenState extends State<MatchAnnounceScreen> {
                                   },
                                 ),
                               )
-                            : _tournamentController.tournamentList2.isEmpty
+                            : _tournamentController
+                                    .baseballSportNextDataList.isEmpty
                                 ? Container()
-                                : ListView.builder(
-                                    physics: BouncingScrollPhysics(
-                                        parent:
-                                            AlwaysScrollableScrollPhysics()),
-                                    itemCount: _tournamentController
-                                        .tournamentList2.length,
-                                    itemBuilder: (context, index) {
-                                      return Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: GestureDetector(
-                                          onTap: () => AppNavigation.to(
-                                              context, ChattingScreen()),
+                                : SingleChildScrollView(
+                                    child: Column(
+                                      children: [
+                                        Padding(
+                                          padding:
+                                              const EdgeInsets.only(top: 15),
                                           child: Container(
-                                            width: 340,
+                                            height: 50.h,
+                                            width: MediaQuery.of(context)
+                                                    .size
+                                                    .width -
+                                                30.w,
                                             decoration: BoxDecoration(
-                                              color: Color(0xFF66C38E),
-                                              borderRadius:
-                                                  BorderRadius.circular(10),
-                                            ),
-                                            child: Padding(
-                                              padding: const EdgeInsets.all(10),
-                                              child: Column(
-                                                children: [
-                                                  Row(
-                                                    children: [
-                                                      Expanded(
-                                                        flex: 2,
-                                                        child: Text(
-                                                          _tournamentController
-                                                              .tournamentList2[
-                                                                  index]
-                                                                  ['homeTeam']
-                                                                  ['name']
-                                                              .toString(),
-                                                          style: TextStyle(
-                                                              letterSpacing:
-                                                                  0.5,
-                                                              fontSize: 15,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w500),
-                                                          textAlign:
-                                                              TextAlign.center,
-                                                        ),
-                                                      ),
-                                                      Expanded(
-                                                        flex: 1,
-                                                        child: Column(
-                                                          children: [
-                                                            Text(
-                                                              _tournamentController.tournamentList2[index]
-                                                                              [
-                                                                              'time']
-                                                                          [
-                                                                          'currentPeriodStartTimestamp'] !=
-                                                                      null
-                                                                  ? DateTime.fromMillisecondsSinceEpoch(
-                                                                          (_tournamentController.tournamentList2[index]['time']['currentPeriodStartTimestamp']) *
-                                                                              1000)
-                                                                      .toString()
-                                                                      .substring(
-                                                                          0, 11)
-                                                                  : 'N/A',
-                                                              style: TextStyle(
-                                                                  letterSpacing:
-                                                                      0.5,
-                                                                  fontSize:
-                                                                      11.sp,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w500),
-                                                              textAlign:
-                                                                  TextAlign
-                                                                      .center,
-                                                            ),
-                                                            Text(
-                                                              _tournamentController
-                                                                      .tournamentList2[
-                                                                          index]
-                                                                          [
-                                                                          'time']
-                                                                      .isNotEmpty
-                                                                  ? _tournamentController.readTimestamp(
-                                                                      _tournamentController.tournamentList2[index]
-                                                                              ['time']
-                                                                          [
-                                                                          'currentPeriodStartTimestamp'])
-                                                                  : 'N/A',
-                                                              style: TextStyle(
-                                                                  letterSpacing:
-                                                                      0.5,
-                                                                  fontSize:
-                                                                      20.sp,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w500),
-                                                              textAlign:
-                                                                  TextAlign
-                                                                      .center,
-                                                            ),
-                                                          ],
-                                                        ),
-                                                      ),
-                                                      Expanded(
-                                                        flex: 2,
-                                                        child: Text(
-                                                          _tournamentController
-                                                              .tournamentList2[
-                                                                  index]
-                                                                  ['awayTeam']
-                                                                  ['name']
-                                                              .toString(),
-                                                          style: TextStyle(
-                                                              letterSpacing:
-                                                                  0.5,
-                                                              fontSize: 15,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w500),
-                                                          textAlign:
-                                                              TextAlign.center,
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                  SizedBox(
-                                                    height: 5,
-                                                  ),
-                                                  Text(
-                                                    "GMT+1",
-                                                    style: TextStyle(
-                                                        fontSize: 13,
-                                                        fontWeight:
-                                                            FontWeight.w500),
-                                                  ),
-                                                ],
+                                                borderRadius:
+                                                    BorderRadius.circular(10)),
+                                            child: TextField(
+                                              onChanged: (value) {setState(() {
+                                                updateSearchQuery2(value);
+                                              });},
+
+                                              decoration: InputDecoration(
+                                                border: OutlineInputBorder(),
+                                                labelText: 'Search',
+                                                prefixIcon: Icon(Icons.search),
                                               ),
                                             ),
                                           ),
                                         ),
-                                      );
-                                    },
-                                  ),
+                                        SizedBox(
+                                          height: 5,
+                                        ),
+                                        Container(
+                                          height: MediaQuery.of(context)
+                                                  .size
+                                                  .height -
+                                              190.h,
+                                          child: Obx(
+                                            () => ListView.builder(
+                                              physics: BouncingScrollPhysics(
+                                                  parent:
+                                                      AlwaysScrollableScrollPhysics()),
+                                              itemCount: _tournamentController
+                                                  .baseballSportNextDataList
+                                                  .length,
+                                              itemBuilder: (context, index) {
+                                                final item = _tournamentController
+                                                        .baseballSportNextDataList[
+                                                    index];
+                                                final searchMatches = item
+                                                        .homeTeam!.name!
+                                                        .toLowerCase()
+                                                        .contains(searchQuery2
+                                                            .value
+                                                            .toLowerCase()) ||
+                                                    item.awayTeam!.name!
+                                                        .toLowerCase()
+                                                        .contains(searchQuery2
+                                                            .value
+                                                            .toLowerCase());
+                                                if (!searchMatches) {
+                                                  return SizedBox
+                                                      .shrink(); // Skip this item if it doesn't match the search query
+                                                }
+                                                return Padding(
+                                                  padding:
+                                                      const EdgeInsets.all(8.0),
+                                                  child: GestureDetector(
+                                                    onTap: () =>
+                                                        AppNavigation.to(
+                                                            context,
+                                                            ChattingScreen()),
+                                                    child: Container(
+                                                      width: 340,
+                                                      decoration: BoxDecoration(
+                                                        color:
+                                                            Color(0xFF66C38E),
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(10),
+                                                      ),
+                                                      child: Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .all(10),
+                                                        child: Column(
+                                                          children: [
+                                                            Row(
+                                                              children: [
+                                                                Expanded(
+                                                                  flex: 2,
+                                                                  child: Text(
+                                                                    _tournamentController
+                                                                        .baseballSportNextDataList[
+                                                                            index]
+                                                                        .homeTeam!
+                                                                        .name!,
+                                                                    style: TextStyle(
+                                                                        letterSpacing:
+                                                                            0.5,
+                                                                        fontSize:
+                                                                            15,
+                                                                        fontWeight:
+                                                                            FontWeight.w500),
+                                                                    textAlign:
+                                                                        TextAlign
+                                                                            .center,
+                                                                  ),
+                                                                ),
+                                                                Expanded(
+                                                                  flex: 1,
+                                                                  child: Column(
+                                                                    children: [
+                                                                      Text(
+                                                                        _tournamentController.baseballSportNextDataList[index].time!.currentPeriodStartTimestamp !=
+                                                                                null
+                                                                            ? DateTime.fromMillisecondsSinceEpoch((_tournamentController.baseballSportNextDataList[index].time!.currentPeriodStartTimestamp!) * 1000).toString().substring(0,
+                                                                                11)
+                                                                            : 'N/A',
+                                                                        style: TextStyle(
+                                                                            letterSpacing:
+                                                                                0.5,
+                                                                            fontSize:
+                                                                                11.sp,
+                                                                            fontWeight: FontWeight.w500),
+                                                                        textAlign:
+                                                                            TextAlign.center,
+                                                                      ),
+                                                                      Text(
+                                                                        _tournamentController.baseballSportNextDataList[index].time!.currentPeriodStartTimestamp !=
+                                                                                null
+                                                                            ? _tournamentController.readTimestamp(_tournamentController.baseballSportNextDataList[index].time!.currentPeriodStartTimestamp!)
+                                                                            : 'N/A',
+                                                                        style: TextStyle(
+                                                                            letterSpacing:
+                                                                                0.5,
+                                                                            fontSize:
+                                                                                20.sp,
+                                                                            fontWeight: FontWeight.w500),
+                                                                        textAlign:
+                                                                            TextAlign.center,
+                                                                      ),
+                                                                    ],
+                                                                  ),
+                                                                ),
+                                                                Expanded(
+                                                                  flex: 2,
+                                                                  child: Text(
+                                                                    _tournamentController
+                                                                        .baseballSportNextDataList[
+                                                                            index]
+                                                                        .awayTeam!
+                                                                        .name!,
+                                                                    style: TextStyle(
+                                                                        letterSpacing:
+                                                                            0.5,
+                                                                        fontSize:
+                                                                            15,
+                                                                        fontWeight:
+                                                                            FontWeight.w500),
+                                                                    textAlign:
+                                                                        TextAlign
+                                                                            .center,
+                                                                  ),
+                                                                ),
+                                                              ],
+                                                            ),
+                                                            SizedBox(
+                                                              height: 5,
+                                                            ),
+                                                            Text(
+                                                              "GMT+1",
+                                                              style: TextStyle(
+                                                                  fontSize: 13,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w500),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                );
+                                              },
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  )
                       ],
                     ),
-                  ),
+                  )
                 ],
               ),
+            ),
+          ),
+        ));
+  }
+
+  Widget _buildBasketballView(BuildContext context) {
+    return Obx(() => SingleChildScrollView(
+          physics: NeverScrollableScrollPhysics(),
+          child: DefaultTabController(
+            length: 2,
+            child: Container(
+                child: Column(
+              children: [
+                Container(
+                  color: Colors.white,
+                  child: TabBar(
+                    tabs: [
+                      Tab(
+                        child: Text(
+                          "Today",
+                          textAlign: TextAlign.center,
+                          style: const TextStyle(color: Colors.black),
+                        ),
+                      ),
+                      Tab(
+                        child: Text(
+                          "Tomorrow",
+                          textAlign: TextAlign.center,
+                          style: const TextStyle(color: Colors.black),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  height: MediaQuery.of(context).size.height - 190.h,
+                  child: TabBarView(
+                    children: [
+                      _tournamentController.dataloading.value
+                          ? Container(
+                              child: ListView.builder(
+                                physics: BouncingScrollPhysics(
+                                    parent: AlwaysScrollableScrollPhysics()),
+                                itemCount: 15,
+                                itemBuilder: (context, index) {
+                                  return Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: ShimmerHelper().buildBasicShimmer(
+                                      height: 80,
+                                      width: 350,
+                                    ),
+                                  );
+                                },
+                              ),
+                            )
+                          : _tournamentController
+                                  .basketballSportDataList.isEmpty
+                              ? Container()
+                              : SingleChildScrollView(
+                                  child: Column(
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.only(top: 15),
+                                        child: Container(
+                                          height: 50.h,
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width -
+                                              30.w,
+                                          decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(10)),
+                                          child: TextField(
+                                            onChanged: (value)
+                                                {setState(() {
+                                                  updateSearchQuery(value);
+                                                });},
+                                            decoration: InputDecoration(
+                                              border: OutlineInputBorder(),
+                                              labelText: 'Search',
+                                              prefixIcon: Icon(Icons.search),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        height: 5,
+                                      ),
+                                      Container(
+                                        height:
+                                            MediaQuery.of(context).size.height -
+                                                190.h,
+                                        child: Obx(
+                                          () => ListView.builder(
+                                            physics: BouncingScrollPhysics(
+                                                parent:
+                                                    AlwaysScrollableScrollPhysics()),
+                                            itemCount: _tournamentController
+                                                .basketballSportDataList.length,
+                                            itemBuilder: (context, index) {
+                                              final item = _tournamentController
+                                                      .basketballSportDataList[
+                                                  index];
+                                              final searchMatches = item
+                                                      .homeTeam!.name!
+                                                      .toLowerCase()
+                                                      .contains(searchQuery
+                                                          .value
+                                                          .toLowerCase()) ||
+                                                  item.awayTeam!.name!
+                                                      .toLowerCase()
+                                                      .contains(searchQuery
+                                                          .value
+                                                          .toLowerCase());
+                                              if (!searchMatches) {
+                                                return SizedBox
+                                                    .shrink(); // Skip this item if it doesn't match the search query
+                                              }
+                                              return Padding(
+                                                padding:
+                                                    const EdgeInsets.all(8.0),
+                                                child: GestureDetector(
+                                                  onTap: () => AppNavigation.to(
+                                                      context,
+                                                      ChattingScreen()),
+                                                  child: Container(
+                                                    width: 340,
+                                                    decoration: BoxDecoration(
+                                                      color: Color(0xFF66C38E),
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              10),
+                                                    ),
+                                                    child: Padding(
+                                                      padding:
+                                                          const EdgeInsets.all(
+                                                              10),
+                                                      child: Column(
+                                                        children: [
+                                                          Row(
+                                                            children: [
+                                                              Expanded(
+                                                                flex: 2,
+                                                                child: Text(
+                                                                  _tournamentController
+                                                                      .basketballSportDataList[
+                                                                          index]
+                                                                      .homeTeam!
+                                                                      .name!,
+                                                                  style: TextStyle(
+                                                                      letterSpacing:
+                                                                          0.5,
+                                                                      fontSize:
+                                                                          15,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .w500),
+                                                                  textAlign:
+                                                                      TextAlign
+                                                                          .center,
+                                                                ),
+                                                              ),
+                                                              Expanded(
+                                                                flex: 1,
+                                                                child: Column(
+                                                                  children: [
+                                                                    Text(
+                                                                      _tournamentController.basketballSportDataList[index].time!.currentPeriodStartTimestamp !=
+                                                                              null
+                                                                          ? DateTime.fromMillisecondsSinceEpoch((_tournamentController.basketballSportDataList[index].time!.currentPeriodStartTimestamp!) * 1000).toString().substring(
+                                                                              0,
+                                                                              11)
+                                                                          : 'N/A',
+                                                                      style: TextStyle(
+                                                                          letterSpacing:
+                                                                              0.5,
+                                                                          fontSize: 11
+                                                                              .sp,
+                                                                          fontWeight:
+                                                                              FontWeight.w500),
+                                                                      textAlign:
+                                                                          TextAlign
+                                                                              .center,
+                                                                    ),
+                                                                    Text(
+                                                                      _tournamentController.basketballSportDataList[index].time!.currentPeriodStartTimestamp !=
+                                                                              null
+                                                                          ? _tournamentController.readTimestamp(_tournamentController
+                                                                              .basketballSportDataList[index]
+                                                                              .time!
+                                                                              .currentPeriodStartTimestamp!)
+                                                                          : 'N/A',
+                                                                      style: TextStyle(
+                                                                          letterSpacing:
+                                                                              0.5,
+                                                                          fontSize: 20
+                                                                              .sp,
+                                                                          fontWeight:
+                                                                              FontWeight.w500),
+                                                                      textAlign:
+                                                                          TextAlign
+                                                                              .center,
+                                                                    ),
+                                                                  ],
+                                                                ),
+                                                              ),
+                                                              Expanded(
+                                                                flex: 2,
+                                                                child: Text(
+                                                                  _tournamentController
+                                                                      .basketballSportDataList[
+                                                                          index]
+                                                                      .awayTeam!
+                                                                      .name!,
+                                                                  style: TextStyle(
+                                                                      letterSpacing:
+                                                                          0.5,
+                                                                      fontSize:
+                                                                          15,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .w500),
+                                                                  textAlign:
+                                                                      TextAlign
+                                                                          .center,
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                          SizedBox(
+                                                            height: 5,
+                                                          ),
+                                                          Text(
+                                                            "GMT+1",
+                                                            style: TextStyle(
+                                                                fontSize: 13,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w500),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              );
+                                            },
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                      _tournamentController.dataloading.value
+                          ? Container(
+                              child: ListView.builder(
+                                physics: BouncingScrollPhysics(
+                                    parent: AlwaysScrollableScrollPhysics()),
+                                itemCount: 15,
+                                itemBuilder: (context, index) {
+                                  return Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: ShimmerHelper().buildBasicShimmer(
+                                      height: 80,
+                                      width: 350,
+                                    ),
+                                  );
+                                },
+                              ),
+                            )
+                          : _tournamentController
+                                  .basketballSportNextDataList.isEmpty
+                              ? Container()
+                              : SingleChildScrollView(
+                                  child: Column(
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.only(top: 15),
+                                        child: Container(
+                                          height: 50.h,
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width -
+                                              30.w,
+                                          decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(10)),
+                                          child: TextField(
+                                            onChanged: (value) {setState(() {
+                                              updateSearchQuery2(value);
+                                            });},
+
+                                            decoration: InputDecoration(
+                                              border: OutlineInputBorder(),
+                                              labelText: 'Search',
+                                              prefixIcon: Icon(Icons.search),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        height: 5,
+                                      ),
+                                      Container(
+                                        height:
+                                            MediaQuery.of(context).size.height -
+                                                190.h,
+                                        child: Obx(
+                                          () => ListView.builder(
+                                            physics: BouncingScrollPhysics(
+                                                parent:
+                                                    AlwaysScrollableScrollPhysics()),
+                                            itemCount: _tournamentController
+                                                .basketballSportNextDataList
+                                                .length,
+                                            itemBuilder: (context, index) {
+                                              final item = _tournamentController
+                                                      .basketballSportNextDataList[
+                                                  index];
+                                              final searchMatches = item
+                                                      .homeTeam!.name!
+                                                      .toLowerCase()
+                                                      .contains(searchQuery2
+                                                          .value
+                                                          .toLowerCase()) ||
+                                                  item.awayTeam!.name!
+                                                      .toLowerCase()
+                                                      .contains(searchQuery2
+                                                          .value
+                                                          .toLowerCase());
+                                              if (!searchMatches) {
+                                                return SizedBox
+                                                    .shrink(); // Skip this item if it doesn't match the search query
+                                              }
+                                              return Padding(
+                                                padding:
+                                                    const EdgeInsets.all(8.0),
+                                                child: GestureDetector(
+                                                  onTap: () => AppNavigation.to(
+                                                      context,
+                                                      ChattingScreen()),
+                                                  child: Container(
+                                                    width: 340,
+                                                    decoration: BoxDecoration(
+                                                      color: Color(0xFF66C38E),
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              10),
+                                                    ),
+                                                    child: Padding(
+                                                      padding:
+                                                          const EdgeInsets.all(
+                                                              10),
+                                                      child: Column(
+                                                        children: [
+                                                          Row(
+                                                            children: [
+                                                              Expanded(
+                                                                flex: 2,
+                                                                child: Text(
+                                                                  _tournamentController
+                                                                      .basketballSportNextDataList[
+                                                                          index]
+                                                                      .homeTeam!
+                                                                      .name!,
+                                                                  style: TextStyle(
+                                                                      letterSpacing:
+                                                                          0.5,
+                                                                      fontSize:
+                                                                          15,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .w500),
+                                                                  textAlign:
+                                                                      TextAlign
+                                                                          .center,
+                                                                ),
+                                                              ),
+                                                              Expanded(
+                                                                flex: 1,
+                                                                child: Column(
+                                                                  children: [
+                                                                    Text(
+                                                                      _tournamentController.basketballSportNextDataList[index].time!.currentPeriodStartTimestamp !=
+                                                                              null
+                                                                          ? DateTime.fromMillisecondsSinceEpoch((_tournamentController.basketballSportNextDataList[index].time!.currentPeriodStartTimestamp!) * 1000).toString().substring(
+                                                                              0,
+                                                                              11)
+                                                                          : 'N/A',
+                                                                      style: TextStyle(
+                                                                          letterSpacing:
+                                                                              0.5,
+                                                                          fontSize: 11
+                                                                              .sp,
+                                                                          fontWeight:
+                                                                              FontWeight.w500),
+                                                                      textAlign:
+                                                                          TextAlign
+                                                                              .center,
+                                                                    ),
+                                                                    Text(
+                                                                      _tournamentController.basketballSportNextDataList[index].time!.currentPeriodStartTimestamp !=
+                                                                              null
+                                                                          ? _tournamentController.readTimestamp(_tournamentController
+                                                                              .basketballSportNextDataList[index]
+                                                                              .time!
+                                                                              .currentPeriodStartTimestamp!)
+                                                                          : 'N/A',
+                                                                      style: TextStyle(
+                                                                          letterSpacing:
+                                                                              0.5,
+                                                                          fontSize: 20
+                                                                              .sp,
+                                                                          fontWeight:
+                                                                              FontWeight.w500),
+                                                                      textAlign:
+                                                                          TextAlign
+                                                                              .center,
+                                                                    ),
+                                                                  ],
+                                                                ),
+                                                              ),
+                                                              Expanded(
+                                                                flex: 2,
+                                                                child: Text(
+                                                                  _tournamentController
+                                                                      .basketballSportNextDataList[
+                                                                          index]
+                                                                      .awayTeam!
+                                                                      .name!,
+                                                                  style: TextStyle(
+                                                                      letterSpacing:
+                                                                          0.5,
+                                                                      fontSize:
+                                                                          15,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .w500),
+                                                                  textAlign:
+                                                                      TextAlign
+                                                                          .center,
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                          SizedBox(
+                                                            height: 5,
+                                                          ),
+                                                          Text(
+                                                            "GMT+1",
+                                                            style: TextStyle(
+                                                                fontSize: 13,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w500),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              );
+                                            },
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                    ],
+                  ),
+                )
+              ],
+            )),
+          ),
+        ));
+  }
+
+  Widget _buildRugbyView(BuildContext context) {
+    return Obx(() => SingleChildScrollView(
+          physics: NeverScrollableScrollPhysics(),
+          child: DefaultTabController(
+            length: 2,
+            child: Container(
+                child: Column(
+              children: [
+                Container(
+                  color: Colors.white,
+                  child: TabBar(
+                    tabs: [
+                      Tab(
+                        child: Text(
+                          "Today",
+                          textAlign: TextAlign.center,
+                          style: const TextStyle(color: Colors.black),
+                        ),
+                      ),
+                      Tab(
+                        child: Text(
+                          "Tomorrow",
+                          textAlign: TextAlign.center,
+                          style: const TextStyle(color: Colors.black),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  height: MediaQuery.of(context).size.height - 190.h,
+                  child: TabBarView(
+                    children: [
+                      _tournamentController.dataloading.value
+                          ? Container(
+                              child: ListView.builder(
+                                physics: BouncingScrollPhysics(
+                                    parent: AlwaysScrollableScrollPhysics()),
+                                itemCount: 15,
+                                itemBuilder: (context, index) {
+                                  return Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: ShimmerHelper().buildBasicShimmer(
+                                      height: 80,
+                                      width: 350,
+                                    ),
+                                  );
+                                },
+                              ),
+                            )
+                          : _tournamentController.rugbySportDataList.isEmpty
+                              ? Container()
+                              : SingleChildScrollView(
+                                  child: Column(
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.only(top: 15),
+                                        child: Container(
+                                          height: 50.h,
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width -
+                                              30.w,
+                                          decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(10)),
+                                          child: TextField(
+                                            onChanged: (value) {setState(() {
+                                              updateSearchQuery(value);
+                                            });},
+
+                                            decoration: InputDecoration(
+                                              border: OutlineInputBorder(),
+                                              labelText: 'Search',
+                                              prefixIcon: Icon(Icons.search),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        height: 5,
+                                      ),
+                                      Container(
+                                        height:
+                                            MediaQuery.of(context).size.height -
+                                                190,
+                                        child: Obx(
+                                          () => ListView.builder(
+                                            physics: BouncingScrollPhysics(
+                                                parent:
+                                                    AlwaysScrollableScrollPhysics()),
+                                            itemCount: _tournamentController
+                                                .rugbySportDataList.length,
+                                            itemBuilder: (context, index) {
+                                              // Filter the list based on the search query
+                                              final item = _tournamentController
+                                                  .rugbySportDataList[index];
+                                              final searchMatches = item
+                                                      .homeTeam!.name!
+                                                      .toLowerCase()
+                                                      .contains(searchQuery
+                                                          .value
+                                                          .toLowerCase()) ||
+                                                  item.awayTeam!.name!
+                                                      .toLowerCase()
+                                                      .contains(searchQuery
+                                                          .value
+                                                          .toLowerCase());
+                                              if (!searchMatches) {
+                                                return SizedBox
+                                                    .shrink(); // Skip this item if it doesn't match the search query
+                                              }
+                                              return Padding(
+                                                padding:
+                                                    const EdgeInsets.all(8.0),
+                                                child: GestureDetector(
+                                                  onTap: () => AppNavigation.to(
+                                                      context,
+                                                      ChattingScreen()),
+                                                  child: Container(
+                                                    width: 340,
+                                                    decoration: BoxDecoration(
+                                                      color: Color(0xFF66C38E),
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              10),
+                                                    ),
+                                                    child: Padding(
+                                                      padding:
+                                                          const EdgeInsets.all(
+                                                              10),
+                                                      child: Column(
+                                                        children: [
+                                                          Row(
+                                                            children: [
+                                                              Expanded(
+                                                                flex: 2,
+                                                                child: Text(
+                                                                  _tournamentController
+                                                                      .rugbySportDataList[
+                                                                          index]
+                                                                      .homeTeam!
+                                                                      .name!,
+                                                                  style: TextStyle(
+                                                                      letterSpacing:
+                                                                          0.5,
+                                                                      fontSize:
+                                                                          15,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .w500),
+                                                                  textAlign:
+                                                                      TextAlign
+                                                                          .center,
+                                                                ),
+                                                              ),
+                                                              Expanded(
+                                                                flex: 1,
+                                                                child: Column(
+                                                                  children: [
+                                                                    Text(
+                                                                      _tournamentController.rugbySportDataList[index].time!.currentPeriodStartTimestamp !=
+                                                                              null
+                                                                          ? DateTime.fromMillisecondsSinceEpoch((_tournamentController.rugbySportDataList[index].time!.currentPeriodStartTimestamp!) * 1000).toString().substring(
+                                                                              0,
+                                                                              11)
+                                                                          : 'N/A',
+                                                                      style: TextStyle(
+                                                                          letterSpacing:
+                                                                              0.5,
+                                                                          fontSize: 11
+                                                                              .sp,
+                                                                          fontWeight:
+                                                                              FontWeight.w500),
+                                                                      textAlign:
+                                                                          TextAlign
+                                                                              .center,
+                                                                    ),
+                                                                    Text(
+                                                                      _tournamentController.rugbySportDataList[index].time!.currentPeriodStartTimestamp !=
+                                                                              null
+                                                                          ? _tournamentController.readTimestamp(_tournamentController
+                                                                              .rugbySportDataList[index]
+                                                                              .time!
+                                                                              .currentPeriodStartTimestamp!)
+                                                                          : 'N/A',
+                                                                      style: TextStyle(
+                                                                          letterSpacing:
+                                                                              0.5,
+                                                                          fontSize: 20
+                                                                              .sp,
+                                                                          fontWeight:
+                                                                              FontWeight.w500),
+                                                                      textAlign:
+                                                                          TextAlign
+                                                                              .center,
+                                                                    ),
+                                                                  ],
+                                                                ),
+                                                              ),
+                                                              Expanded(
+                                                                flex: 2,
+                                                                child: Text(
+                                                                  _tournamentController
+                                                                      .rugbySportDataList[
+                                                                          index]
+                                                                      .awayTeam!
+                                                                      .name!,
+                                                                  style: TextStyle(
+                                                                      letterSpacing:
+                                                                          0.5,
+                                                                      fontSize:
+                                                                          15,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .w500),
+                                                                  textAlign:
+                                                                      TextAlign
+                                                                          .center,
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                          SizedBox(
+                                                            height: 5,
+                                                          ),
+                                                          Text(
+                                                            "GMT+1",
+                                                            style: TextStyle(
+                                                                fontSize: 13,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w500),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              );
+                                            },
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                      _tournamentController.dataloading.value
+                          ? Container(
+                              child: ListView.builder(
+                                physics: BouncingScrollPhysics(
+                                    parent: AlwaysScrollableScrollPhysics()),
+                                itemCount: 15,
+                                itemBuilder: (context, index) {
+                                  return Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: ShimmerHelper().buildBasicShimmer(
+                                      height: 80,
+                                      width: 350,
+                                    ),
+                                  );
+                                },
+                              ),
+                            )
+                          : _tournamentController.rugbySportNextDataList.isEmpty
+                              ? Container()
+                              : SingleChildScrollView(
+                                  child: Column(
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.only(top: 15),
+                                        child: Container(
+                                          height: 50.h,
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width -
+                                              30.w,
+                                          decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(10)),
+                                          child: TextField(
+                                            onChanged: (value) {
+                                              setState(() {
+                                            updateSearchQuery2(value);
+                                              });
+                                           },
+
+                                            decoration: InputDecoration(
+                                              border: OutlineInputBorder(),
+                                              labelText: 'Search',
+                                              prefixIcon: Icon(Icons.search),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        height: 5,
+                                      ),
+                                      Container(
+                                        height:
+                                            MediaQuery.of(context).size.height -
+                                                190,
+                                        child: Obx(
+                                          () => ListView.builder(
+                                            physics: BouncingScrollPhysics(
+                                                parent:
+                                                    AlwaysScrollableScrollPhysics()),
+                                            itemCount: _tournamentController
+                                                .rugbySportNextDataList.length,
+                                            itemBuilder: (context, index) {
+                                              // Filter the list based on the search query
+                                              final item = _tournamentController
+                                                      .rugbySportNextDataList[
+                                                  index];
+                                              final searchMatches = item
+                                                      .homeTeam!.name!
+                                                      .toLowerCase()
+                                                      .contains(searchQuery2
+                                                          .value
+                                                          .toLowerCase()) ||
+                                                  item.awayTeam!.name!
+                                                      .toLowerCase()
+                                                      .contains(searchQuery2
+                                                          .value
+                                                          .toLowerCase());
+                                              if (!searchMatches) {
+                                                return SizedBox
+                                                    .shrink(); // Skip this item if it doesn't match the search query
+                                              }
+                                              return Padding(
+                                                padding:
+                                                    const EdgeInsets.all(8.0),
+                                                child: GestureDetector(
+                                                  onTap: () => AppNavigation.to(
+                                                      context,
+                                                      ChattingScreen()),
+                                                  child: Container(
+                                                    width: 340,
+                                                    decoration: BoxDecoration(
+                                                      color: Color(0xFF66C38E),
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              10),
+                                                    ),
+                                                    child: Padding(
+                                                      padding:
+                                                          const EdgeInsets.all(
+                                                              10),
+                                                      child: Column(
+                                                        children: [
+                                                          Row(
+                                                            children: [
+                                                              Expanded(
+                                                                flex: 2,
+                                                                child: Text(
+                                                                  _tournamentController
+                                                                      .rugbySportNextDataList[
+                                                                          index]
+                                                                      .homeTeam!
+                                                                      .name!,
+                                                                  style: TextStyle(
+                                                                      letterSpacing:
+                                                                          0.5,
+                                                                      fontSize:
+                                                                          15,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .w500),
+                                                                  textAlign:
+                                                                      TextAlign
+                                                                          .center,
+                                                                ),
+                                                              ),
+                                                              Expanded(
+                                                                flex: 1,
+                                                                child: Column(
+                                                                  children: [
+                                                                    Text(
+                                                                      _tournamentController.rugbySportNextDataList[index].time!.currentPeriodStartTimestamp !=
+                                                                              null
+                                                                          ? DateTime.fromMillisecondsSinceEpoch((_tournamentController.rugbySportNextDataList[index].time!.currentPeriodStartTimestamp!) * 1000).toString().substring(
+                                                                              0,
+                                                                              11)
+                                                                          : 'N/A',
+                                                                      style: TextStyle(
+                                                                          letterSpacing:
+                                                                              0.5,
+                                                                          fontSize: 11
+                                                                              .sp,
+                                                                          fontWeight:
+                                                                              FontWeight.w500),
+                                                                      textAlign:
+                                                                          TextAlign
+                                                                              .center,
+                                                                    ),
+                                                                    Text(
+                                                                      _tournamentController.rugbySportNextDataList[index].time!.currentPeriodStartTimestamp !=
+                                                                              null
+                                                                          ? _tournamentController.readTimestamp(_tournamentController
+                                                                              .rugbySportNextDataList[index]
+                                                                              .time!
+                                                                              .currentPeriodStartTimestamp!)
+                                                                          : 'N/A',
+                                                                      style: TextStyle(
+                                                                          letterSpacing:
+                                                                              0.5,
+                                                                          fontSize: 20
+                                                                              .sp,
+                                                                          fontWeight:
+                                                                              FontWeight.w500),
+                                                                      textAlign:
+                                                                          TextAlign
+                                                                              .center,
+                                                                    ),
+                                                                  ],
+                                                                ),
+                                                              ),
+                                                              Expanded(
+                                                                flex: 2,
+                                                                child: Text(
+                                                                  _tournamentController
+                                                                      .rugbySportNextDataList[
+                                                                          index]
+                                                                      .awayTeam!
+                                                                      .name!,
+                                                                  style: TextStyle(
+                                                                      letterSpacing:
+                                                                          0.5,
+                                                                      fontSize:
+                                                                          15,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .w500),
+                                                                  textAlign:
+                                                                      TextAlign
+                                                                          .center,
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                          SizedBox(
+                                                            height: 5,
+                                                          ),
+                                                          Text(
+                                                            "GMT+1",
+                                                            style: TextStyle(
+                                                                fontSize: 13,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w500),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              );
+                                            },
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                    ],
+                  ),
+                )
+              ],
+            )),
+          ),
+        ));
+  }
+
+  Widget _buildAmericanFootbalView(BuildContext context) {
+    return Obx(
+      () => SingleChildScrollView(
+        physics: NeverScrollableScrollPhysics(),
+        child: DefaultTabController(
+          length: 2,
+          child: Container(
+            child: Column(
+              children: [
+                Container(
+                  color: Colors.white,
+                  child: TabBar(
+                    tabs: [
+                      Tab(
+                        child: Text(
+                          "Today",
+                          textAlign: TextAlign.center,
+                          style: const TextStyle(color: Colors.black),
+                        ),
+                      ),
+                      Tab(
+                        child: Text(
+                          "Tomorrow",
+                          textAlign: TextAlign.center,
+                          style: const TextStyle(color: Colors.black),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  height: MediaQuery.of(context).size.height - 190.h,
+                  child: TabBarView(
+                    children: [
+                      _tournamentController.dataloading.value
+                          ? Container(
+                              child: ListView.builder(
+                                physics: BouncingScrollPhysics(
+                                    parent: AlwaysScrollableScrollPhysics()),
+                                itemCount: 15,
+                                itemBuilder: (context, index) {
+                                  return Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: ShimmerHelper().buildBasicShimmer(
+                                      height: 80,
+                                      width: 350,
+                                    ),
+                                  );
+                                },
+                              ),
+                            )
+                          : _tournamentController.americanSportDataList.isEmpty
+                              ? Container()
+                              : SingleChildScrollView(
+                                  child: Column(
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.only(top: 15),
+                                        child: Container(
+                                          height: 50.h,
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width -
+                                              30.w,
+                                          decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(10)),
+                                          child: TextField(
+                                            onChanged: (value) {setState(() {
+                                                updateSearchQuery(value);
+                                            });},
+
+                                            decoration: InputDecoration(
+                                              border: OutlineInputBorder(),
+                                              labelText: 'Search',
+                                              prefixIcon: Icon(Icons.search),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        height: 5,
+                                      ),
+                                      Container(
+                                        height:
+                                            MediaQuery.of(context).size.height -
+                                                190,
+                                        child: Obx(
+                                          () => ListView.builder(
+                                            physics: BouncingScrollPhysics(
+                                                parent:
+                                                    AlwaysScrollableScrollPhysics()),
+                                            itemCount: _tournamentController
+                                                .americanSportDataList.length,
+                                            itemBuilder: (context, index) {
+                                              // Filter the list based on the search query
+                                              final item = _tournamentController
+                                                  .americanSportDataList[index];
+                                              final searchMatches = item
+                                                      .homeTeam!.name!
+                                                      .toLowerCase()
+                                                      .contains(searchQuery
+                                                          .value
+                                                          .toLowerCase()) ||
+                                                  item.awayTeam!.name!
+                                                      .toLowerCase()
+                                                      .contains(searchQuery
+                                                          .value
+                                                          .toLowerCase());
+                                              if (!searchMatches) {
+                                                return SizedBox
+                                                    .shrink(); // Skip this item if it doesn't match the search query
+                                              }
+                                              return Padding(
+                                                padding:
+                                                    const EdgeInsets.all(8.0),
+                                                child: GestureDetector(
+                                                  onTap: () => AppNavigation.to(
+                                                      context,
+                                                      ChattingScreen()),
+                                                  child: Container(
+                                                    width: 340,
+                                                    decoration: BoxDecoration(
+                                                      color: Color(0xFF66C38E),
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              10),
+                                                    ),
+                                                    child: Padding(
+                                                      padding:
+                                                          const EdgeInsets.all(
+                                                              10),
+                                                      child: Column(
+                                                        children: [
+                                                          Row(
+                                                            children: [
+                                                              Expanded(
+                                                                flex: 2,
+                                                                child: Text(
+                                                                  _tournamentController
+                                                                      .americanSportDataList[
+                                                                          index]
+                                                                      .homeTeam!
+                                                                      .name!,
+                                                                  style: TextStyle(
+                                                                      letterSpacing:
+                                                                          0.5,
+                                                                      fontSize:
+                                                                          15,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .w500),
+                                                                  textAlign:
+                                                                      TextAlign
+                                                                          .center,
+                                                                ),
+                                                              ),
+                                                              Expanded(
+                                                                flex: 1,
+                                                                child: Column(
+                                                                  children: [
+                                                                    Text(
+                                                                      _tournamentController.americanSportDataList[index].time!.currentPeriodStartTimestamp !=
+                                                                              null
+                                                                          ? _tournamentController.readTimestamp(_tournamentController
+                                                                              .americanSportDataList[index]
+                                                                              .time!
+                                                                              .currentPeriodStartTimestamp!)
+                                                                          : 'N/A',
+                                                                      style: TextStyle(
+                                                                          letterSpacing:
+                                                                              0.5,
+                                                                          fontSize: 11
+                                                                              .sp,
+                                                                          fontWeight:
+                                                                              FontWeight.w500),
+                                                                      textAlign:
+                                                                          TextAlign
+                                                                              .center,
+                                                                    ),
+                                                                    Text(
+                                                                      _tournamentController.americanSportDataList[index].time!.currentPeriodStartTimestamp !=
+                                                                              null
+                                                                          ? DateTime.fromMillisecondsSinceEpoch((_tournamentController.americanSportDataList[index].time!.currentPeriodStartTimestamp!) * 1000).toString().substring(
+                                                                              11,
+                                                                              16)
+                                                                          : 'N/A',
+                                                                      style: TextStyle(
+                                                                          letterSpacing:
+                                                                              0.5,
+                                                                          fontSize: 20
+                                                                              .sp,
+                                                                          fontWeight:
+                                                                              FontWeight.w500),
+                                                                      textAlign:
+                                                                          TextAlign
+                                                                              .center,
+                                                                    ),
+                                                                  ],
+                                                                ),
+                                                              ),
+                                                              Expanded(
+                                                                flex: 2,
+                                                                child: Text(
+                                                                  _tournamentController
+                                                                      .americanSportDataList[
+                                                                          index]
+                                                                      .awayTeam!
+                                                                      .name!,
+                                                                  style: TextStyle(
+                                                                      letterSpacing:
+                                                                          0.5,
+                                                                      fontSize:
+                                                                          15,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .w500),
+                                                                  textAlign:
+                                                                      TextAlign
+                                                                          .center,
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                          SizedBox(
+                                                            height: 5,
+                                                          ),
+                                                          Text(
+                                                            "GMT+1",
+                                                            style: TextStyle(
+                                                                fontSize: 13,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w500),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              );
+                                            },
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                      _tournamentController.dataloading.value
+                          ? Container(
+                              child: ListView.builder(
+                                physics: BouncingScrollPhysics(
+                                    parent: AlwaysScrollableScrollPhysics()),
+                                itemCount: 15,
+                                itemBuilder: (context, index) {
+                                  return Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: ShimmerHelper().buildBasicShimmer(
+                                      height: 80,
+                                      width: 350,
+                                    ),
+                                  );
+                                },
+                              ),
+                            )
+                          : _tournamentController
+                                  .americanSportNextDataList.isEmpty
+                              ? Container()
+                              : SingleChildScrollView(
+                                  child: Column(
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.only(top: 15),
+                                        child: Container(
+                                          height: 50.h,
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width -
+                                              30.w,
+                                          decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(10)),
+                                          child: TextField(
+                                            onChanged: (value) {setState(() {
+                                              updateSearchQuery2(value);
+                                            });},
+                                            decoration: InputDecoration(
+                                              border: OutlineInputBorder(),
+                                              labelText: 'Search',
+                                              prefixIcon: Icon(Icons.search),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        height: 5,
+                                      ),
+                                      Container(
+                                        height:
+                                            MediaQuery.of(context).size.height -
+                                                190.h,
+                                        child: Obx(
+                                          () => ListView.builder(
+                                            physics: BouncingScrollPhysics(
+                                                parent:
+                                                    AlwaysScrollableScrollPhysics()),
+                                            itemCount: _tournamentController
+                                                .americanSportNextDataList
+                                                .length,
+                                            itemBuilder: (context, index) {
+                                              // Filter the list based on the search query
+                                              final item = _tournamentController
+                                                  .americanSportDataList[index];
+                                              final searchMatches = item
+                                                      .homeTeam!.name!
+                                                      .toLowerCase()
+                                                      .contains(searchQuery2
+                                                          .value
+                                                          .toLowerCase()) ||
+                                                  item.awayTeam!.name!
+                                                      .toLowerCase()
+                                                      .contains(searchQuery2
+                                                          .value
+                                                          .toLowerCase());
+                                              if (!searchMatches) {
+                                                return SizedBox
+                                                    .shrink(); // Skip this item if it doesn't match the search query
+                                              }
+                                              return Padding(
+                                                padding:
+                                                    const EdgeInsets.all(8.0),
+                                                child: GestureDetector(
+                                                  onTap: () => AppNavigation.to(
+                                                      context,
+                                                      ChattingScreen()),
+                                                  child: Container(
+                                                    width: 340,
+                                                    decoration: BoxDecoration(
+                                                      color: Color(0xFF66C38E),
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              10),
+                                                    ),
+                                                    child: Padding(
+                                                      padding:
+                                                          const EdgeInsets.all(
+                                                              10),
+                                                      child: Column(
+                                                        children: [
+                                                          Row(
+                                                            children: [
+                                                              Expanded(
+                                                                flex: 2,
+                                                                child: Text(
+                                                                  _tournamentController
+                                                                      .americanSportNextDataList[
+                                                                          index]
+                                                                      .homeTeam!
+                                                                      .name!,
+                                                                  style: TextStyle(
+                                                                      letterSpacing:
+                                                                          0.5,
+                                                                      fontSize:
+                                                                          15,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .w500),
+                                                                  textAlign:
+                                                                      TextAlign
+                                                                          .center,
+                                                                ),
+                                                              ),
+                                                              Expanded(
+                                                                flex: 1,
+                                                                child: Column(
+                                                                  children: [
+                                                                    Text(
+                                                                      _tournamentController.americanSportNextDataList[index].time!.currentPeriodStartTimestamp !=
+                                                                              null
+                                                                          ? _tournamentController.readTimestamp(_tournamentController
+                                                                              .americanSportNextDataList[index]
+                                                                              .time!
+                                                                              .currentPeriodStartTimestamp!)
+                                                                          : 'N/A',
+                                                                      style: TextStyle(
+                                                                          letterSpacing:
+                                                                              0.5,
+                                                                          fontSize: 11
+                                                                              .sp,
+                                                                          fontWeight:
+                                                                              FontWeight.w500),
+                                                                      textAlign:
+                                                                          TextAlign
+                                                                              .center,
+                                                                    ),
+                                                                    Text(
+                                                                      _tournamentController.americanSportNextDataList[index].time!.currentPeriodStartTimestamp !=
+                                                                              null
+                                                                          ? DateTime.fromMillisecondsSinceEpoch((_tournamentController.americanSportNextDataList[index].time!.currentPeriodStartTimestamp!) * 1000).toString().substring(
+                                                                              11,
+                                                                              16)
+                                                                          : 'N/A',
+                                                                      style: TextStyle(
+                                                                          letterSpacing:
+                                                                              0.5,
+                                                                          fontSize: 20
+                                                                              .sp,
+                                                                          fontWeight:
+                                                                              FontWeight.w500),
+                                                                      textAlign:
+                                                                          TextAlign
+                                                                              .center,
+                                                                    ),
+                                                                  ],
+                                                                ),
+                                                              ),
+                                                              Expanded(
+                                                                flex: 2,
+                                                                child: Text(
+                                                                  _tournamentController
+                                                                      .americanSportNextDataList[
+                                                                          index]
+                                                                      .awayTeam!
+                                                                      .name!,
+                                                                  style: TextStyle(
+                                                                      letterSpacing:
+                                                                          0.5,
+                                                                      fontSize:
+                                                                          15,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .w500),
+                                                                  textAlign:
+                                                                      TextAlign
+                                                                          .center,
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                          SizedBox(
+                                                            height: 5,
+                                                          ),
+                                                          Text(
+                                                            "GMT+1",
+                                                            style: TextStyle(
+                                                                fontSize: 13,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w500),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              );
+                                            },
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildFootballView(BuildContext context) {
+    return Container(
+      height: MediaQuery.of(context).size.height - 116,
+      child: Obx(
+        () => DefaultTabController(
+          length: 2,
+          child: Container(
+            child: Column(
+              children: [
+                Container(
+                  color: Colors.white,
+                  child: TabBar(
+                    tabs: [
+                      Tab(
+                        child: Text(
+                          "Today",
+                          textAlign: TextAlign.center,
+                          style: const TextStyle(color: Colors.black),
+                        ),
+                      ),
+                      Tab(
+                        child: Text(
+                          "Tomorrow",
+                          textAlign: TextAlign.center,
+                          style: const TextStyle(color: Colors.black),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Expanded(
+                  child: TabBarView(
+                    children: [
+                      _tournamentController.dataloading.value
+                          ? Container(
+                              child: ListView.builder(
+                                physics: BouncingScrollPhysics(
+                                    parent: AlwaysScrollableScrollPhysics()),
+                                itemCount: 15,
+                                itemBuilder: (context, index) {
+                                  return Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: ShimmerHelper().buildBasicShimmer(
+                                      height: 80,
+                                      width: 350,
+                                    ),
+                                  );
+                                },
+                              ),
+                            )
+                          : _tournamentController.tournamentList.isEmpty
+                              ? Container()
+                              : Column(
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.only(top: 15),
+                                      child: Container(
+                                        height: 50.h,
+                                        width:
+                                            MediaQuery.of(context).size.width -
+                                                30.w,
+                                        decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(10)),
+                                        child: TextField(
+                                          onChanged: (value) {
+                                            setState(() {
+                                              updateSearchQuery(value);
+                                            });
+                                          },
+                                          decoration: InputDecoration(
+                                            border: OutlineInputBorder(),
+                                            labelText: 'Search',
+                                            prefixIcon: Icon(Icons.search),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    Expanded(
+                                      child: SingleChildScrollView(
+                                        physics: BouncingScrollPhysics(
+                                            parent:
+                                                AlwaysScrollableScrollPhysics()),
+                                        child: SizedBox(
+                                          child: ListView.builder(
+                                            physics:
+                                                NeverScrollableScrollPhysics(),
+                                            shrinkWrap: true,
+                                            itemCount: _tournamentController
+                                                .tournamentList.length,
+                                            itemBuilder: (context, index) {
+                                              // Filter the list based on the search query
+                                              final item = _tournamentController
+                                                  .tournamentList[index];
+                                              final searchMatches = item[
+                                                          'homeTeam']['name']
+                                                      .toString()
+                                                      .toLowerCase()
+                                                      .contains(searchQuery
+                                                          .value
+                                                          .toLowerCase()) ||
+                                                  item['awayTeam']['name']
+                                                      .toString()
+                                                      .toLowerCase()
+                                                      .contains(searchQuery
+                                                          .value
+                                                          .toLowerCase());
+                                              print(searchMatches);
+                                              if (!searchMatches) {
+                                                return SizedBox
+                                                    .shrink(); // Skip this item if it doesn't match the search query
+                                              } else if (item == null) {
+                                                return SizedBox.shrink();
+                                              }
+                                              return Padding(
+                                                padding:
+                                                    const EdgeInsets.all(8.0),
+                                                child: GestureDetector(
+                                                  onTap: () => AppNavigation.to(
+                                                      context,
+                                                      ChattingScreen()),
+                                                  child: Container(
+                                                    width: 340,
+                                                    decoration: BoxDecoration(
+                                                      color: Color(0xFF66C38E),
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              10),
+                                                    ),
+                                                    child: Padding(
+                                                      padding:
+                                                          const EdgeInsets.all(
+                                                              10),
+                                                      child: Column(
+                                                        children: [
+                                                          Row(
+                                                            children: [
+                                                              Expanded(
+                                                                flex: 2,
+                                                                child: Text(
+                                                                  _tournamentController
+                                                                      .tournamentList[
+                                                                          index]
+                                                                          [
+                                                                          'homeTeam']
+                                                                          [
+                                                                          'name']
+                                                                      .toString(),
+                                                                  style: TextStyle(
+                                                                      letterSpacing:
+                                                                          0.5,
+                                                                      fontSize:
+                                                                          15,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .w500),
+                                                                  textAlign:
+                                                                      TextAlign
+                                                                          .center,
+                                                                ),
+                                                              ),
+                                                              Expanded(
+                                                                flex: 1,
+                                                                child: Column(
+                                                                  children: [
+                                                                    Text(
+                                                                      _tournamentController.tournamentList[index]['time']['currentPeriodStartTimestamp'] !=
+                                                                              null
+                                                                          ? DateTime.fromMillisecondsSinceEpoch((_tournamentController.tournamentList[index]['time']['currentPeriodStartTimestamp']) * 1000).toString().substring(
+                                                                              0,
+                                                                              11)
+                                                                          : 'N/A',
+                                                                      style: TextStyle(
+                                                                          letterSpacing:
+                                                                              0.5,
+                                                                          fontSize: 11
+                                                                              .sp,
+                                                                          fontWeight:
+                                                                              FontWeight.w500),
+                                                                      textAlign:
+                                                                          TextAlign
+                                                                              .center,
+                                                                    ),
+                                                                    Text(
+                                                                      _tournamentController
+                                                                              .tournamentList[index][
+                                                                                  'time']
+                                                                              .isNotEmpty
+                                                                          ? _tournamentController.readTimestamp(_tournamentController.tournamentList[index]['time']
+                                                                              [
+                                                                              'currentPeriodStartTimestamp'])
+                                                                          : 'N/A',
+                                                                      style: TextStyle(
+                                                                          letterSpacing:
+                                                                              0.5,
+                                                                          fontSize: 20
+                                                                              .sp,
+                                                                          fontWeight:
+                                                                              FontWeight.w500),
+                                                                      textAlign:
+                                                                          TextAlign
+                                                                              .center,
+                                                                    ),
+                                                                  ],
+                                                                ),
+                                                              ),
+                                                              Expanded(
+                                                                flex: 2,
+                                                                child: Text(
+                                                                  _tournamentController
+                                                                      .tournamentList[
+                                                                          index]
+                                                                          [
+                                                                          'awayTeam']
+                                                                          [
+                                                                          'name']
+                                                                      .toString(),
+                                                                  style: TextStyle(
+                                                                      letterSpacing:
+                                                                          0.5,
+                                                                      fontSize:
+                                                                          15,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .w500),
+                                                                  textAlign:
+                                                                      TextAlign
+                                                                          .center,
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                          SizedBox(
+                                                            height: 5,
+                                                          ),
+                                                          Text(
+                                                            "GMT+1",
+                                                            style: TextStyle(
+                                                                fontSize: 13,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w500),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              );
+                                            },
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                      _tournamentController.dataloading.value
+                          ? Container(
+                              child: ListView.builder(
+                                physics: BouncingScrollPhysics(
+                                    parent: AlwaysScrollableScrollPhysics()),
+                                itemCount: 15,
+                                itemBuilder: (context, index) {
+                                  return Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: ShimmerHelper().buildBasicShimmer(
+                                      height: 80,
+                                      width: 350,
+                                    ),
+                                  );
+                                },
+                              ),
+                            )
+                          : _tournamentController.tournamentList2.isEmpty
+                              ? Container()
+                              : Column(
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.only(top: 15),
+                                      child: Container(
+                                        height: 50.h,
+                                        width:
+                                            MediaQuery.of(context).size.width -
+                                                30.w,
+                                        decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(10)),
+                                        child: TextField(
+                                          onChanged: (value) {
+                                            setState(() {
+                                              updateSearchQuery2(value);
+                                            });
+                                          },
+                                          decoration: InputDecoration(
+                                            border: OutlineInputBorder(),
+                                            labelText: 'Search',
+                                            prefixIcon: Icon(Icons.search),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    Expanded(
+                                      child: SingleChildScrollView(
+                                        physics: BouncingScrollPhysics(
+                                            parent:
+                                                AlwaysScrollableScrollPhysics()),
+                                        child: SizedBox(
+                                          child: ListView.builder(
+                                            physics:
+                                                NeverScrollableScrollPhysics(),
+                                            shrinkWrap: true,
+                                            itemCount: _tournamentController
+                                                .tournamentList2.length,
+                                            itemBuilder: (context, index) {
+                                              // // Filter the list based on the search query
+                                              final item = _tournamentController
+                                                  .tournamentList2[index];
+                                              final searchMatches = item[
+                                                          'homeTeam']['name']
+                                                      .toLowerCase()
+                                                      .contains(searchQuery2
+                                                          .value
+                                                          .toLowerCase()) ||
+                                                  item['awayTeam']['name']
+                                                      .toLowerCase()
+                                                      .contains(searchQuery2
+                                                          .value
+                                                          .toLowerCase());
+                                              if (!searchMatches) {
+                                                return SizedBox
+                                                    .shrink(); // Skip this item if it doesn't match the search query
+                                              }
+                                              return Padding(
+                                                padding:
+                                                    const EdgeInsets.all(8.0),
+                                                child: GestureDetector(
+                                                  onTap: () => AppNavigation.to(
+                                                      context,
+                                                      ChattingScreen()),
+                                                  child: Container(
+                                                    width: 340,
+                                                    decoration: BoxDecoration(
+                                                      color: Color(0xFF66C38E),
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              10),
+                                                    ),
+                                                    child: Padding(
+                                                      padding:
+                                                          const EdgeInsets.all(
+                                                              10),
+                                                      child: Column(
+                                                        children: [
+                                                          Row(
+                                                            children: [
+                                                              Expanded(
+                                                                flex: 2,
+                                                                child: Text(
+                                                                  _tournamentController
+                                                                      .tournamentList2[
+                                                                          index]
+                                                                          [
+                                                                          'homeTeam']
+                                                                          [
+                                                                          'name']
+                                                                      .toString(),
+                                                                  style: TextStyle(
+                                                                      letterSpacing:
+                                                                          0.5,
+                                                                      fontSize:
+                                                                          15,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .w500),
+                                                                  textAlign:
+                                                                      TextAlign
+                                                                          .center,
+                                                                ),
+                                                              ),
+                                                              Expanded(
+                                                                flex: 1,
+                                                                child: Column(
+                                                                  children: [
+                                                                    Text(
+                                                                      _tournamentController.tournamentList2[index]['time']['currentPeriodStartTimestamp'] !=
+                                                                              null
+                                                                          ? DateTime.fromMillisecondsSinceEpoch((_tournamentController.tournamentList2[index]['time']['currentPeriodStartTimestamp']) * 1000).toString().substring(
+                                                                              0,
+                                                                              11)
+                                                                          : 'N/A',
+                                                                      style: TextStyle(
+                                                                          letterSpacing:
+                                                                              0.5,
+                                                                          fontSize: 11
+                                                                              .sp,
+                                                                          fontWeight:
+                                                                              FontWeight.w500),
+                                                                      textAlign:
+                                                                          TextAlign
+                                                                              .center,
+                                                                    ),
+                                                                    Text(
+                                                                      _tournamentController
+                                                                              .tournamentList2[index][
+                                                                                  'time']
+                                                                              .isNotEmpty
+                                                                          ? _tournamentController.readTimestamp(_tournamentController.tournamentList2[index]['time']
+                                                                              [
+                                                                              'currentPeriodStartTimestamp'])
+                                                                          : 'N/A',
+                                                                      style: TextStyle(
+                                                                          letterSpacing:
+                                                                              0.5,
+                                                                          fontSize: 20
+                                                                              .sp,
+                                                                          fontWeight:
+                                                                              FontWeight.w500),
+                                                                      textAlign:
+                                                                          TextAlign
+                                                                              .center,
+                                                                    ),
+                                                                  ],
+                                                                ),
+                                                              ),
+                                                              Expanded(
+                                                                flex: 2,
+                                                                child: Text(
+                                                                  _tournamentController
+                                                                      .tournamentList2[
+                                                                          index]
+                                                                          [
+                                                                          'awayTeam']
+                                                                          [
+                                                                          'name']
+                                                                      .toString(),
+                                                                  style: TextStyle(
+                                                                      letterSpacing:
+                                                                          0.5,
+                                                                      fontSize:
+                                                                          15,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .w500),
+                                                                  textAlign:
+                                                                      TextAlign
+                                                                          .center,
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                          SizedBox(
+                                                            height: 5,
+                                                          ),
+                                                          Text(
+                                                            "GMT+1",
+                                                            style: TextStyle(
+                                                                fontSize: 13,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w500),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              );
+                                            },
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                    ],
+                  ),
+                ),
+              ],
             ),
           ),
         ),
@@ -2129,146 +2615,195 @@ class _MatchAnnounceScreenState extends State<MatchAnnounceScreen> {
                                 .SelectedFootballSportDataList.isEmpty
                             ? Container()
                             : SingleChildScrollView(
-                                child: Container(
-                                  height: MediaQuery.of(context).size.height -
-                                      190.h,
-                                  child: Obx(
-                                    () => ListView.builder(
-                                      physics: BouncingScrollPhysics(
-                                          parent:
-                                              AlwaysScrollableScrollPhysics()),
-                                      itemCount: _tournamentController
-                                          .SelectedFootballSportDataList.length,
-                                      itemBuilder: (context, index) {
-                                        return Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: GestureDetector(
-                                            onTap: () => AppNavigation.to(
-                                                context, ChattingScreen()),
-                                            child: Container(
-                                              width: 340,
-                                              decoration: BoxDecoration(
-                                                color: Color(0xFF66C38E),
-                                                borderRadius:
-                                                    BorderRadius.circular(10),
-                                              ),
-                                              child: Padding(
-                                                padding:
-                                                    const EdgeInsets.all(10),
-                                                child: Column(
-                                                  children: [
-                                                    Row(
+                                child: Column(
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.only(top: 15),
+                                      child: Container(
+                                        height: 50.h,
+                                        width: MediaQuery.of(context)
+                                            .size
+                                            .width -
+                                            30.w,
+                                        decoration: BoxDecoration(
+                                            borderRadius:
+                                            BorderRadius.circular(10)),
+                                        child: TextField(
+                                          onChanged: (value) {setState(() {
+                                            updateSearchQuery(value);
+                                          });},
+
+                                          decoration: InputDecoration(
+                                            border: OutlineInputBorder(),
+                                            labelText: 'Search',
+                                            prefixIcon: Icon(Icons.search),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height: 5,
+                                    ),
+                                    Container(
+                                      height: MediaQuery.of(context).size.height -
+                                          190.h,
+                                      child: Obx(
+                                        () => ListView.builder(
+                                          physics: BouncingScrollPhysics(
+                                              parent:
+                                                  AlwaysScrollableScrollPhysics()),
+                                          itemCount: _tournamentController
+                                              .SelectedFootballSportDataList.length,
+                                          itemBuilder: (context, index) {
+                                            // Filter the list based on the search query
+                                            final item = _tournamentController
+                                                .SelectedFootballSportDataList[index];
+                                            final searchMatches = item
+                                                .homeTeam!.name!
+                                                .toLowerCase()
+                                                .contains(searchQuery
+                                                .value
+                                                .toLowerCase()) ||
+                                                item.awayTeam!.name!
+                                                    .toLowerCase()
+                                                    .contains(searchQuery
+                                                    .value
+                                                    .toLowerCase());
+                                            if (!searchMatches) {
+                                              return SizedBox
+                                                  .shrink(); // Skip this item if it doesn't match the search query
+                                            }
+                                            return Padding(
+                                              padding: const EdgeInsets.all(8.0),
+                                              child: GestureDetector(
+                                                onTap: () => AppNavigation.to(
+                                                    context, ChattingScreen()),
+                                                child: Container(
+                                                  width: 340,
+                                                  decoration: BoxDecoration(
+                                                    color: Color(0xFF66C38E),
+                                                    borderRadius:
+                                                        BorderRadius.circular(10),
+                                                  ),
+                                                  child: Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(10),
+                                                    child: Column(
                                                       children: [
-                                                        Expanded(
-                                                          flex: 2,
-                                                          child: Text(
-                                                            _tournamentController
-                                                                .SelectedFootballSportDataList[
-                                                                    index]
-                                                                .homeTeam!
-                                                                .name!,
-                                                            style: TextStyle(
-                                                                letterSpacing:
-                                                                    0.5,
-                                                                fontSize: 15,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w500),
-                                                            textAlign: TextAlign
-                                                                .center,
-                                                          ),
-                                                        ),
-                                                        Expanded(
-                                                          flex: 1,
-                                                          child: Column(
-                                                            children: [
-                                                              Text(
+                                                        Row(
+                                                          children: [
+                                                            Expanded(
+                                                              flex: 2,
+                                                              child: Text(
                                                                 _tournamentController
-                                                                            .SelectedFootballSportDataList[
-                                                                                index]
-                                                                            .time!
-                                                                            .currentPeriodStartTimestamp !=
-                                                                        null
-                                                                    ? DateTime.fromMillisecondsSinceEpoch((_tournamentController.SelectedFootballSportDataList[index].time!.currentPeriodStartTimestamp!) *
-                                                                            1000)
-                                                                        .toString()
-                                                                        .substring(
-                                                                            0,
-                                                                            11)
-                                                                    : 'N/A',
+                                                                    .SelectedFootballSportDataList[
+                                                                        index]
+                                                                    .homeTeam!
+                                                                    .name!,
                                                                 style: TextStyle(
                                                                     letterSpacing:
                                                                         0.5,
-                                                                    fontSize:
-                                                                        11.sp,
+                                                                    fontSize: 15,
                                                                     fontWeight:
                                                                         FontWeight
                                                                             .w500),
-                                                                textAlign:
-                                                                    TextAlign
-                                                                        .center,
+                                                                textAlign: TextAlign
+                                                                    .center,
                                                               ),
-                                                              Text(
-                                                                _tournamentController
+                                                            ),
+                                                            Expanded(
+                                                              flex: 1,
+                                                              child: Column(
+                                                                children: [
+                                                                  Text(
+                                                                    _tournamentController
+                                                                                .SelectedFootballSportDataList[
+                                                                                    index]
+                                                                                .time!
+                                                                                .currentPeriodStartTimestamp !=
+                                                                            null
+                                                                        ? DateTime.fromMillisecondsSinceEpoch((_tournamentController.SelectedFootballSportDataList[index].time!.currentPeriodStartTimestamp!) *
+                                                                                1000)
+                                                                            .toString()
+                                                                            .substring(
+                                                                                0,
+                                                                                11)
+                                                                        : 'N/A',
+                                                                    style: TextStyle(
+                                                                        letterSpacing:
+                                                                            0.5,
+                                                                        fontSize:
+                                                                            11.sp,
+                                                                        fontWeight:
+                                                                            FontWeight
+                                                                                .w500),
+                                                                    textAlign:
+                                                                        TextAlign
+                                                                            .center,
+                                                                  ),
+                                                                  Text(
+                                                                    _tournamentController
+                                                                                .SelectedFootballSportDataList[
+                                                                                    index]
+                                                                                .time!
+                                                                                .currentPeriodStartTimestamp !=
+                                                                            null
+                                                                        ? _tournamentController.readTimestamp(_tournamentController
                                                                             .SelectedFootballSportDataList[
                                                                                 index]
                                                                             .time!
-                                                                            .currentPeriodStartTimestamp !=
-                                                                        null
-                                                                    ? _tournamentController.readTimestamp(_tournamentController
-                                                                        .SelectedFootballSportDataList[
-                                                                            index]
-                                                                        .time!
-                                                                        .currentPeriodStartTimestamp!)
-                                                                    : 'N/A',
+                                                                            .currentPeriodStartTimestamp!)
+                                                                        : 'N/A',
+                                                                    style: TextStyle(
+                                                                        letterSpacing:
+                                                                            0.5,
+                                                                        fontSize:
+                                                                            20.sp,
+                                                                        fontWeight:
+                                                                            FontWeight
+                                                                                .w500),
+                                                                    textAlign:
+                                                                        TextAlign
+                                                                            .center,
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                            ),
+                                                            Expanded(
+                                                              flex: 2,
+                                                              child: Text(
+                                                                _tournamentController
+                                                                    .SelectedFootballSportDataList[
+                                                                        index]
+                                                                    .awayTeam!
+                                                                    .name!,
                                                                 style: TextStyle(
                                                                     letterSpacing:
                                                                         0.5,
-                                                                    fontSize:
-                                                                        20.sp,
+                                                                    fontSize: 15,
                                                                     fontWeight:
                                                                         FontWeight
                                                                             .w500),
-                                                                textAlign:
-                                                                    TextAlign
-                                                                        .center,
+                                                                textAlign: TextAlign
+                                                                    .center,
                                                               ),
-                                                            ],
-                                                          ),
+                                                            ),
+                                                          ],
                                                         ),
-                                                        Expanded(
-                                                          flex: 2,
-                                                          child: Text(
-                                                            _tournamentController
-                                                                .SelectedFootballSportDataList[
-                                                                    index]
-                                                                .awayTeam!
-                                                                .name!,
-                                                            style: TextStyle(
-                                                                letterSpacing:
-                                                                    0.5,
-                                                                fontSize: 15,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w500),
-                                                            textAlign: TextAlign
-                                                                .center,
-                                                          ),
+                                                        SizedBox(
+                                                          height: 5,
                                                         ),
                                                       ],
                                                     ),
-                                                    SizedBox(
-                                                      height: 5,
-                                                    ),
-                                                  ],
+                                                  ),
                                                 ),
                                               ),
-                                            ),
-                                          ),
-                                        );
-                                      },
+                                            );
+                                          },
+                                        ),
+                                      ),
                                     ),
-                                  ),
+                                  ],
                                 ),
                               ),
                     _tournamentController.dataloading.value
@@ -2292,147 +2827,195 @@ class _MatchAnnounceScreenState extends State<MatchAnnounceScreen> {
                                 .SelectedFootballSportDataList2.isEmpty
                             ? Container()
                             : SingleChildScrollView(
-                                child: Container(
-                                  height: MediaQuery.of(context).size.height -
-                                      190.h,
-                                  child: Obx(
-                                    () => ListView.builder(
-                                      physics: BouncingScrollPhysics(
-                                          parent:
-                                              AlwaysScrollableScrollPhysics()),
-                                      itemCount: _tournamentController
-                                          .SelectedFootballSportDataList2
-                                          .length,
-                                      itemBuilder: (context, index) {
-                                        return Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: GestureDetector(
-                                            onTap: () => AppNavigation.to(
-                                                context, ChattingScreen()),
-                                            child: Container(
-                                              width: 340,
-                                              decoration: BoxDecoration(
-                                                color: Color(0xFF66C38E),
-                                                borderRadius:
-                                                    BorderRadius.circular(10),
-                                              ),
-                                              child: Padding(
-                                                padding:
-                                                    const EdgeInsets.all(10),
-                                                child: Column(
-                                                  children: [
-                                                    Row(
+                                child: Column(
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.only(top: 15),
+                                      child: Container(
+                                        height: 50.h,
+                                        width: MediaQuery.of(context)
+                                            .size
+                                            .width -
+                                            30.w,
+                                        decoration: BoxDecoration(
+                                            borderRadius:
+                                            BorderRadius.circular(10)),
+                                        child: TextField(
+                                          onChanged: (value) {setState(() {
+                                            updateSearchQuery2(value);
+                                          });},
+                                          decoration: InputDecoration(
+                                            border: OutlineInputBorder(),
+                                            labelText: 'Search',
+                                            prefixIcon: Icon(Icons.search),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height: 5,
+                                    ),
+                                    Container(
+                                      height: MediaQuery.of(context).size.height -
+                                          190.h,
+                                      child: Obx(
+                                        () => ListView.builder(
+                                          physics: BouncingScrollPhysics(
+                                              parent:
+                                                  AlwaysScrollableScrollPhysics()),
+                                          itemCount: _tournamentController
+                                              .SelectedFootballSportDataList2
+                                              .length,
+                                          itemBuilder: (context, index) {
+                                            // Filter the list based on the search query
+                                            final item = _tournamentController
+                                                .SelectedFootballSportDataList2[index];
+                                            final searchMatches = item
+                                                .homeTeam!.name!
+                                                .toLowerCase()
+                                                .contains(searchQuery2
+                                                .value
+                                                .toLowerCase()) ||
+                                                item.awayTeam!.name!
+                                                    .toLowerCase()
+                                                    .contains(searchQuery2
+                                                    .value
+                                                    .toLowerCase());
+                                            if (!searchMatches) {
+                                              return SizedBox
+                                                  .shrink(); // Skip this item if it doesn't match the search query
+                                            }
+                                            return Padding(
+                                              padding: const EdgeInsets.all(8.0),
+                                              child: GestureDetector(
+                                                onTap: () => AppNavigation.to(
+                                                    context, ChattingScreen()),
+                                                child: Container(
+                                                  width: 340,
+                                                  decoration: BoxDecoration(
+                                                    color: Color(0xFF66C38E),
+                                                    borderRadius:
+                                                        BorderRadius.circular(10),
+                                                  ),
+                                                  child: Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(10),
+                                                    child: Column(
                                                       children: [
-                                                        Expanded(
-                                                          flex: 2,
-                                                          child: Text(
-                                                            _tournamentController
-                                                                .SelectedFootballSportDataList2[
-                                                                    index]
-                                                                .homeTeam!
-                                                                .name!,
-                                                            style: TextStyle(
-                                                                letterSpacing:
-                                                                    0.5,
-                                                                fontSize: 15,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w500),
-                                                            textAlign: TextAlign
-                                                                .center,
-                                                          ),
-                                                        ),
-                                                        Expanded(
-                                                          flex: 1,
-                                                          child: Column(
-                                                            children: [
-                                                              Text(
+                                                        Row(
+                                                          children: [
+                                                            Expanded(
+                                                              flex: 2,
+                                                              child: Text(
                                                                 _tournamentController
-                                                                            .SelectedFootballSportDataList2[
-                                                                                index]
-                                                                            .time!
-                                                                            .currentPeriodStartTimestamp !=
-                                                                        null
-                                                                    ? DateTime.fromMillisecondsSinceEpoch((_tournamentController.SelectedFootballSportDataList2[index].time!.currentPeriodStartTimestamp!) *
-                                                                            1000)
-                                                                        .toString()
-                                                                        .substring(
-                                                                            0,
-                                                                            11)
-                                                                    : 'N/A',
+                                                                    .SelectedFootballSportDataList2[
+                                                                        index]
+                                                                    .homeTeam!
+                                                                    .name!,
                                                                 style: TextStyle(
                                                                     letterSpacing:
                                                                         0.5,
-                                                                    fontSize:
-                                                                        11.sp,
+                                                                    fontSize: 15,
                                                                     fontWeight:
                                                                         FontWeight
                                                                             .w500),
-                                                                textAlign:
-                                                                    TextAlign
-                                                                        .center,
+                                                                textAlign: TextAlign
+                                                                    .center,
                                                               ),
-                                                              Text(
-                                                                _tournamentController
+                                                            ),
+                                                            Expanded(
+                                                              flex: 1,
+                                                              child: Column(
+                                                                children: [
+                                                                  Text(
+                                                                    _tournamentController
+                                                                                .SelectedFootballSportDataList2[
+                                                                                    index]
+                                                                                .time!
+                                                                                .currentPeriodStartTimestamp !=
+                                                                            null
+                                                                        ? DateTime.fromMillisecondsSinceEpoch((_tournamentController.SelectedFootballSportDataList2[index].time!.currentPeriodStartTimestamp!) *
+                                                                                1000)
+                                                                            .toString()
+                                                                            .substring(
+                                                                                0,
+                                                                                11)
+                                                                        : 'N/A',
+                                                                    style: TextStyle(
+                                                                        letterSpacing:
+                                                                            0.5,
+                                                                        fontSize:
+                                                                            11.sp,
+                                                                        fontWeight:
+                                                                            FontWeight
+                                                                                .w500),
+                                                                    textAlign:
+                                                                        TextAlign
+                                                                            .center,
+                                                                  ),
+                                                                  Text(
+                                                                    _tournamentController
+                                                                                .SelectedFootballSportDataList2[
+                                                                                    index]
+                                                                                .time!
+                                                                                .currentPeriodStartTimestamp !=
+                                                                            null
+                                                                        ? _tournamentController.readTimestamp(_tournamentController
                                                                             .SelectedFootballSportDataList2[
                                                                                 index]
                                                                             .time!
-                                                                            .currentPeriodStartTimestamp !=
-                                                                        null
-                                                                    ? _tournamentController.readTimestamp(_tournamentController
-                                                                        .SelectedFootballSportDataList2[
-                                                                            index]
-                                                                        .time!
-                                                                        .currentPeriodStartTimestamp!)
-                                                                    : 'N/A',
+                                                                            .currentPeriodStartTimestamp!)
+                                                                        : 'N/A',
+                                                                    style: TextStyle(
+                                                                        letterSpacing:
+                                                                            0.5,
+                                                                        fontSize:
+                                                                            20.sp,
+                                                                        fontWeight:
+                                                                            FontWeight
+                                                                                .w500),
+                                                                    textAlign:
+                                                                        TextAlign
+                                                                            .center,
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                            ),
+                                                            Expanded(
+                                                              flex: 2,
+                                                              child: Text(
+                                                                _tournamentController
+                                                                    .SelectedFootballSportDataList2[
+                                                                        index]
+                                                                    .awayTeam!
+                                                                    .name!,
                                                                 style: TextStyle(
                                                                     letterSpacing:
                                                                         0.5,
-                                                                    fontSize:
-                                                                        20.sp,
+                                                                    fontSize: 15,
                                                                     fontWeight:
                                                                         FontWeight
                                                                             .w500),
-                                                                textAlign:
-                                                                    TextAlign
-                                                                        .center,
+                                                                textAlign: TextAlign
+                                                                    .center,
                                                               ),
-                                                            ],
-                                                          ),
+                                                            ),
+                                                          ],
                                                         ),
-                                                        Expanded(
-                                                          flex: 2,
-                                                          child: Text(
-                                                            _tournamentController
-                                                                .SelectedFootballSportDataList2[
-                                                                    index]
-                                                                .awayTeam!
-                                                                .name!,
-                                                            style: TextStyle(
-                                                                letterSpacing:
-                                                                    0.5,
-                                                                fontSize: 15,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w500),
-                                                            textAlign: TextAlign
-                                                                .center,
-                                                          ),
+                                                        SizedBox(
+                                                          height: 5,
                                                         ),
                                                       ],
                                                     ),
-                                                    SizedBox(
-                                                      height: 5,
-                                                    ),
-                                                  ],
+                                                  ),
                                                 ),
                                               ),
-                                            ),
-                                          ),
-                                        );
-                                      },
+                                            );
+                                          },
+                                        ),
+                                      ),
                                     ),
-                                  ),
+                                  ],
                                 ),
                               ),
                   ],
