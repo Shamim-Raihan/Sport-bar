@@ -2,6 +2,8 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
+import 'package:sports_bar/models/media_model.dart';
+import 'package:sports_bar/models/unique_tournaments_model.dart';
 
 import '../models/sport_model.dart';
 import '../models/tournament_model.dart';
@@ -106,6 +108,60 @@ class TournamentRepository {
       if (response.statusCode == 200) {
         var sportResponse = sportResponseFromJson(response.body);
         return sportResponse;
+      } else {
+        return null;
+      }
+    } catch (error) {}
+    return null;
+  }
+
+
+
+  ///fetchalltournamentcatfornews
+
+  Future<MediaCatModel?>? fetchTournamentNewsData() async {
+    try {
+      var headers = {
+        'X-RapidAPI-Key': Constants.API_KEY,
+        'X-RapidAPI-Host': Constants.HOST_URL
+      };
+      final response = await http.get(
+          Uri.parse(
+              'https://sofasport.p.rapidapi.com/v1/unique-tournaments-top?locale=EN'),
+          headers: headers);
+
+      if (response.statusCode == 200) {
+        var Response = mediacatFromJson(response.body);
+        print(response.body);
+        return Response;
+      } else {
+        return null;
+      }
+    } catch (error) {}
+    return null;
+  }
+
+  ///fetchnews
+
+  Future<MediaModel?>? fetchNewsData(String id) async {
+    print("FetchNews hit");
+    print(id);
+    try {
+      var headers = {
+        'X-RapidAPI-Key': Constants.API_KEY,
+        'X-RapidAPI-Host': Constants.HOST_URL
+      };
+      final response = await http.get(
+          Uri.parse(
+              'https://sofasport.p.rapidapi.com/v1/unique-tournaments/media?unique_tournament_id=$id'),
+          headers: headers);
+      var Response = mediamodelFromJson(response.body);
+      print(response.body);
+      return Response;
+      if (response.statusCode == 200) {
+        var Response = mediamodelFromJson(response.body);
+        print(response.body);
+        return Response;
       } else {
         return null;
       }

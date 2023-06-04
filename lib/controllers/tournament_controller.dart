@@ -3,11 +3,15 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:sports_bar/models/media_model.dart';
+import 'package:sports_bar/models/unique_tournaments_model.dart';
 import 'package:sports_bar/repostitory/tournament_repository.dart';
 
 import '../models/sport_model.dart';
 
 class TournamentController extends GetxController {
+
+  final TextEditingController nameTextController = TextEditingController();
   var dataloading = false.obs;
   var tournamentList = [].obs;
   var selectedSport = 0.obs;
@@ -29,6 +33,26 @@ class TournamentController extends GetxController {
   var americanSportNextDayResponse = SportResponse().obs;
   var americanSportDataList = List<Datum>.empty(growable: true).obs;
   var americanSportNextDataList = List<Datum>.empty(growable: true).obs;
+  var americanSportNextSearchDataList = List<Datum>.empty(growable: true).obs;
+
+
+  void searchfilter(String value){
+    print("key234"+value);
+    americanSportNextSearchDataList.value=americanSportDataList.value;
+    print("list"+americanSportNextSearchDataList.length.toString());
+      americanSportDataList.clear();
+      for(int i=0; i<americanSportNextSearchDataList.length;i++)
+        {
+          if(americanSportNextSearchDataList[i].homeTeam!.name.toString().toLowerCase().contains(value.toLowerCase()))
+            {
+              print("keyword"+value);
+              americanSportDataList.add(americanSportNextSearchDataList[i]);
+            }
+        }
+      print(americanSportNextSearchDataList.length);
+      print(americanSportDataList.length);
+
+  }
 
   //rugby
   var rugbySportTodaysResponse = SportResponse().obs;
@@ -47,6 +71,9 @@ class TournamentController extends GetxController {
   var baseballSportNextDayResponse = SportResponse().obs;
   var baseballSportDataList = List<Datum>.empty(growable: true).obs;
   var baseballSportNextDataList = List<Datum>.empty(growable: true).obs;
+
+  MediaCatModel? allcatlist;
+  MediaModel? news;
 
 
   void fetchTournamentData({required int category_id}) async {
@@ -289,4 +316,25 @@ class TournamentController extends GetxController {
   //   //formattedtime=updatedtime+":"+minute+" "+am_pm;
   //   return formattedtime;
   // }
+
+
+  void fetchMediaCats() async {
+    dataloading.value=true;
+    allcatlist = await TournamentRepository()
+        .fetchTournamentNewsData();
+    fetchNews("8");
+    dataloading.value=false;
+  }
+  void fetchNews(String id) async {
+    print("FetchNews called");
+    dataloading2.value=true;
+    news = await TournamentRepository()
+        .fetchNewsData(id);
+    dataloading2.value=false;
+  }
+  @override
+  void onInit() {
+    fetchMediaCats();
+    super.onInit();
+  }
 }

@@ -27,12 +27,8 @@ class _MatchAnnounceScreenState extends State<MatchAnnounceScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Colors.black,
-      child: SafeArea(
-        child: GetBuilder(
-          init: ProfileController(),
-          builder: (controller){
+     return GetBuilder<TournamentController>(builder: (tournamentController)
+        {
           return Scaffold(
              appBar: AppBar(
                   leading: IconButton(
@@ -101,7 +97,7 @@ class _MatchAnnounceScreenState extends State<MatchAnnounceScreen> {
                             child: ListTile(
                               onTap: () {
                                 Navigator.pop(context);
-                                controller.deleteImage();
+                                //_tournamentController.deleteImage();
                                 auth.signOut().then((value) {
                                   Navigator.pushAndRemoveUntil(
                                       (context),
@@ -164,9 +160,8 @@ class _MatchAnnounceScreenState extends State<MatchAnnounceScreen> {
                 )),
             body: _buildBody(context),
           );
-        }),
-      ),
-    );
+        });
+
   }
 
   Widget _buildBody(BuildContext context) {
@@ -1185,26 +1180,56 @@ class _MatchAnnounceScreenState extends State<MatchAnnounceScreen> {
              child: Container(
                 child: Column(
                   children: [
-                    Container(
-                      color: Colors.white,
-                      child: TabBar(
-                        tabs: [
-                          Tab(
-                            child: Text(
-                              "Today",
-                              textAlign: TextAlign.center,
-                              style: const TextStyle(color: Colors.black),
+                    Column(
+                      children: [
+                        Container(
+                          height: 63.h,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(4),
+                              color: Colors.white,
+                              border: Border.all(
+                                  color: Colors.blueAccent,
+                                  width: 0.2
+                              )
+                          ),
+                          child: Padding(
+                            padding: EdgeInsets.all(16.0.sp),
+                            child: TextFormField(
+                              onChanged: (value){
+                                _tournamentController.searchfilter(value);
+                              },
+                              controller: _tournamentController.nameTextController,
+                              decoration: InputDecoration(
+                                  border: InputBorder.none,
+                                  filled: false,
+                                  hintStyle: TextStyle(
+                                      color: Colors.blueAccent, fontSize: 14.sp),
+                                  hintText: ' Event Name'),
                             ),
                           ),
-                          Tab(
-                            child: Text(
-                              "Tomorrow",
-                              textAlign: TextAlign.center,
-                              style: const TextStyle(color: Colors.black),
-                            ),
+                        ),
+                        Container(
+                          color: Colors.white,
+                          child: TabBar(
+                            tabs: [
+                              Tab(
+                                child: Text(
+                                  "Today",
+                                  textAlign: TextAlign.center,
+                                  style: const TextStyle(color: Colors.black),
+                                ),
+                              ),
+                              Tab(
+                                child: Text(
+                                  "Tomorrow",
+                                  textAlign: TextAlign.center,
+                                  style: const TextStyle(color: Colors.black),
+                                ),
+                              ),
+                            ],
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
                     SizedBox(
                       height: MediaQuery.of(context).size.height-190.h,
@@ -1212,19 +1237,21 @@ class _MatchAnnounceScreenState extends State<MatchAnnounceScreen> {
                         children: [
                           _tournamentController.dataloading.value?
                           Container(
-                            child: ListView.builder(
-                              physics: BouncingScrollPhysics(
-                                  parent: AlwaysScrollableScrollPhysics()),
-                              itemCount: 15,
-                              itemBuilder: (context, index) {
-                                return Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: ShimmerHelper().buildBasicShimmer(
-                                    height: 80,
-                                    width: 350,
-                                  ),
-                                );
-                              },
+                            child: SizedBox(
+                              child: ListView.builder(
+                                physics: BouncingScrollPhysics(
+                                    parent: AlwaysScrollableScrollPhysics()),
+                                itemCount: 15,
+                                itemBuilder: (context, index) {
+                                  return Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: ShimmerHelper().buildBasicShimmer(
+                                      height: 80,
+                                      width: 350,
+                                    ),
+                                  );
+                                },
+                              ),
                             ),
                           ):
                           _tournamentController.americanSportDataList.isEmpty?
