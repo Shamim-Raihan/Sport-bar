@@ -24,6 +24,9 @@ class _MatchAnnounceScreenState extends State<MatchAnnounceScreen> {
   final TournamentController _tournamentController =
       Get.put(TournamentController());
 
+  final todayController = TextEditingController();
+  final nextdayController = TextEditingController();
+
   RxString searchQuery = ''.obs;
   RxString searchQuery2 = ''.obs;
 
@@ -264,6 +267,7 @@ class _MatchAnnounceScreenState extends State<MatchAnnounceScreen> {
                                                 borderRadius:
                                                     BorderRadius.circular(10)),
                                             child: TextField(
+
                                               onChanged: (value) {setState(() {
                                                 updateSearchQuery(value);
                                               });},
@@ -2142,6 +2146,7 @@ class _MatchAnnounceScreenState extends State<MatchAnnounceScreen> {
                                             borderRadius:
                                                 BorderRadius.circular(10)),
                                         child: TextField(
+                                          controller: todayController,
                                           onChanged: (value) {
                                             setState(() {
                                               updateSearchQuery(value);
@@ -2365,6 +2370,7 @@ class _MatchAnnounceScreenState extends State<MatchAnnounceScreen> {
                                             borderRadius:
                                                 BorderRadius.circular(10)),
                                         child: TextField(
+                                          controller: nextdayController,
                                           onChanged: (value) {
                                             setState(() {
                                               updateSearchQuery2(value);
